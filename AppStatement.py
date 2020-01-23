@@ -10,5 +10,7 @@ def max_num(num1, num2, num3):
 print(max_num(20, 5, 40))
 
 
-if __name__ == '__main__':
+if __name__ == '' \
+               '' \
+               '__main__':
     print("Hello Main")
