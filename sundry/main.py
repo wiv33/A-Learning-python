@@ -1,9 +1,17 @@
-print("함수의 시작")
+import random
 
+numbers = range(17, 34)
 
-def chat(name1, name2):
-    print("%s: hello world" % name1)
-    print("i'm %s" % name2)
+choice = random.choice(numbers)
+print(type(choice))
+print(choice)
 
+print("#####################")
 
-chat("철수", "영희")
+sample = random.sample(numbers, 3)
+print(type(sample))
+print(sample)
+
+randint = random.randint(3, 4)
+print(type(randint))
+print(randint)
