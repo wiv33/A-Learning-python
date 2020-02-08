@@ -15,3 +15,8 @@ print(sample)
 randint = random.randint(3, 4)
 print(type(randint))
 print(randint)
+
+for n in range(20):
+    you___format = "this is for you. [{} + {}] ".format(random.sample(range(1, 46), 6), random.choice(range(1, 46)))
+    print(you___format)
+
