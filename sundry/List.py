@@ -1,3 +1,5 @@
+from builtins import print
+
 x = [4, 5, 1, 3, 2]
 y = ["hello", "world"]
 z = ["hello", 1, 2, 3]
@@ -25,3 +27,9 @@ z = ["hello", 1, 2, 3]
 # 2가 x안에 있다면 true
 # print(2 in x)
 
+print(x)
+
+# 삭제할 때
+del x[0]
+
+print(x)

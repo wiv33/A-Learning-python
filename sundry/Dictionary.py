@@ -54,3 +54,28 @@ tup1 = 'blank'
 # z[(tup1, tup2)] = "Mono"
 
 # print(z)
+
+for (key, item) in z.items():
+    print(key)
+    print(item)
+
+for item in z.values():
+    print(item)
+
+for itemKey in z.keys():
+    print(itemKey)
+
+print("#############################################")
+
+popitem = z.popitem()
+print(popitem)
+
+popitem = z.popitem()
+print(popitem)
+
+popitem = z.popitem()
+print(popitem)
+
+for (key) in popitem:
+    print(key)
+
