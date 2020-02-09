@@ -10,12 +10,12 @@ for num in numbers:
 
 ###
 
-# odd_numbers = [number for number in numbers if number % 2 == 1]
-# print(odd_numbers)
+odd_numbers = [n for n in numbers if n % 2 == 1]
+print(odd_numbers)
 
 
-for num in numbers:
-    print(num // 2)
+# for num in numbers:
+#     print(num // 2)
 
-for myString in ['a', 'b', 'c', 'else', 'tdds']:
-    print(myString * 3)
+# for myString in ['a', 'b', 'c', 'else', 'tdds']:
+#     print(myString * 3)
