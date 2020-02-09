@@ -22,6 +22,7 @@ def board():
 @app.route("/board", subdomain="test") # http://test.example.com:5000/board
 @app.route("/board", subdomain="answer") # http://answer.example.com:5000/board
 def board_domain_test_and_answer():
+    """명확히 확인하고 싶다면 /board 를 /ted, /bod 로 변경해서 확인해보자."""
     return "test, answer 도메인의 board URL을 호출하였습니다."
 
 
