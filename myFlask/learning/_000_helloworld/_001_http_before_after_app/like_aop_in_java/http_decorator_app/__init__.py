@@ -1,5 +1,7 @@
 from flask import Flask
 
+from myFlask.learning._000_helloworld._001_http_before_after_app.like_aop_in_java.log_middleware import LogMiddleware
+
 """ 요청 전후 핸들러
     
     - before_first_request: 웹 앱 기동 후 가장 처음에 들어오는 http 요청에서만 실행
@@ -11,6 +13,9 @@ from flask import Flask
 """
 
 app = Flask(__name__)
+
+# 미들웨어 등록
+app.wsgi_app = LogMiddleware(app.wsgi_app)
 
 @app.route("/")
 def http_prepost_response():
@@ -36,6 +41,3 @@ def teardown_request_test(exception):
 @app.teardown_appcontext
 def teardown_appcontext_test(exception):
     print("HTTP 요청의 애플리케이션 컨텍스트가 종료될 때 실행")
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0")
