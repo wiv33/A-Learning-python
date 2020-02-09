@@ -17,6 +17,12 @@ app = Flask(__name__)
 # 미들웨어 등록
 app.wsgi_app = LogMiddleware(app.wsgi_app)
 
+# Debug mode
+# 두 설정의 결과는 같다.
+# ajax, rest API 호출 시에는 사용할 수 없다는데......
+app.debug = True
+app.config.update(DEBUG=True)
+
 @app.route("/")
 def http_prepost_response():
     return "데헷"
