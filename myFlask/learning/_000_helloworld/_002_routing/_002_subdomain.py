@@ -1,3 +1,5 @@
+import logging
+
 from flask import Flask
 
 app = Flask(__name__)
@@ -42,6 +44,21 @@ def board_redirect_handle_now():
     return "redirect 받고 응답합니다."
 
 
+""" /board/1/2 호출 시
+    /new_board/1/2 로 redirect 된다.
+"""
+# adapter 를 필수 인자로 받아야 한다.
+def redirect_new_board(adapter, board_id, board_id2):
+    return "/new_board/{0}/{1}".format(board_id, board_id2)
+
+@app.route("/board/<board_id>/<board_id2>", redirect_to=redirect_new_board)
+def board_redirect_to_new_board(board_id, board_id2):
+    return "실행되지 않습니다."
+
+@app.route("/new_board/<board_id>/<board_id2>")
+def new_board(board_id, board_id2):
+    logging.info(board_id, board_id2)
+    return "{0}, {1} 변수와 함께 new_board URL이 호출되었습니다.".format(board_id, board_id2)
 
 if __name__ == '__main__':
     app.run()
