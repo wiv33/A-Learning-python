@@ -16,11 +16,12 @@ elif chk == "e":
 else:
     raise "입력 값은 해당사항 없음: [{}]".format(chk)
 
-scriptStr = "echo "
+scriptStr = ""
 f = open("C:\\dev\\gm_setting\\{0}.txt".format(target), 'r')
-for line in f.readlines():
-    " ^&^& ".join(line)
+for line in f:
+    scriptStr += line.replace("\n", " ^& ")
 
+f.close()
 """ 옵션 중 현재 사용할 옵션
     --noconsole # Dos console off
     -F, --onefile 실행파일 하나로 생성
