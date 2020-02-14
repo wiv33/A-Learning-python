@@ -1,5 +1,4 @@
-from . import MakeDir
-import os
+import os, sys; sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 
 # 파이썬이 재미있는 이유
 
@@ -18,9 +17,17 @@ import os
 # else:
 #     raise "입력 값은 해당사항 없음: [{}]".format(chk)
 # 1::삭제할 부분
+print(os.path.dirname(os.path.realpath(__file__)))
+if __name__ == '__main__':
+    print(__name__)
+    import MakeDir
 
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.path.pardir))
+
+getExeName = MakeDir.make_dir_func()
+print(getExeName)
 scriptStr = ""
-f = open("C:\\dev\\gm_setting\\{0}.txt".format(target), 'r')
+f = open("C:\\dev\\gm_setting\\{0}.txt".format(getExeName), 'r')
 for line in f:
     scriptStr += line.replace("\n", " ^& ")
 

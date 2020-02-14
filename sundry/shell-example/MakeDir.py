@@ -1,5 +1,4 @@
 import os, shutil
-import stat
 
 """TODO LIST
 * 현재 실행 파일의 위치를 파악
@@ -27,7 +26,7 @@ def make_dir_func():
         if os.path.exists(gm_setting):
             os.chmod(gm_setting, 0o775)
 
-        os.makedirs(gm_setting,mode=0o775)
+        os.makedirs(gm_setting,mode=0o775, exist_ok=True)
         for commandFile in os.listdir(os.getcwd()):
             print(commandFile)
             if os.path.basename(__file__) != commandFile\
@@ -37,11 +36,9 @@ def make_dir_func():
                 shutil.copy(commandFile, gm_setting)
                 # temp.close()
 
-    return os.path.basename(__file__)
+    return os.path.basename(__file__).split(".")[0]
     # print(os.getcwd())
     # print(os.listdir(os.getcwd()))
 
-
-if __name__ == '__main__':
-    make_dir_func()
-
+class MakeDir:
+    pass
