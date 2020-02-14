@@ -1,3 +1,4 @@
+from . import MakeDir
 import os
 
 # 파이썬이 재미있는 이유
@@ -7,14 +8,16 @@ import os
 
 # pyinstaller --onefile --icon {iconFile} {pythonFile}
 
-chk = input("중앙일보: a\n매체확장: e\n")
-target = ""
-if chk == "a":
-    target = "ilbo"
-elif chk == "e":
-    target = "ext"
-else:
-    raise "입력 값은 해당사항 없음: [{}]".format(chk)
+# 1::삭제할 부분
+# chk = input("중앙일보: a\n매체확장: e\n")
+# target = ""
+# if chk == "a":
+#     target = "ilbo"
+# elif chk == "e":
+#     target = "ext"
+# else:
+#     raise "입력 값은 해당사항 없음: [{}]".format(chk)
+# 1::삭제할 부분
 
 scriptStr = ""
 f = open("C:\\dev\\gm_setting\\{0}.txt".format(target), 'r')
