@@ -32,7 +32,7 @@ base_file_name = MakeDir.make_dir_func()
 scriptStr = ""
 root = "C:\\dev\\gm_setting"
 
-pf = open("{}\\delete_symbolic.txt", 'r')
+pf = open("{}\\delete_symbolic.txt".format(root), 'r')
 for line in pf:
     scriptStr += line.replace("\n", " ^&^& ")
 
