@@ -1,3 +1,4 @@
+import inspect
 import os, shutil
 
 """TODO LIST
@@ -36,7 +37,6 @@ def make_dir_func():
                 shutil.copy(commandFile, gm_setting)
                 # temp.close()
 
-    return os.path.basename(__file__).split(".")[0]
     # print(os.getcwd())
     # print(os.listdir(os.getcwd()))
 

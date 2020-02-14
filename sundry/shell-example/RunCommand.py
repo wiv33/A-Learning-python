@@ -1,3 +1,4 @@
+import inspect
 import os, sys; sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 
 # 파이썬이 재미있는 이유
@@ -22,12 +23,12 @@ if __name__ == '__main__':
     print(__name__)
     import MakeDir
 
-sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.path.pardir))
+MakeDir.make_dir_func()
 
-getExeName = MakeDir.make_dir_func()
-print(getExeName)
+split___ = os.path.basename(inspect.getfile(inspect.currentframe())).split(".")[0]
+print(split___)
 scriptStr = ""
-f = open("C:\\dev\\gm_setting\\{0}.txt".format(getExeName), 'r')
+f = open("C:\\dev\\gm_setting\\{0}.txt".format(split___), 'r')
 for line in f:
     scriptStr += line.replace("\n", " ^& ")
 
