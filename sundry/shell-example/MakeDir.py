@@ -31,12 +31,13 @@ def make_dir_func():
 
         os.makedirs(gm_setting, mode=0o775, exist_ok=setting_dir)
         for commandFile in os.listdir(os.getcwd()):
-            print(commandFile)
+            # print(commandFile)
             if commandFile in command_files:
                 # temp = open(commandFile, 'r')
                 shutil.copy(commandFile, gm_setting)
                 # temp.close()
 
+    return os.path.basename(__file__).split(".")[0]
     # print(os.getcwd())
     # print(os.listdir(os.getcwd()))
 
