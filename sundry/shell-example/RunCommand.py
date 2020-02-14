@@ -35,6 +35,7 @@ root = "C:\\dev\\gm_setting"
 pf = open("{}\\delete_symbolic.txt".format(root), 'r')
 for line in pf:
     scriptStr += line.replace("\n", " ^&^& ")
+pf.close()
 
 f = open("{1}\\{0}.txt".format("ilbo", root), 'r')
 for line in f:

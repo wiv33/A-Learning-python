@@ -19,7 +19,7 @@ END
 
 
 def make_dir_func():
-    gm_setting = "C:\\devs\\gm_setting"
+    gm_setting = "C:\\dev\\gm_setting"
     command_files = ["delete_symbolic.txt", "ilbo.txt", "ext.txt"]
     setting_dir = os.path.exists(gm_setting)
     if not setting_dir \
@@ -31,11 +31,13 @@ def make_dir_func():
 
         os.makedirs(gm_setting, mode=0o775, exist_ok=setting_dir)
         for commandFile in os.listdir(os.getcwd()):
-            # print(commandFile)
+            print(commandFile + ":{}".format(commandFile in command_files))
+
             if commandFile in command_files:
                 # temp = open(commandFile, 'r')
                 shutil.copy(commandFile, gm_setting)
                 # temp.close()
+
 
     return os.path.basename(__file__).split(".")[0]
     # print(os.getcwd())
