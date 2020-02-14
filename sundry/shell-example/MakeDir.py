@@ -19,19 +19,19 @@ END
 
 def make_dir_func():
     gm_setting = "C:\\devs\\gm_setting"
-    if not os.path.exists(gm_setting) \
-            or not os.path.exists(gm_setting + "\\delete_symbolic.txt.txt")\
-            or not os.path.exists(gm_setting + "\\ilbo.txt")\
-            or not os.path.exists(gm_setting + "\\ext.txt"):
-        if os.path.exists(gm_setting):
+    command_files = ["delete_symbolic.txt", "ilbo.txt", "ext.txt"]
+    setting_dir = os.path.exists(gm_setting)
+    if not setting_dir \
+            or not os.path.exists(gm_setting + "\\" + command_files[0])\
+            or not os.path.exists(gm_setting + "\\" + command_files[1])\
+            or not os.path.exists(gm_setting + "\\" + command_files[2]):
+        if setting_dir:
             os.chmod(gm_setting, 0o775)
 
-        os.makedirs(gm_setting,mode=0o775, exist_ok=True)
+        os.makedirs(gm_setting, mode=0o775, exist_ok=setting_dir)
         for commandFile in os.listdir(os.getcwd()):
             print(commandFile)
-            if os.path.basename(__file__) != commandFile\
-                    and commandFile != "RunCommand.py"\
-                    and commandFile != "__pycache__":
+            if commandFile in command_files:
                 # temp = open(commandFile, 'r')
                 shutil.copy(commandFile, gm_setting)
                 # temp.close()
