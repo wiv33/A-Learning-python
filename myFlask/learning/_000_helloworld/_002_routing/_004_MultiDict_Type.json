@@ -19,5 +19,6 @@
     "pop": "",
     "poplist": "",
     "update": ""
-  }
+  },
+  "url": "https://werkzeug.palletsprojects.com/en/1.0.x/datastructures/#werkzeug.datastructures.MultiDict"
 }
