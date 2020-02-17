@@ -1,0 +1,23 @@
+﻿{
+  "MultiDict": {
+    "get": {
+      "description": "브라우저가 보낸 데이터를 단순 읽을 때",
+      "param": {
+        "0_key": "key 값",
+        "1_default": "0 값이 없을 때 default 값을 반환",
+        "2_type": "type 지정"
+      }
+    },
+    "getlist": "",
+    "add": "",
+    "setlist": "",
+    "setdefault": "",
+    "setlistdefault": "",
+    "clear": "",
+    "copy": "",
+    "deepcopy": "",
+    "pop": "",
+    "poplist": "",
+    "update": ""
+  }
+}
