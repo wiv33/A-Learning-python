@@ -13,7 +13,7 @@ def board_list():
 @app.route("/board2")
 def board():
     """
-    request.args.get(:param_key, :default_value, :type)
+    request.args.get(:param_key, [:default_value], [:type])
     :return:
     """
     article_id = request.args.get("article", "2", int)
