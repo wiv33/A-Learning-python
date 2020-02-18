@@ -66,6 +66,9 @@ while diff > 1e-3:
 
 
 
-# 점 그래프를 그린다
-# plt.plot(train_z, train_y, 'o')
-# plt.show()
+# 그래프를 그린다
+
+x = np.linspace(-3, 3, 100) # line
+plt.plot(train_z, train_y, 'o')
+plt.plot(x, f(x))
+plt.show()
