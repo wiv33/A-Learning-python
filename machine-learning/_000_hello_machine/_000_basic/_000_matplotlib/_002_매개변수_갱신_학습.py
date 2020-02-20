@@ -44,7 +44,7 @@ count = 0
 # 학습을 반복
 error = E(train_z, train_y)
 
-while diff > 1e-3:
+while diff > 1e-2:
     # 갱신 결과를 저장
     tmp0 = theta0 - ETA * np.sum((f(train_z) - train_y))
     tmp1 = theta1 - ETA * np.sum((f(train_z) - train_y) * train_z)
