@@ -15,3 +15,17 @@ print(average)
 mean = np.mean(mathScoreNDarray, axis=1)
 print(mean)
 
+
+# mean과 average의 차이
+"""산술 평균인 mean
+    가중 평균 average
+"""
+
+np.mean(range(1, 11))
+
+np.average(range(1,11))
+
+# 가중평균
+np_average = np.average(range(1, 11), weights=range(10, 0, -1))
+print(np_average)
+# 4.0
