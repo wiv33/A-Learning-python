@@ -56,5 +56,7 @@ np.ndarray.flatten(a)
 # 위와 같음
 a.flatten()
 # a.flatten()
+# result
+# array([1, 2, 3, 4, 5, 6, 7, 8])
 
 
