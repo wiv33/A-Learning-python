@@ -56,6 +56,8 @@ print(a, a.shape, a.ndim)
 
 
 # =======================================================
+#                   행
+# =======================================================
 
 # 슬라이싱만 사용할 땐
 # ::차원이 유지된다.
@@ -72,3 +74,20 @@ a_indexed_slice = a[0, :]
 print(a_indexed_slice, a_indexed_slice.shape, a_indexed_slice.ndim)
 # result
 # [1 2 3 4] (4,) 1
+
+# =======================================================
+#                   열
+# =======================================================
+
+slicedCol = a[:, 0:1]
+print(slicedCol, slicedCol.shape, slicedCol.ndim)
+# result
+# [[1]
+#  [5]
+#  [9]] (3, 1) 2
+
+# 혼합
+indexed_col = a[:, 0]
+print(indexed_col, indexed_col.shape, indexed_col.ndim)
+# result
+# [1 5 9] (3,) 1
