@@ -1,6 +1,8 @@
 ﻿import numpy as np
 import tensorflow as tf
 
+tf.enable_eager_execution()
+
 x_data = range(1, 6)
 y_data = range(1, 6)
 
