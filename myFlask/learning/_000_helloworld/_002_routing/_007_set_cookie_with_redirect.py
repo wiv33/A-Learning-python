@@ -2,6 +2,7 @@
 
 app = Flask(__name__)
 
+
 @app.route("/example/cookie")
 def example_cookie():
     print(request.cookies)
@@ -18,5 +19,5 @@ def example_cookie_set():
 
 if __name__ == '__main__':
     app.run("example.com"
-            ,port=5000,
+            , port=5000,
             debug=True)
