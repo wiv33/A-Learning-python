@@ -20,7 +20,7 @@ def example_environ():
                "wsgi.multithread: %(wsgi.multithread)s<br/>"
                "wsgi.multiprocess: %(wsgi.multiprocess)s<br/>"
                "wsgi.run_once: %(wsgi.run_once)s"
-               ) %request.environ
+               ) % request.environ
 
     return ret_str
 
