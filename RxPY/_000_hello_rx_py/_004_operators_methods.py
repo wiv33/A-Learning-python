@@ -2,9 +2,16 @@
 from rx import operators as op
 
 """Creating"""
-rx.create()
-rx.empty()
-rx.never()
+# This method is used to create an observable.
+rx.create() # observable 을 생성할 때 사용
+
+# This observable will not output anything and directly emit the complete state.
+rx.empty() # 해당 observable 은 아무것도 output 하지 않고 즉시 완료 상태를 발생시킨다.
+
+# This method creates an observable that will never reach the complete state.
+rx.never() # 완료 상태에 도달할 수 없는 observable 을 생성한다.
+
+
 rx.throw()
 rx.interval()
 rx.from_()
