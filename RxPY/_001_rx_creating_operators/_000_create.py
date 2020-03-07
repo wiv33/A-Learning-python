@@ -4,11 +4,16 @@
 Java의 publisher / subscriber
 required: onNext
 optional: [on_complete | on_error]
+
+위 함수 모두 optional
 """
 
 
 def create_one_next_observable(observer, scheduler):
-    observer.on_next("hello")
+    # observer.on_next("hello")
+    # observer.on_error("Error occurred")
+    # observer.on_completed()
+    ""
 
 
 def create_complete_observable(observer, scheduler):
