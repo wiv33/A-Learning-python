@@ -5,10 +5,17 @@ import numpy as np
 boston = datasets.load_boston()
 
 lr = LinearRegression()
-lr.fit(boston.data, boston.target)
-
+print("==================================================")
+print(boston.data, end=" ::X\n")
+print("==================================================\n")
+print(boston.target, end= "::y\n")
+fit = lr.fit(boston.data, boston.target)
+print("fit start ::: ==============\n")
+print(fit)
 # 학습 끝
 
+print(boston.data[2])
+print(boston.data[2].reshape(1, -1))
 lr.predict(boston.data[2].reshape(1, -1))
 
 print([x for x in zip(boston.feature_names, lr.coef_)])
