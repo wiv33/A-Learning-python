@@ -18,8 +18,8 @@ product_id_name_dict = {}
 # wb = load_workbook("./_000_Online_Retail.xlsx", data_only=True)
 # ws = wb['Online Retail']
 excel = pd.read_excel("./_000_Online_Retail.xlsx", header=1)
-excel.dropna()
-for i, v in excel.iterrows():
+items = excel.dropna() # row에 NaN column 이 한개 이상 포함되어 있을 경우 제외시킨다.
+for i, v in items.iterrows():
     user_code = v.values[6]
     product_id = v.values[1]
     product_name = v.values[2]
@@ -59,8 +59,7 @@ print("# of products: ", len(product_user_dict))
 print(stats.describe(product_per_user_li))
 
 # result
-# # of users:  121846
-# # of products:  3989
-# DescribeResult(
-# nobs=121846, minmax=(1, 1603), mean=2.815767444150813, variance=296.7709659615601,
-# skewness=25.03342231615607, kurtosis=1310.234261310257)
+# # of users:  3835
+# # of products:  3588
+# DescribeResult(nobs=3835, minmax=(1, 1603), mean=58.69074315514993, variance=6207.1088214350575,
+# skewness=5.833816723404396, kurtosis=72.60364097540136)
