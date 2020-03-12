@@ -1,7 +1,4 @@
-﻿import time
-
-import pandas as pd
-import xlrd
+﻿import pandas as pd
 from openpyxl import load_workbook
 from scipy import stats
 
