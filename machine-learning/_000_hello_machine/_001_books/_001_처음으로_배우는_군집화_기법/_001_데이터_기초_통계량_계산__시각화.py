@@ -18,6 +18,7 @@ product_id_name_dict = {}
 # wb = load_workbook("./_000_Online_Retail.xlsx", data_only=True)
 # ws = wb['Online Retail']
 excel = pd.read_excel("./_000_Online_Retail.xlsx", header=1)
+excel.dropna()
 for i, v in excel.iterrows():
     user_code = v.values[6]
     product_id = v.values[1]
@@ -25,10 +26,7 @@ for i, v in excel.iterrows():
     country = v.values[7]
 
     # 유저 코드가 없거나 영국이 아닐 경우
-    if (str(user_code) is "nan" or user_code <= 0) \
-            or country != 'United Kingdom':
-        print(user_code)
-        print(country)
+    if country != 'United Kingdom':
         continue
 
     invoiceDate = v.values[4]
