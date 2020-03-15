@@ -25,3 +25,5 @@ print(sess.run(W))
 print(sess.run(b))
 
 print(sess.run(expr, feed_dict={X:x_data}))
+
+sess.close()
