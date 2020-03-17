@@ -17,7 +17,10 @@ def myOfTest(arr: object) -> None:
 
 
 def myFromTest(arr: object) -> None:
-    from_(arr).pipe(op.map(lambda n: n *n)).subscribe(
+    from_(arr).pipe(
+        # op.filter(lambda n: n % 2 == 0),
+        op.map(lambda n: n *n)
+    ).subscribe(
         lambda x: print("this element is {}".format(x)))
 
 myOfTest(np.array(range(1, 11)))
