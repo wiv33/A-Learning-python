@@ -10,7 +10,9 @@ on the key_mapper function given
 """
 
 from rx import from_, operators as op
-from_(['A', 'B', 'C', 'D', 'E', 'F'])\
+import numpy as np
+
+from_(np.array(['A', 'B', 'C', 'D', 'E', 'F']))\
     .pipe(
     op.group_by(lambda v: v[0])
 ).subscribe(lambda x: print("the element is {}".format(x)))
