@@ -27,5 +27,5 @@ of(1,2,3,4,5,6,7,8,90).pipe(
 # this element is 15
 # this element is 21
 # this element is 28
-# this element is 36
-# this element is 126
+# this
+# element is 126
