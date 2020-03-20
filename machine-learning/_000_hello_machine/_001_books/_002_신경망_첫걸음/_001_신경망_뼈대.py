@@ -21,3 +21,14 @@ class NeuralNetwork:
 
     def query(self):
         pass
+
+
+input_nodes = 3
+hidden_nodes = 3
+output_nodes = 3
+
+# 학습률은 0.3으로 정의
+learning_rate = 0.3
+
+n = NeuralNetwork(input_nodes, hidden_nodes, output_nodes=output_nodes, learning_rage=learning_rate)
+
