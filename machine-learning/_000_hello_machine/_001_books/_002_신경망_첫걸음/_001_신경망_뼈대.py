@@ -6,7 +6,14 @@
 """
 
 class NeuralNetwork:
-    def __init__(self):
+    def __init__(self, input_nodes, hidden_nodes, output_nodes, learning_rage):
+        # 입력, 은닉, 출력 계층의 노드
+        self.inodes = input_nodes
+        self.hnodes = hidden_nodes
+        self.onodes = output_nodes
+
+        # 학습률
+        self.lr=learning_rage
         pass
 
     def train(self):
