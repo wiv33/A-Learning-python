@@ -65,7 +65,62 @@ encoder = tf.nn.sigmoid(add) # 활성화 함수
 W_decode = tf.Variable(tf.random_normal([n_hidden, n_input])) # 입력값을 은닉층의 크기인 n_hidden 으로,
 b_decode = tf.Variable(tf.random_normal([n_input])) # 출력 값은 입력층의 크기인 n_input으로 만듦
 
-tf.nn.sigmoid(tf.add(tf.matmul(encoder, W_decode), b_decode))
+decoder = tf.nn.sigmoid(tf.add(tf.matmul(encoder, W_decode), b_decode))
 
 # 손실 함수 생성
 # 가중치들을 최적화하기 위한 손실 함수 생성
+# 기본적인 오코인코더의 목적: 출력값을 입력값과 가장 비슷하게 만드는 것
+# 그렇게 하면 압축된 은닉층의 뉴런들을 통해 입력값의 특징을 알아낼 수 있다.
+
+# 입력값 X를 평가하기 위한 실측값으로 사용
+# 디코더가 내보낸 결과 값과의 차이를 손실값으로 설정
+# 이 값의 차이는 거리 함수로 구한다.
+
+cost = tf.reduce_mean(tf.pow(X - decoder, 2))
+
+# 최적화 함수
+# RMSPropOptimizer
+optimizer = tf.train.RMSPropOptimizer(learning_rate).minimize(cost)
+
+# 모델 학습
+
+init = tf.global_variables_initializer()
+sess = tf.Session()
+sess.run(init)
+
+total_batch = int(mnist.train.num_examples / batch_size)
+
+for epoch in range(training_epoch):
+    total_cost = 0
+
+    for i in range(total_batch):
+        batch_xs, batch_ys = mnist.train.next_batch(batch_size)
+
+        _, cost_val = sess.run([optimizer, cost], feed_dict={X: batch_xs})
+
+        total_cost += cost_val
+
+    print('Epoch', '%04d' % (epoch + 1),
+          'Avg. Cost = ', '{:.4f}'.format(total_cost / total_batch))
+
+print("complete optimizer")
+
+# result
+sample_size = 10 # 총 10개의 테스트 데이터를 가져와 디코더를 이용해 출력값으로 만듦
+
+samples = sess.run(decoder, feed_dict={X: mnist.test.images[:sample_size]})
+
+# imshow()
+# 위: 입력값의 이미지 출력
+# 아래: 신경망으로 생성한 이미지 출력
+
+fig, ax = plt.subplots(2, sample_size, figsize=(sample_size, 2))
+
+for i in range(sample_size):
+    ax[0][i].set_axis_off()
+    ax[1][i].set_axis_off()
+
+    ax[0][i].imshow(np.reshape(mnist.test.images[i], (28, 28)))
+    ax[1][i].imshow(np.reshape(samples[i], (28, 28)))
+
+plt.show()
