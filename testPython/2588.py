@@ -8,8 +8,11 @@ def getNum(n, digit):
     return div % 10
 
 
-assert getNum(a, 2) == 4
-assert getNum(a, 1) == 7
-assert getNum(a, 0) == 2
+assert getNum(b, 2) == 3
+assert getNum(b, 1) == 8
+assert getNum(b, 0) == 5
 
-
+o = getNum(b, 0) * a
+t = getNum(b, 1) * a
+h = getNum(b, 2) * a
+print("%d\n%d\n%d\n%d" % (o, t, h, o + (t * 10) + (h * 100)))
