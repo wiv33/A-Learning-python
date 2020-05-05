@@ -11,3 +11,4 @@ elif 60 <= a:
     print("D")
 else:
     print("F")
+
