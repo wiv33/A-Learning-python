@@ -1,5 +1,5 @@
-a = 472
-b = 385
+a = int(input())
+b = int(input())
 
 
 def getNum(n, digit):
