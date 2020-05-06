@@ -1,6 +1,5 @@
 a = int(100)
 
-
 if 90 <= a:
     print("A")
 elif 80 <= a:
