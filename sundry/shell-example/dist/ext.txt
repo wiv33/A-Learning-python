@@ -1,0 +1,3 @@
+﻿cd /
+cls
+pause
