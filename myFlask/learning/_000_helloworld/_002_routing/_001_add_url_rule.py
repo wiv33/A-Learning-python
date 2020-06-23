@@ -5,8 +5,10 @@ from flask import Flask
 app = Flask(__name__)
 app.debug = True
 
+
 def index():
     return ""
+
 
 # add_url_rule 메서드는 뷰 함수를 미리 만들어놓고 라우팅 지정을 하려 할 때 사용한다.
 app.add_url_rule("/", "index", index)
@@ -33,10 +35,12 @@ app.add_url_rule("/", "index", index)
     alias: endpoint 옵션과 같은 역할을 한다.
 """
 
+
 @app.route("/person/<person_id>")
-@app.route("/person", defaults={"person_id":random.choice(range(100))})
+@app.route("/person", defaults={"person_id": random.choice(range(100))})
 def board(person_id):
     return "{0}번 사람을 호출하였습니다.".format(person_id)
+
 
 @app.route("/board", host="example.com")
 def board_host():
