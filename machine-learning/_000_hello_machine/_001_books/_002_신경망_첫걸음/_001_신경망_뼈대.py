@@ -16,7 +16,7 @@ class NeuralNetwork:
         self.onodes = output_nodes
 
         # 학습률
-        self.lr=learning_rage
+        self.lr = learning_rage
 
         self.wih = np.random.normal(0.0, pow(self.hnodes, -0.5), (self.hnodes, self.inodes))
         self.who = np.random.normal(0.0, pow(self.onodes, -0.5), (self.onodes, self.hnodes))
@@ -59,7 +59,6 @@ class NeuralNetwork:
         return final_outputs
 
 
-
 input_nodes = 3
 hidden_nodes = 3
 output_nodes = 3
@@ -68,5 +67,3 @@ output_nodes = 3
 learning_rate = 0.3
 
 n = NeuralNetwork(input_nodes, hidden_nodes, output_nodes=output_nodes, learning_rage=learning_rate)
-
-

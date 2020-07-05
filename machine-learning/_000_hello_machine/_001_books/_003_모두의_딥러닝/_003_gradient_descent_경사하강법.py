@@ -46,11 +46,9 @@ for i in range(epochs):
     if i % 10 == 0:
         print('epoch = %.f, 기울기 = %.04f, 절편 = %.04f' % (i, a, b))
 
-
 # 앞서 구한 기울기와 절편을 이용해 그래프를 다시 그리기
 
 y_pred = a * x_data + b
 plt.scatter(x, y)
 plt.plot([min(x_data), max(x_data)], [min(y_pred), max(y_pred)])
 plt.show()
-
