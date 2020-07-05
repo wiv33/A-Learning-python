@@ -17,7 +17,7 @@ product_user_dict = {}
 product_id_name_dict = {}
 
 excel = pd.read_excel("./_000_Online_Retail.xlsx", header=1)
-items = excel.dropna() # row에 NaN column 이 한개 이상 포함되어 있을 경우 제외시킨다.
+items = excel.dropna()  # row에 NaN column 이 한개 이상 포함되어 있을 경우 제외시킨다.
 for i, v in items.iterrows():
     user_code = v.values[6]
     product_id = v.values[1]
@@ -60,9 +60,8 @@ max_product_user_li = [k for k, v in user_product_dict.items() if len(v) >= 600]
 print("# of users purchased one product:%d" % (len(min_product_user_li)))
 print("# of users purchased more than 600 product:%d" % (len(max_product_user_li)))
 
-
 # 찾아낸 사용자를 군집화에 사용할 user_product_dict 에서 제외
-user_product_dict = {k:v for k, v in user_product_dict.items() if 1 < len(v) <= 600}
+user_product_dict = {k: v for k, v in user_product_dict.items() if 1 < len(v) <= 600}
 
 # print("# of left user:%d" % len(user_product_dict))
 
@@ -112,12 +111,12 @@ test_data = user_product_vec_li[2500:]
 # print("# of train data: {}, # of test_data: {}".format(len(train_data), len(test_data)))
 
 # 학습 데이터를 군집화하여 4개의 클러스터를 생성한 후 그 결과를 km_predict에 저장한다.
-km_predict = KMeans(n_clusters=4, init='k-means++', n_init=10, max_iter=20).fit(train_data) # return :estimator
+km_predict = KMeans(n_clusters=4, init='k-means++', n_init=10, max_iter=20).fit(train_data)  # return :estimator
 
 # km_predict 의 predict 함수를 이용하여 평가 데이터가 전 단계에서 만든 4개의 클러스터 중 어느 곳에 속하는지 확인
 km_predict_result = km_predict.predict(test_data)
 
-##############################################################################################################################
+# #############################################################################################################################
 
 """에러가 적고 이해하기 쉬운 클러스터 개수 정하기
 
