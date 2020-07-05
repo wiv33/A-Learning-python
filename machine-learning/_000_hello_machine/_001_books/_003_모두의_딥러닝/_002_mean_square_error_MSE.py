@@ -29,7 +29,6 @@ for i in range(len(x)):
     predict_result.append(predict(x[i]))
     print('공부시간={}, 실제 점수={}, 예측 점수 ={}'.format(x[i], y[i], predict(x[i])))
 
-
 print("mse 최종 값 : {}".format(mse_val(predict_result, y)))
 
 # result
@@ -39,4 +38,3 @@ print("mse 최종 값 : {}".format(mse_val(predict_result, y)))
 # 공부시간=6, 실제 점수=91, 예측 점수 =94
 # 공부시간=8, 실제 점수=97, 예측 점수 =100
 # mse 최종 값 : 11.0
-

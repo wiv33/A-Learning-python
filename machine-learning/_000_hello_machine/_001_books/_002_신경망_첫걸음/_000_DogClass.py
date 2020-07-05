@@ -5,7 +5,6 @@
         self.name = pet_name
         self.temperature = temp
 
-
     def status(self):
         print("dog name is ", self.name)
         print("dog temperature is ", self.temperature)
@@ -18,7 +17,9 @@
     def bark(self):
         print("woof!")
         pass
+
     pass
+
 
 lassie = Dog("Lassie", 37)
 

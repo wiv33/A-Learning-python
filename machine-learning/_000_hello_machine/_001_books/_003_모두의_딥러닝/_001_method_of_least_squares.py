@@ -28,4 +28,3 @@ a = dividend / divisor
 b = y_mean - (x_mean * a)
 
 print("기울기 a = {}, y 절편 b = {} ".format(a, b))
-
