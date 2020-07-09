@@ -12,8 +12,10 @@ def print_word(word, filter_word):
 
 
 file = open(
-    "C:\\Users\\user\\PycharmProjects\\"
-    "learning-python\\machine-learning\\_000_hello_machine\\_000_basic\\_004_multi_camp\\article.txt", mode='r',
+    "/home/ps/dev/python/PycharmProjects"
+    "/learning-python/machine-learning/_000_hello_machine/_000_basic/"
+    "_004_multi_camp/article.txt",
+    mode='r',
     encoding='utf-8')
 
 article = file.read()
