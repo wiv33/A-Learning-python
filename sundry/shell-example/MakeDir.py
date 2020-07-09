@@ -23,8 +23,8 @@ def make_dir_func():
     command_files = ["delete_symbolic.txt", "ilbo.txt", "ext.txt"]
     setting_dir = os.path.exists(gm_setting)
     if not setting_dir \
-            or not os.path.exists(gm_setting + "\\" + command_files[0])\
-            or not os.path.exists(gm_setting + "\\" + command_files[1])\
+            or not os.path.exists(gm_setting + "\\" + command_files[0]) \
+            or not os.path.exists(gm_setting + "\\" + command_files[1]) \
             or not os.path.exists(gm_setting + "\\" + command_files[2]):
         if setting_dir:
             os.chmod(gm_setting, 0o775)
@@ -38,10 +38,10 @@ def make_dir_func():
                 shutil.copy(commandFile, gm_setting)
                 # temp.close()
 
-
     return os.path.basename(__file__).split(".")[0]
     # print(os.getcwd())
     # print(os.listdir(os.getcwd()))
+
 
 class MakeDir:
     pass

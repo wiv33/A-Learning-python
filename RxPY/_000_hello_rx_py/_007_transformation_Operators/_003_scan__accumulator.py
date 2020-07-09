@@ -15,7 +15,7 @@ from the source observable and return an observable with new values.
 from rx import of, operators as op
 
 acc_x = lambda acc, x: acc + x
-of(1,2,3,4,5,6,7,8,90).pipe(
+of(1, 2, 3, 4, 5, 6, 7, 8, 90).pipe(
     op.scan(acc_x, 0)
 ).subscribe(lambda x: print("this element is {}".format(x)))
 
