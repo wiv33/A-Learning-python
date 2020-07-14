@@ -5,18 +5,18 @@ from konlpy.tag import Komoran, Twitter
 
 
 def print_word(word, filter_word):
-    rx.from_(word).pipe(
+    extract_word(word, filter_word).subscribe(lambda x: print("{}".format(x)))
+
+
+def extract_word(word, filter_word):
+    return rx.from_(word).pipe(
         ops.filter(lambda tup: tup[1] == filter_word and len(tup[0]) > 1),
-        ops.map(lambda tup: tup[0])
-    ).subscribe(lambda x: print("word is {}".format(x)))
+        ops.map(lambda tup: tup[0]),
+        ops.reduce(lambda acc, t1: acc + " " + t1)
+    )
 
 
-file = open(
-    "/home/ps/dev/python/PycharmProjects"
-    "/learning-python/machine-learning/_000_hello_machine/_000_basic/"
-    "_004_multi_camp/article.txt",
-    mode='r',
-    encoding='utf-8')
+file = open("article.txt", mode='r', encoding='utf-8')
 
 article = file.read()
 
@@ -28,6 +28,9 @@ print_word(komoran_pos, "NNP")
 twitter = Twitter()
 twitter_pos = twitter.pos(article)
 
-print(twitter_pos)
+# print(twitter_pos)
 
 print_word(twitter_pos, "Noun")
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+
