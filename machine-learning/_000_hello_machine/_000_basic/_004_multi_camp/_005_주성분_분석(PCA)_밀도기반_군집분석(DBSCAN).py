@@ -66,4 +66,3 @@ plt.title('DBSCAN on wholesale data')
 plt.xlabel("pca-1")
 plt.ylabel("pca-2")
 plt.savefig('dbscan_wholesale_pca.png', format='PNG')
-
