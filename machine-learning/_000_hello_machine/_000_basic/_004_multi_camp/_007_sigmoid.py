@@ -3,8 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def sigmoid(input):
-    return 1.0 / (1 + np.exp(-input))
+def sigmoid(num):
+    return 1.0 / (1 + np.exp(-num))
 
 
 z = np.linspace(-8, 8, 1000)
