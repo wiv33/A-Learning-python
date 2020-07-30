@@ -16,6 +16,7 @@ x = 'x'
 y = 'thumb'
 
 pprint.pprint(locals())
+# result
 """
 {'__annotations__': {},
  '__builtins__': <module 'builtins' (built-in)>,
