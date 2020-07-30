@@ -13,6 +13,7 @@ class MyTestCase(unittest.TestCase):
         input_data = "abcabcbb"
         for s in input_data:
             print(s)
+        self.assertTrue(True)
 
 
 if __name__ == '__main__':
