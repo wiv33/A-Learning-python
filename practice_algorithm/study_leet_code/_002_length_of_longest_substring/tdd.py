@@ -35,6 +35,20 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual('a', self.first_input[3])
         self.assertEqual('b', self.first_input[4])
 
+    def test_get_first_pattern(self):
+        actual = get_first_pattern(self.first_input)
+        expected = 'abc'
+        self.assertEqual(expected, actual)
+
+        actual2 = get_first_pattern('bbbbbbb')
+        expected2 = 'b'
+        self.assertEqual(expected2, actual2)
+
+
+def get_first_pattern(s: str) -> str:
+    sd = lambda acc, d: acc + d
+    return 'abc'
+
 
 if __name__ == '__main__':
     unittest.main()
