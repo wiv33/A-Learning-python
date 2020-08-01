@@ -47,6 +47,12 @@ class MyTestCase(unittest.TestCase):
 
 def get_first_pattern(s: str) -> str:
     sd = lambda acc, d: acc + d
+    length = len(s)
+    first = s[0]
+    recursion = ""
+    for i in range(1, length):
+        print(i)
+
     return 'abc'
 
 
