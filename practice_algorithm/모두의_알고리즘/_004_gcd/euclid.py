@@ -9,4 +9,5 @@ gcd(12, 0) = 12
 
 
 def gcd_euclid(a, b):
+    print(f'gcd: {a, b}')
     return a if b == 0 else gcd_euclid(b, a % b)
