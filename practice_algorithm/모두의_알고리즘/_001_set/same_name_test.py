@@ -16,3 +16,9 @@ class MySameNameTest(unittest.TestCase):
         name = find_same_name(self.names)
         self.assertEqual(set(), name)
         self.assertTrue(len(name) == 0)
+
+    def test_find_same_two_val(self):
+        add__ = self.names.__add__(["Tomcat", "JBoss"])
+        name = find_same_name(add__)
+
+        self.assertEqual({"Tomcat", "Netty"}, name)
