@@ -9,7 +9,9 @@ class MyUnitTest(unittest.TestCase):
         self.my_set.discard(3)
         self.assertEqual({1, 2, 5, 7}, self.my_set)
 
-    def test_set_x_in_s(self):
+    def test_set_x_in_s_union(self):
+        self.assertTrue({1, 2, 3, 5, 7, 11, 12, 13}
+                        , self.my_set.union({11, 12, 13}))
         self.assertTrue(3 in self.my_set)
         self.assertFalse(4 in self.my_set)
 
