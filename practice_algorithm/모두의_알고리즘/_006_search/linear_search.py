@@ -7,4 +7,4 @@ def search_list(a: [], target: int):
 
 
 def search_arr(a: [], target: int):
-   pass
+    return [i for i in range(len(a)) if a[i] == target]
