@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from linear_search import search_list, search_arr
+from linear_search import search_list, search_arr, search_name
 
 
 class TestSearchList(TestCase):
@@ -18,4 +18,8 @@ class TestSearchList(TestCase):
     def test_search_names(self):
         stu_no = [35, 14, 67, 105]
         stu_name = ["Justin", "John", "Mike", "Summer"]
-        self.assertEqual()
+        search_num = 67
+        expected = "Mike"
+
+        self.assertEqual(expected, search_name(stu_no, stu_name, search_num))
+
