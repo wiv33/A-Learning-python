@@ -22,4 +22,4 @@ class TestSearchList(TestCase):
         expected = "Mike"
 
         self.assertEqual(expected, search_name(stu_no, stu_name, search_num))
-
+        self.assertEqual("?", search_name(stu_no, stu_name, 37))

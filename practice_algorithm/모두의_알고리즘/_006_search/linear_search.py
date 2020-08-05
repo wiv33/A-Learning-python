@@ -11,4 +11,8 @@ def search_arr(a: [], target: int):
 
 
 def search_name(stu_nums: [], stu_names, target: int):
-    pass
+    for x in range(len(stu_nums)):
+        if stu_nums[x] == target:
+            return stu_names[x]
+
+    return "?"
