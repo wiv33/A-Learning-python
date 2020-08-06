@@ -46,14 +46,25 @@ class MyTestCase(unittest.TestCase):
 
 
 def get_first_pattern(s: str) -> str:
-    sd = lambda acc, d: acc + d
     length = len(s)
-    first = s[0]
-    recursion = ""
-    for i in range(1, length):
-        print(i)
+    arr = []
+    last = s[0]
+    result = ""
+    max_len = 0
+    for i in range(length - 1):
+        l1, l2 = s[i], s[i + 1]
 
-    return 'abc'
+        if l1 != l2:
+            current = max(0, len(s[i + 1:].split(last)))
+            if max_len < current:
+                max_len = current
+
+            last += l2
+            arr.append({last, len(s[i + 1:].split(last))})
+
+
+
+    return last
 
 
 if __name__ == '__main__':
