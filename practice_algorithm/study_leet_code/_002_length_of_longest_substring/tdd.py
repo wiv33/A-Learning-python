@@ -48,24 +48,34 @@ class MyTestCase(unittest.TestCase):
 def get_first_pattern(s: str) -> str:
     length = len(s)
     arr = []
-    last = s[0]
-    result = ""
+    acc = s[0]
+    result = (s[0], len(s[:].split(s[0])))
     max_len = 0
     for i in range(length - 1):
         l1, l2 = s[i], s[i + 1]
+        if l1 == l2:
+            continue
 
         if l1 != l2:
-            current = max(0, len(s[i + 1:].split(last)))
-            if max_len < current:
-                max_len = current
+            acc += l2
+            compare_tuple = (acc, len(s[i + 1:].split(acc)))
+            print(result, compare_tuple)
+            if len(result[0]) < len(compare_tuple[0]):
+                if result[len(result) - 1] == compare_tuple[len(compare_tuple) - 1]:
+                    acc = ""
+                result = compare_tuple
 
-            last += l2
-            arr.append({last, len(s[i + 1:].split(last))})
+    print(max_len)
+    print(result)
+    return result[0]
 
-
-
-    return last
-
-
+# ('a', 3) ('ab', 2)
+# ('ab', 2) ('abc', 2)
+# ('abc', 2) ('a', 2)
+# ('abc', 2) ('ab', 1)
+# ('abc', 2) ('abc', 1)
+# ('abc', 2) ('abcb', 1)
+# 0
+# ('abcb', 1)
 if __name__ == '__main__':
     unittest.main()
