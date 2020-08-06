@@ -1,4 +1,7 @@
-class Solution:
-    def lengthOfLongestSubstring(self, s: str) -> int:
+def length_of_longest_substring(s: str) -> int:
 
-        return 3
+    return 3
+
+
+class Solution:
+    pass
