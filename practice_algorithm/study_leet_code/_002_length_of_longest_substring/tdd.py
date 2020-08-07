@@ -99,23 +99,23 @@ def get_first_pattern(s: str) -> int:
         return 0
 
     acc = s[0] or ""
-    if is_high_pass_not_match(length, s):
-        return length
+
+    if acc * len(s) == s:
+        return 1
 
     for i in range(length - 1):
         l1, l2 = s[i], s[i + 1]
 
-        if acc.__contains__(l2) and acc.find(l2) > 0:
-            acc = acc[acc.find(l2):]
-            print(acc)
-
-        if acc[0] == l2:
-            if is_answer_remove_duplication(acc, i, s):
-                return len(acc)
-
-        if l1 == l2:
-            if not_exists_next(i, s):
-                return len(acc)
+        if acc.__contains__(l2):
+            acc, tail = acc[acc.find(l2):], acc[:acc.find(l2)]
+            print(" # acc {}\n # tail {}\n".format(acc, tail))
+            if
+            input_data = s.replace(acc, "")
+            print(input_data)
+            if l1 == l2:
+                if not_exists_next(i, s):
+                    print(acc)
+                    return len(acc)
             acc = ""
 
         acc += l2
@@ -129,12 +129,10 @@ def not_exists_next(i, s):
 
 def is_answer_remove_duplication(acc, i, s):
     print("is_answer param {}".format(acc))
-    split = s[i + 1:].split(acc)
-    for x in split:
-        if x:
-            return False
-    print(split)
-    return i > 0 and len(acc) > len(split[len(split) - 1])
+    acc_ = s[s.index(acc) + 1:]
+    acc_2 = s[:s.index(acc)]
+    print(" # acc_ {}\n acc_2 {}".format(acc_, acc_2))
+    return False
 
 
 def is_high_pass_not_match(length, s):
