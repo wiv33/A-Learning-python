@@ -39,16 +39,14 @@ class MyTestCase(unittest.TestCase):
         expected = ('abc', 3)
         self.assertEqual(expected[1], actual)
 
+    def test_bbbbbbb(self):
         actual2 = get_first_pattern('bbbbbbb')
         expected2 = ('b', 1)
         self.assertEqual(expected2[1], actual2)
 
+    def test_pwwkew(self):
         actual3 = get_first_pattern("pwwkew")
         expected3 = ('wke', 3)
-        self.assertEqual(expected3[1], actual3)
-
-        actual3 = get_first_pattern("au")
-        expected3 = ('au', 2)
         self.assertEqual(expected3[1], actual3)
 
     def test_aab(self):
@@ -61,9 +59,37 @@ class MyTestCase(unittest.TestCase):
         expected = ('bd', 2)
         self.assertEqual(expected[1], actual)
 
-        actual2 = get_first_pattern("brnk")
-        expected2 = ('brnk', 4)
-        self.assertEqual(expected2[1], actual2)
+    def test_empty_input(self):
+        self.assertEqual(0, get_first_pattern(""))
+
+    def test_high_pass(self):
+        actual = get_first_pattern("brnk")
+        expected = 4
+        self.assertEqual(expected, actual)
+
+        actual3 = get_first_pattern("au")
+        expected3 = ('au', 2)
+        self.assertEqual(expected3[1], actual3)
+
+    def test_cdd(self):
+        actual = get_first_pattern("cdd")
+        expected = 2
+        self.assertEqual(expected, actual)
+
+    def test_aaca(self):
+        actual = get_first_pattern("aaca")
+        expected = 2
+        self.assertEqual(expected, actual)
+
+    def test_abcb(self):
+        actual = get_first_pattern("abcb")
+        expected = 3
+        self.assertEqual(expected, actual)
+
+    def test_dvdf(self):
+        actual = get_first_pattern("dvdf")
+        expected = 3
+        self.assertEqual(expected, actual)
 
 
 def get_first_pattern(s: str) -> int:
@@ -72,50 +98,50 @@ def get_first_pattern(s: str) -> int:
     if length == 0:
         return 0
 
-    acc = s[0]
-    result = (s[0], len(s[:].split(s[0])))
-    # print("{} split is {}".format(s, s[0]))
-    if length == result[1] \
-            and s[0] == (s[1] or "") \
-            and not s[2]:
-        return get_answer((s[0], 1))
+    acc = s[0] or ""
+    if is_high_pass_not_match(length, s):
+        return length
 
     for i in range(length - 1):
         l1, l2 = s[i], s[i + 1]
 
+        if acc.__contains__(l2) and acc.find(l2) > 0:
+            acc = acc[acc.find(l2):]
+            print(acc)
+
+        if acc[0] == l2:
+            if is_answer_remove_duplication(acc, i, s):
+                return len(acc)
+
         if l1 == l2:
-            acc = s[i + 1]
-            continue
+            if not_exists_next(i, s):
+                return len(acc)
+            acc = ""
 
-        if l1 != l2 and acc[0] != l2:
-            acc += l2
-            compare_tuple = (acc, len(s[i + 1:].split(acc)))
-            if len(result[0]) < len(compare_tuple[0]):
-                if result[len(result) - 1] == compare_tuple[len(compare_tuple) - 1] and acc != compare_tuple[0] + l2 or "":
-                    print("result : {}, compare : {}\n{}, {}".format(result[len(result) - 1],
-                                                                     compare_tuple[len(compare_tuple) - 1],
-                                                                     result,
-                                                                     compare_tuple
-                                                                     )
-                          )
-                    return get_answer((compare_tuple[0], len(compare_tuple[0])))
-                result = compare_tuple
+        acc += l2
 
-        print(result)
-    return get_answer((result[0], len(result[0])))
+    return len(acc)
 
 
-def get_answer(data: tuple) -> int:
-    return data[1]
+def not_exists_next(i, s):
+    return (i + 2) == len(s)
 
 
-# ('a', 3) ('ab', 2)
-# ('ab', 2) ('abc', 2)
-# ('abc', 2) ('a', 2)
-# ('abc', 2) ('ab', 1)
-# ('abc', 2) ('abc', 1)
-# ('abc', 2) ('abcb', 1)
-# 0
-# ('abcb', 1)
+def is_answer_remove_duplication(acc, i, s):
+    print("is_answer param {}".format(acc))
+    split = s[i + 1:].split(acc)
+    for x in split:
+        if x:
+            return False
+    print(split)
+    return i > 0 and len(acc) > len(split[len(split) - 1])
+
+
+def is_high_pass_not_match(length, s):
+    for z in range(1, length):
+        if s[z - 1] == s[z]:
+            return False
+
+
 if __name__ == '__main__':
     unittest.main()
