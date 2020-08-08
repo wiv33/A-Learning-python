@@ -15,3 +15,8 @@ class Test(TestCase):
     def test_reverse_string_be_like_python(self):
         self.actual.reverse()
         self.assertEqual(self.expected, self.actual)
+
+    def test_reverse_string_other(self):
+        # self.actual = self.actual[::-1]
+        self.actual[:] = self.actual[::-1]
+        self.assertEqual(self.expected, self.actual)
