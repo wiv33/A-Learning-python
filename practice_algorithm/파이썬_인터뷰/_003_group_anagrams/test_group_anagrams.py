@@ -1,6 +1,15 @@
 from unittest import TestCase
 
+from .group_anagrams import Solution
+
 
 class TestSolution(TestCase):
     def test_group_anagrams(self):
-        self.assertEqual()
+        data = ['eat', 'tea', 'tan', 'ate', 'nat', 'bat']
+        actual = Solution(data).group_anagrams()
+        expected = {
+            'aet': ['eat', 'tea', 'ate'],
+            'ant': ['tan', 'nat'],
+            'abt': ['bat']
+        }
+        self.assertDictEqual(expected, actual)
