@@ -35,7 +35,7 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual('b', self.first_input[4])
 
     def test_get_first_pattern(self):
-        actual = get_first_pattern(self.first_input)
+        actual = get_first_pattern("abcabcbb")
         expected = ('abc', 3)
         self.assertEqual(expected[1], actual)
 
@@ -91,6 +91,16 @@ class MyTestCase(unittest.TestCase):
         expected = 3
         self.assertEqual(expected, actual)
 
+    def test_dict_sort(self):
+        ss = {'abc': 2, 'abcd': 1, 'abcf': 30}
+        ss['bcsa'] = 3
+        for ss in sorted(ss.items(),
+                         key=lambda x: x[1],
+                         reverse=True):
+            print(ss[0], ss[1])
+
+        print(type(ss))
+
 
 def get_first_pattern(s: str) -> int:
     length = len(s)
@@ -103,40 +113,50 @@ def get_first_pattern(s: str) -> int:
     if acc * len(s) == s:
         return 1
 
+    if is_high_pass_not_match(s):
+        return len(s)
+
+    dictionary = dict()
+
     for i in range(length - 1):
         l1, l2 = s[i], s[i + 1]
 
         if acc.__contains__(l2):
-            acc, tail = acc[acc.find(l2):], acc[:acc.find(l2)]
-            print(" # acc {}\n # tail {}\n".format(acc, tail))
-            if
-            input_data = s.replace(acc, "")
-            print(input_data)
-            if l1 == l2:
-                if not_exists_next(i, s):
-                    print(acc)
-                    return len(acc)
-            acc = ""
+            add_dict(dictionary, acc)
+            acc = acc[acc.index(l2) + 1:]
 
         acc += l2
 
-    return len(acc)
+    add_dict(dictionary, acc)
+    return result_int(dictionary)
 
 
-def not_exists_next(i, s):
-    return (i + 2) == len(s)
+def add_dict(dictionary, acc):
+    dictionary.__setitem__(acc, dictionary.get(acc) if acc in dictionary else 1)
+    # print(dictionary)
 
 
-def is_answer_remove_duplication(acc, i, s):
-    print("is_answer param {}".format(acc))
-    acc_ = s[s.index(acc) + 1:]
-    acc_2 = s[:s.index(acc)]
-    print(" # acc_ {}\n acc_2 {}".format(acc_, acc_2))
-    return False
+def result_int(dictionary: {}) -> int:
+    if len(dictionary) == 1:
+        return len(dictionary.popitem()[0])
+
+    max_item = dictionary.popitem()
+    for i in sorted(dictionary.items(),
+                    key=lambda x: x[1],
+                    reverse=True):
+        if max_item[1] > i[1]:
+            return max_item
+
+        if max_item[1] < i[1]:
+            max_item = i
+        elif max_item[1] == i[1] and len(max_item[0]) < len(i[0]):
+            max_item = i
+
+    return len(max_item[0])
 
 
-def is_high_pass_not_match(length, s):
-    for z in range(1, length):
+def is_high_pass_not_match(s):
+    for z in range(1, len(s)):
         if s[z - 1] == s[z]:
             return False
 
