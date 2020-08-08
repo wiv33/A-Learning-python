@@ -7,5 +7,6 @@ def reorder_log_files(logs: [str]) -> [str]:
         else:
             letters.append(log)
 
+    # 람다 필터 - tuple(key, key)
     letters.sort(key=lambda x: (x.split()[1:], x.split()[0]))
     return letters + digits

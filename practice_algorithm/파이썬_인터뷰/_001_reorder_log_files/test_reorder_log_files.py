@@ -19,3 +19,15 @@ class TestReorderLogFiles(TestCase):
     def test_reorder_log_files(self):
         files = reorder_log_files(self.logs)
         self.assertEqual(self.expected, files)
+
+    def test_sort_array_visual(self):
+        self.data = ['2 A', '1 B', '4 C', '1 A']
+        sort_arr = sorted(self.data)
+        self.assertEqual(['1 A', '1 B', '2 A', '4 C'], sort_arr)
+
+    def test_sort_array_lambda_visual(self):
+        self.data = ['2 A', '1 B', '4 C', '1 A']
+        sort_arr = self.data.sort(key=lambda x: (x.split()[1], x.split()[0]))
+        self.assertEqual(None, sort_arr)
+
+        self.assertEqual(['1 A', '2 A', '1 B', '4 C'], self.data)
