@@ -5,7 +5,7 @@ class Solution:
 
     def longest_palindrome(self):
         s = self.data
-        if len(s) == 0:
+        if not s:
             return ""
         if s == s[::-1]:
             return s
