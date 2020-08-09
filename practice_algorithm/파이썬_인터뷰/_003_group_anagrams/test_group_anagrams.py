@@ -12,4 +12,6 @@ class TestSolution(TestCase):
             'ant': ['tan', 'nat'],
             'abt': ['bat']
         }
+        self.assertIsInstance(expected, dict)
+        self.assertIsInstance(actual, dict)
         self.assertDictEqual(expected, actual)
