@@ -1,13 +1,21 @@
-from unittest import TestCase
+import unittest
 
 from .zigzag_conversion import Solution
 
 
-class TestSolution(TestCase):
-    def setUp(self) -> None:
-        self.input = (3, "PAYPALISHIRING")
-        self.expected = "PAHNAPLSIIGYIR"
+class TestSolution(unittest.TestCase):
+    def test_solution_convert(self):
+        actual = Solution().convert(s="PAYPALISHIRING", numRows=3)
+        self.assertEqual("PAHNAPLSIIGYIR", actual)
 
-    def test_convert(self):
-        actual = Solution().convert(s=self.input[1], numRows=3)
-        self.assertEqual(self.expected, actual)
+    def test_PAYPALISHIRING(self):
+        actual = Solution().convert(s="PAYPALISHIRING", numRows=2)
+        self.assertEqual("PAHNAPLSIIGYIR", actual)
+
+    def test_praiiyhnpsgail(self):
+        actual = Solution().convert(s="PAYPALISHIRING", numRows=6)
+        self.assertEqual("PRAIIYHNPSGAIL", actual)
+
+
+if __name__ == '__main__':
+    unittest.main()

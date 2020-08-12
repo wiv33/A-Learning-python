@@ -10,11 +10,11 @@ class Solution:
         numRows = 3
 
         P A Y P A L I S H I R I N G
-        0       0       0       0 1
-          1   1   1   1   1   1
+        0       0       0       0
+          1   1   1   1   1   1   1
             2       2       2
 
-        PAHNAPLSIIGYIR
+        PAHN APLSIIG YIR
 
 
 --
@@ -48,24 +48,29 @@ class Solution:
 
     def convert(self, s: str, numRows: int) -> str:
         default_dict = collections.defaultdict(list)
-        nums = numRows
+        switch = True
+        idx = 0
+        print("row_nums is [{}]".format(numRows))
         for i, x in enumerate(s):
-            d, m = divmod(i, numRows)
+            # d, m = divmod(i, numRows)
+            print("idx = {}, x = {}".format(idx, x))
 
-            print(i, d, m, x, d % 2 == 0, end='\n')
-            if d % 2 == 1:
-                print("nums {}".format(nums - m))
+            default_dict[idx].append(x)
+
+            if switch:
+                idx += 1
+                if idx >= numRows - 1:
+                    switch = False
             else:
-                nums = numRows
+                if idx <= 1:
+                    switch = True
+                idx -= 1
 
-            default_dict[m].append(x)
-            # print(i, x)
+        result = []
+        for a in default_dict.values():
+            result += a
+        return "".join(result)
 
-        print(default_dict, end="\n")
-        # for x in default_dict:
-        #     if x % 2 == 0:
-        #         print(default_dict[x])
-        #     else:
-        #         default_dict[x].reverse()
-        #         print(default_dict[x])
-        return 'PAHNAPLSIIGYIR'
+
+actual = Solution().convert(s="PAYPALISHIRING", numRows=6)
+print("PRAIIYHNPSGAIL" == actual)
