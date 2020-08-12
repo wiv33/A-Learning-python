@@ -1,5 +1,4 @@
 # https://leetcode.com/problems/zigzag-conversion/
-import collections
 
 
 class Solution:
@@ -47,16 +46,14 @@ class Solution:
     """
 
     def convert(self, s: str, numRows: int) -> str:
-        default_dict = collections.defaultdict(list)
+        if numRows == 1:
+            return s
+
+        arr = [""] * numRows
         switch = True
         idx = 0
-        print("row_nums is [{}]".format(numRows))
-        for i, x in enumerate(s):
-            # d, m = divmod(i, numRows)
-            print("idx = {}, x = {}".format(idx, x))
-
-            default_dict[idx].append(x)
-
+        for x in s:
+            arr[idx] += str(x)
             if switch:
                 idx += 1
                 if idx >= numRows - 1:
@@ -66,10 +63,7 @@ class Solution:
                     switch = True
                 idx -= 1
 
-        result = []
-        for a in default_dict.values():
-            result += a
-        return "".join(result)
+        return "".join(arr)
 
 
 actual = Solution().convert(s="PAYPALISHIRING", numRows=6)
