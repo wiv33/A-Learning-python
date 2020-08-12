@@ -53,18 +53,19 @@ class Solution:
             d, m = divmod(i, numRows)
 
             print(i, d, m, x, d % 2 == 0, end='\n')
-            # if d % 2 == 1:
-            #     print()
-            # else:
+            if d % 2 == 1:
+                print("nums {}".format(nums - m))
+            else:
+                nums = numRows
 
             default_dict[m].append(x)
             # print(i, x)
 
         print(default_dict, end="\n")
-        for x in default_dict:
-            if x % 2 == 0:
-                print(default_dict[x])
-            else:
-                default_dict[x].reverse()
-                print(default_dict[x])
+        # for x in default_dict:
+        #     if x % 2 == 0:
+        #         print(default_dict[x])
+        #     else:
+        #         default_dict[x].reverse()
+        #         print(default_dict[x])
         return 'PAHNAPLSIIGYIR'
