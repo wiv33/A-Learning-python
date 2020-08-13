@@ -5,15 +5,15 @@ def print_all_friends(g, start):
     qu = []
     done = set()
 
-    qu.append(start)
+    qu.append((start, 0))
     done.add(start)
 
     while qu:
-        p = qu.pop(0)
-        print(p)
+        p, i = qu.pop(0)
+        print(p, i)
         for x in g[p]:
             if x not in done:
-                qu.append(x)
+                qu.append((x, i + 1))
                 done.add(x)
 
 
