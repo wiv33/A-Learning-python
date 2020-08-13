@@ -22,7 +22,7 @@ friends = {
     'john': ["summer", 'justin'],
     'justin': ['john', 'summer', 'mike', 'may'],
     'mike': ['summer', 'justin'],
-    'may': ['may'],
+    'may': ['kim'],
     'kim': ['may'],
     'tom': ['jerry'],
     'jerry': ['tom'],
