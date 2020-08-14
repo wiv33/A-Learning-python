@@ -23,3 +23,7 @@ class Test(TestCase):
         data = "42"
         actual = Solution(data).string_to_integer_atoi()
         self.assertEqual(42, actual)
+
+    def test_string_to_integer_negative_and_float(self):
+        actual = Solution("-91283472332").string_to_integer_atoi()
+        self.assertEqual(-2147483648, actual)

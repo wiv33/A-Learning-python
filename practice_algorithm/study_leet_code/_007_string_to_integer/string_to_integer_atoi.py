@@ -8,17 +8,17 @@ class Solution:
         s = self.data
         data = s.lstrip().split()[0]
 
+        if data.isalpha():
+            return 0
+
         is_float = data.split(".")[0]
         is_negative = data.startswith("-")
 
         if is_float.isdigit():
-            return int(is_float)
+            data = int(is_float)
 
         if is_negative and data[1:].isdigit():
-            return -int(data[1:])
-
-        if not data.isdigit():
-            return 0
+            data = -int(data[1:])
 
         data = int(data)
 
