@@ -1,4 +1,5 @@
 # https://leetcode.com/problems/string-to-integer-atoi/
+# 미완성
 
 class Solution:
     def __init__(self, s: str):
