@@ -1,5 +1,6 @@
 # https://leetcode.com/problems/string-to-integer-atoi/
-# 미완성
+import re
+
 
 class Solution:
     def __init__(self, s: str):
@@ -7,21 +8,18 @@ class Solution:
 
     def string_to_integer_atoi(self) -> int:
         s = self.data
-        data = s.lstrip().split()[0]
+        not_empty = s.lstrip()
+        if not not_empty:
+            return 0
+
+        data = not_empty.split()[0].lstrip()
 
         if data.isalpha():
             return 0
 
-        is_float = data.split(".")[0]
-        is_negative = data.startswith("-")
+        data = eval(data)
 
-        if is_float.isdigit():
-            data = int(is_float)
-
-        if is_negative and data[1:].isdigit():
-            data = -int(data[1:])
-
-        data = int(data)
+        data = int(data // 1)
 
         max_num = 2 ** 31
         if -max_num > data:
