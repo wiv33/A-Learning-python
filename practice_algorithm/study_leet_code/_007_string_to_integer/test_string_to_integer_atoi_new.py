@@ -17,8 +17,7 @@ class TestSolution(TestCase):
         self.assertEqual(0, actual)
 
     def test_minus_42(self):
-        data = "   -42"
-        actual = Solution(data).string_to_integer_atoi_loop()
+        actual = Solution("   -42").string_to_integer_atoi_loop()
         self.assertEqual(-42, actual)
 
     def test_string_to_integer_negative_and_float(self):
@@ -73,3 +72,23 @@ class TestSolution(TestCase):
         actual = Solution("-abc").string_to_integer_atoi_loop()
         self.assertEqual(0, actual)
 
+
+temp = {
+    "-42": "-00042",
+    "4193": "4193 with words",
+    "0": "words 4193 with",
+    "-42": "   -42",
+    "-2147483648": "-91283472332",
+    "3": "3.14159",
+    "0": ".1",
+    "12345678": "  0000000000012345678",
+    "0": "    0000000000000   ",
+    "0": " ",
+    "-12": "  -0012a42",
+    "0": "    +0a32",
+    "2147483647": "20000000000000000000",
+    "0": "0-1",
+    "-5": "-5-",
+    "-13": "-13+8",
+    "0": "-abc"
+}
