@@ -60,3 +60,16 @@ class TestSolution(TestCase):
     def test_score(self):
         actual = Solution("0-1").string_to_integer_atoi_loop()
         self.assertEqual(0, actual)
+
+    def test_minus_5_minus(self):
+        actual = Solution("-5-").string_to_integer_atoi_loop()
+        self.assertEqual(-5, actual)
+
+    def test_mix_plus_minus_nums(self):
+        actual = Solution("-13+8").string_to_integer_atoi_loop()
+        self.assertEqual(-13, actual)
+
+    def test_minus_abc(self):
+        actual = Solution("-abc").string_to_integer_atoi_loop()
+        self.assertEqual(0, actual)
+
