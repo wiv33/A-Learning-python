@@ -1,7 +1,7 @@
 import re
 from unittest import TestCase
 
-from .string_to_integer_atoi import Solution
+from .string_to_integer_atoi_regex import Solution
 
 
 class Test(TestCase):
