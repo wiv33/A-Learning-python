@@ -3,7 +3,18 @@ class Solution:
         self.data = data
 
     def array_pair_sum(self) -> int:
-        d = self.data
+        nums: [int] = self.data
+        result = 0
+        pair = []
+        nums.sort()
 
-        return 0
+        for x in nums:
+            pair.append(x)
+            if len(pair) == 2:
+                print(pair)
+                result += min(pair)
+                pair = []
+
+        return result
+
 
