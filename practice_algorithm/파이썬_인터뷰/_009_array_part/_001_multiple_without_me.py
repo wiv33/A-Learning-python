@@ -21,4 +21,4 @@ def multiple_without_me(data: [int]) -> [int]:
 
 class TestMultipleWithoutMe(TestCase):
     def test_init(self):
-        self.assertEqual([60, 40, 30, 24], multiple_without_me([2, 3, 4, 5]))
+        self.assertEqual([24, 12, 8, 6], multiple_without_me([1, 2, 3, 4]))
