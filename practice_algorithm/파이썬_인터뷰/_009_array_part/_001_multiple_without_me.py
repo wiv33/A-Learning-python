@@ -22,3 +22,7 @@ def multiple_without_me(data: [int]) -> [int]:
 class TestMultipleWithoutMe(TestCase):
     def test_init(self):
         self.assertEqual([24, 12, 8, 6], multiple_without_me([1, 2, 3, 4]))
+
+
+if __name__ == '__main__':
+    TestCase().run()
