@@ -28,4 +28,4 @@ model = tf.keras.models.Model(X, Y)
 model.summary()
 
 model.compile(loss='mse')
-model.fit(독립, 종속, epochs=100)
+model.fit(독립, 종속, epochs=1000, batch_size=300)

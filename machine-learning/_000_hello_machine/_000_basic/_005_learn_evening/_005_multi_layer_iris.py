@@ -17,16 +17,26 @@ encoding = pd.get_dummies(iris)
 # 모델 구조 생성
 
 X = tf.keras.layers.Input(shape=[4])
-H = tf.keras.layers.Dense(8, activation='swish')(X)
-H = tf.keras.layers.Dense(8, activation='swish')(H)
-H = tf.keras.layers.Dense(8, activation='swish')(H)
+
+H = tf.keras.layers.Dense(8)(X)
+H = tf.keras.layers.BatchNormalization()(H)
+H = tf.keras.layers.Activation(activation='swish')(H)
+
+H = tf.keras.layers.Dense(8)(H)
+H = tf.keras.layers.BatchNormalization()(H)
+H = tf.keras.layers.Activation(activation='swish')(H)
+
+H = tf.keras.layers.Dense(8)(H)
+H = tf.keras.layers.BatchNormalization()(H)
+H = tf.keras.layers.Activation(activation='swish')(H)
+
 Y = tf.keras.layers.Dense(3, activation='softmax')(H)
 model = tf.keras.models.Model(X, Y)
 
 model.compile(loss='categorical_crossentropy', metrics='accuracy')
 
 # fit
-model.fit(독립, 종속, epochs=3333)
+model.fit(독립, 종속, epochs=1000, batch_size=150)
 
 # 5/5 [==============================] - 0s 787us/step - loss: 0.0459 - accuracy: 0.9800
 # Epoch 3333/3333
