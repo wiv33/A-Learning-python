@@ -9,7 +9,18 @@ data = pd.read_csv(file_data)
 
 X = tf.keras.layers.Input(shape=[13])
 # deep learning
-H = tf.keras.layers.Dense(10, activation='swish')(X)
+H = tf.keras.layers.Dense(12)(X)
+H = tf.keras.layers.BatchNormalization()(H)
+H = tf.keras.layers.Activation('swish')(H)
+
+H = tf.keras.layers.Dense(12)(H)
+H = tf.keras.layers.BatchNormalization()(H)
+H = tf.keras.layers.Activation('swish')(H)
+
+H = tf.keras.layers.Dense(12)(H)
+H = tf.keras.layers.BatchNormalization()(H)
+H = tf.keras.layers.Activation('swish')(H)
+
 Y = tf.keras.layers.Dense(1)(H)
 
 model = tf.keras.models.Model(X, Y)
@@ -17,4 +28,4 @@ model = tf.keras.models.Model(X, Y)
 model.summary()
 
 model.compile(loss='mse')
-model.fit(독립, 종속, epochs=10000)
+model.fit(독립, 종속, epochs=100)
