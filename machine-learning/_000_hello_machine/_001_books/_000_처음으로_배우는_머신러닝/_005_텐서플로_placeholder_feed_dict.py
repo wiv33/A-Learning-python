@@ -1,4 +1,5 @@
 ﻿import tensorflow as tf
+
 """
 placeholder, feed_dict
 
@@ -12,9 +13,9 @@ feed_dict:
 
 """
 with tf.Session() as session:
-    input1 = tf.placeholder(tf.float32, (3,2)) # :type, :shape
+    input1 = tf.placeholder(tf.float32, (3, 2))  # :type, :shape
     input2 = tf.placeholder(tf.float32)
 
-    output = tf.multiply(input1, input2) # 두 입력을 곱셈한다.
+    output = tf.multiply(input1, input2)  # 두 입력을 곱셈한다.
 
-    print(session.run([output], feed_dict={input1:[[1.,2.],[4.,5.],[6.,7.]], input2:[3., 2]}))
+    print(session.run([output], feed_dict={input1: [[1., 2.], [4., 5.], [6., 7.]], input2: [3., 2]}))

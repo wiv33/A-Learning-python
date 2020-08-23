@@ -24,4 +24,3 @@ writer = tf.summary.FileWriter('./logs/fit', session.graph)
 session.run(x)
 writer.close()
 session.close()
-
