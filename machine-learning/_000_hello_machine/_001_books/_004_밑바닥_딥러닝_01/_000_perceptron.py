@@ -69,3 +69,18 @@ def OR(x1, x2):
 print(OR(0, 1))  # 1 : temp = 0.3
 print(OR(1, 1))  # 1 : temp = 0.8
 print(OR(0, 0))  # 0 : temp = -0.2
+
+print("======================")
+
+
+def XOR(x1, x2):
+    s1 = NAND(x1, x2)
+    s2 = OR(x1, x2)
+    y = AND(s1, s2)
+    return y
+
+
+print(XOR(0, 0))  # 0
+print(XOR(1, 0))  # 1
+print(XOR(1, 1))  # 0
+
