@@ -12,9 +12,8 @@ ref: _000_Boston_dataset
 
     *시각화
 """
-import tensorflow as tf
 import numpy as np
-from matplotlib import pyplot as plt  # 학습 결과 플롯용 패키지
+import tensorflow as tf
 from sklearn import datasets
 
 boston = datasets.load_boston()
@@ -51,7 +50,7 @@ W = tf.Variable(tf.zeros((1, 1)), name="weights")
 
 # 편향.
 # 타깃 수 X 타깃 수의 크기를 가진다. 타깃 수가 1이므로 기울기는 1*1로 정의
-b = tf.Variable(tf.zeros((1,1)), name="bias")
+b = tf.Variable(tf.zeros((1, 1)), name="bias")
 
 # => 학습함수, 손실함수, 최적화 함수 정의
 """
