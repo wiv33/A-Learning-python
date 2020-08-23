@@ -17,6 +17,6 @@ model = tf.keras.models.Model(X, Y)
 model.compile(loss='mse')
 model.fit(독립, 종속, epochs=10000, verbose=0)
 
-result = model.predict([[15]])
+result = model.predict([15])
 
 print(result)
