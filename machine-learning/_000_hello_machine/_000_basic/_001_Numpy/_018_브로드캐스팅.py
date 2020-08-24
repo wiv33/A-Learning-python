@@ -59,3 +59,19 @@ y
 #  [ 5  5  7]
 #  [ 8  8 10]
 #  [11 11 13]]
+
+A = np.array([[1, 2], [3, 4], [5, 6]])
+A.shape
+# (3, 2)
+
+
+B = np.array([7, 8])
+B.shape
+# (2,)
+
+
+result = np.dot(A, B)
+print(result)
+# [23 53 83]
+
+
