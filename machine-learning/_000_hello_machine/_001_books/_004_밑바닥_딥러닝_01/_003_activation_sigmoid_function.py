@@ -1,3 +1,4 @@
+import matplotlib.pylab as plt
 import numpy as np
 
 
@@ -9,3 +10,10 @@ def sigmoid(x):
 
 x = np.array([-1., 1., 2.])
 print(sigmoid(x))
+
+x = np.arange(-5., 5., 0.1)
+y = sigmoid(x)
+
+plt.plot(x, y)
+plt.ylim(-.1, 1.1)  # Y축 지정
+plt.show()
