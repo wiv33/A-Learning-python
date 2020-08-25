@@ -28,4 +28,8 @@ plt.ylabel("f(x)")
 plt.plot(x, y)
 plt.show()
 
-numerical_diff(function_1, 5)
+# numerical_diff(function_1, 5)
+# 0.20001000000013924
+# numerical_diff(function_1, 10)
+# 0.30001000000012823
+
