@@ -6,7 +6,7 @@ import numpy as np
 
 
 def numerical_diff(f, x):
-    h = 10e-4
+    h = 10e-10
     return (f(x + h) - f(x)) / h
 
 
