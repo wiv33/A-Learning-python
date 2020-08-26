@@ -2,6 +2,7 @@ plugins {
     java
 }
 java.sourceCompatibility = JavaVersion.VERSION_13
+java.targetCompatibility = JavaVersion.VERSION_13
 
 allprojects {
     apply(plugin = "java")
