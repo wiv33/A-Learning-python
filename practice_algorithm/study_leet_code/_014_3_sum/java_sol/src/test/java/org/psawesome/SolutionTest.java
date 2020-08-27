@@ -1,10 +1,13 @@
 package org.psawesome;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
@@ -45,7 +48,7 @@ class SolutionTest {
   @Test
   @Disabled("Not implemented yet")
   void testShouldBeLowerThenCountOfAllCheck() {
-    Assertions.assertEquals(1, 1);
+    assertEquals(1, 1);
     fail("not implemented");
   }
 
@@ -54,5 +57,21 @@ class SolutionTest {
   void shouldBeMyTest() {
     Assumptions.assumeTrue(true);
     fail("Not implemented");
+  }
+
+  @ParameterizedTest(name = "{0} {0}")
+  @DisplayName("Test description")
+  @ValueSource(strings = {"alpha", "bravo", "clip"})
+  void testDescription(String myName) {
+    System.out.println("s = " + myName);
+    fail("Not implemented");
+  }
+
+
+  @Test
+  @DisplayName("test should be")
+  void testShouldBe() {
+    
+    org.junit.jupiter.api.Assertions.fail("Not implemented");
   }
 }

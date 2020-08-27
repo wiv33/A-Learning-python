@@ -17,6 +17,7 @@ allprojects {
         extra["jupiterVersion"] = "5.6.2"
         testImplementation("org.junit.jupiter:junit-jupiter-api:${extra["jupiterVersion"]}")
         testImplementation("org.junit.jupiter:junit-jupiter-engine:${extra["jupiterVersion"]}")
+        testImplementation("org.junit.jupiter:junit-jupiter-params:${extra["jupiterVersion"]}")
     }
     tasks.withType<Test> {
         useJUnitPlatform()
