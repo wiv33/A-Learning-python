@@ -4,6 +4,9 @@ plugins {
 java.sourceCompatibility = JavaVersion.VERSION_13
 java.targetCompatibility = JavaVersion.VERSION_13
 
+group = "org.psawesome"
+version = "1.0-SNAPSHOT"
+
 allprojects {
     apply(plugin = "java")
 

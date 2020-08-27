@@ -1,12 +1,11 @@
 package org.psawesome;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * @author ps [https://github.com/wiv33/learning-python]
@@ -33,10 +32,27 @@ class SolutionTest {
   }
 
   @Test
-  void testFirstLoop() {
+  @DisplayName("최종 결과")
+  void testFinal() {
     final int[] ints = {-1, 0, 1, 2, -1, -4};
-    List<List<Integer>> actual = solution.threeSum(ints);
+    List<List<Integer>> actual = solution
+            .setTotCount(ints.length)
+            .threeSum(ints);
     List<List<Integer>> expected = Arrays.asList(Arrays.asList(-1, 0, 1), Arrays.asList(-1, -1, 2));
     Assertions.assertArrayEquals(new List[]{expected}, new List[]{actual});
+  }
+
+  @Test
+  @Disabled("Not implemented yet")
+  void testShouldBeLowerThenCountOfAllCheck() {
+    Assertions.assertEquals(1, 1);
+    fail("not implemented");
+  }
+
+  @Test
+  @DisplayName("should be my test")
+  void shouldBeMyTest() {
+    Assumptions.assumeTrue(true);
+    fail("Not implemented");
   }
 }
