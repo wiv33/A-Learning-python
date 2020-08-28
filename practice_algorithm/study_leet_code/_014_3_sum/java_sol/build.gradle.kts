@@ -8,6 +8,7 @@ group = "org.psawesome"
 version = "1.0-SNAPSHOT"
 
 allprojects {
+    ->
     apply(plugin = "java")
 
     repositories {
@@ -19,7 +20,5 @@ allprojects {
         testImplementation("org.junit.jupiter:junit-jupiter-engine:${extra["jupiterVersion"]}")
         testImplementation("org.junit.jupiter:junit-jupiter-params:${extra["jupiterVersion"]}")
     }
-    tasks.withType<Test> {
-        useJUnitPlatform()
-    }
+    tasks.withType(Test::useJUnitPlatform)
 }
