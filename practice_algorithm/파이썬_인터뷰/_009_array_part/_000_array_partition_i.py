@@ -17,4 +17,5 @@ class Solution:
 
         return result
 
-
+    def array_pair_sum_python(self) -> int:
+        return sum(sorted(self.data)[::2])
