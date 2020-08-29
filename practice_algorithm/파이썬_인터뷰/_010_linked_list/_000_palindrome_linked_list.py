@@ -27,3 +27,7 @@ assert result
 
 res = is_palindrome_the_linked_list(ListNode(1, ListNode(2)))
 assert not res
+
+
+def is_palindrome_deque_v(head: ListNode) -> bool:
+    pass
