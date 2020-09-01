@@ -37,3 +37,22 @@ res = reverse_linked_list_other(ListNode(1, ListNode(2, ListNode(3, ListNode(4, 
 while res:
     print(res.val)
     res = res.next
+
+
+print("== start for ==")
+
+
+def reverse_linked_list_for(head: ListNode) -> ListNode:
+    node, prev = head, None
+
+    while node:
+        next_node, node.next = node.next, prev
+        prev, node = node, next_node
+
+    return prev
+
+
+res = reverse_linked_list_for(ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5))))))
+while res:
+    print(res.val)
+    res = res.next
