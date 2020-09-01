@@ -13,7 +13,8 @@ def reverse_linked_list(head: ListNode, prev: ListNode = None) -> ListNode:
 
 
 res = reverse_linked_list(ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5))))))
-
+# input 1 -> 2 -> 3 -> 4 -> 5
+# res   5 -> 4 -> 3 -> 2 -> 1
 while res:
     print(res.val)
     res = res.next
