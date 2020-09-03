@@ -51,6 +51,7 @@ while result:
 
 def swap_pairs_recursive(head: ListNode) -> ListNode:
     if head and head.next_node:
+        # debugger
         p = head.next_node
 
         # 스왑된 값을 반환 받음
