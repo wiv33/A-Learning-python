@@ -65,3 +65,5 @@ def normalization(x):
 
 train_dataset = normalization(train_dataset)
 test_dataset = normalization(test_dataset)
+
+print(train_dataset.describe())
