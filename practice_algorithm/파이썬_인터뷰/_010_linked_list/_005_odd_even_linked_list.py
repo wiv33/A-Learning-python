@@ -15,10 +15,10 @@ expected = ListNode(1, ListNode(3, ListNode(5, ListNode(2, ListNode(4)))))
 
 assert expected.val == actual.val
 expected, actual = expected.next, actual.next
-assert expected.val == 3
+assert expected.val == actual.val
 expected, actual = expected.next, actual.next
-assert expected.val == 5
+assert expected.val == actual.val
 expected, actual = expected.next, actual.next
-assert expected.val == 2
+assert expected.val == actual.val
 expected, actual = expected.next, actual.next
-assert expected.val == 4
+assert expected.val == actual.val
