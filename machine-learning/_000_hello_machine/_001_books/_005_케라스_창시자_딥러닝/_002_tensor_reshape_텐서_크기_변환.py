@@ -23,8 +23,6 @@ assert x.shape[0] == 2 * 3
 x = x.reshape((2, 3))
 print(x)
 
-
-
 """
 크기 변환은 전치(transposition)라고 한다.
 행렬의 전치는
@@ -34,5 +32,5 @@ x[i, :] => x[:, i]
 """
 
 x = np.zeros((300, 20))
-x = x.transpose(x)
+x = np.transpose(x)
 print(x.shape)
