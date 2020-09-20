@@ -27,7 +27,7 @@ print(x)
 크기 변환은 전치(transposition)라고 한다.
 행렬의 전치는
 행과 열을 바꾸는 것
-x.transpose(x)
+np.transpose(x)
 x[i, :] => x[:, i]
 """
 
