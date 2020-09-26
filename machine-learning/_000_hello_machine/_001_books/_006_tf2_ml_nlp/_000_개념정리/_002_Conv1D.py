@@ -1,3 +1,6 @@
+import tensorflow as tf
+from tensorflow import keras
+
 """
 conv1d filtering
     가로 방향으로만 옮겨가면서 입력값에 대해 합성곱을 수행한다.
@@ -18,25 +21,12 @@ Flatten 느낌
 
 # 필터의 크기가 5일 경우 1, 5, 10일까?
 
-"""
-tf.keras.layers.Conv1D().__init__()
+INPUT_SIZE = (5, 10)
 
-:filters
-    필터의 개수
-    정수형으로 지정
-    **출력의 차원 수를 나타냄**
-kernel_size
-strides
-padding
-data_format
-dilation_rate
-activation
-use_bias
-kernel_initializer
-bias_initializer
-kernel_regularizer
-bias_regularizer
-activity_regularizer
-kernel_constraint
-bias_constraint
-"""
+inputs = tf.keras.layers.Input(shape=INPUT_SIZE)
+dropout = tf.keras.layers.Dropout(rate=0.3)(inputs)
+output = tf.keras.layers.Conv1D(filters=10,
+                                kernel_size=3,
+                                padding='same',
+                                activation=tf.nn.relu)(dropout)
+print(output)
