@@ -1,5 +1,5 @@
 import tensorflow as tf
-from tensorflow.keras import Model
+from tensorflow import keras
 from tensorflow.keras import layers
 
 """
@@ -8,6 +8,8 @@ from tensorflow.keras import layers
         * __init__
         * call
 """
+
+
 class MyModel(tf.keras.Model):
     def __init__(self, hidden_dimension, hidden_dimension2, output_dimension):
         """
