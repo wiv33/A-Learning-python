@@ -6,11 +6,13 @@ from tensorflow.keras import layers, preprocessing
 class CustomModel(tf.keras.Model):
     def __init__(self, vocab_size, embed_dimension, hidden_dimension, output_dimension):
         super(CustomModel, self).__init__(name='my_model')
+        self.inputs = layers.Input(shape=(4,))
         self.embedding = layers.Embedding(vocab_size, embed_dimension)
         self.dense_layer = layers.Dense(hidden_dimension, activation='relu')
         self.output_layer = layers.Dense(output_dimension, activation='sigmoid')
 
     def call(self, inputs):
+        x = self.inputs(inputs)
         x = self.embedding(inputs)
         x = tf.reduce_mean(x)
         x = self.dense_layer(x)
