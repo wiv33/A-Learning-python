@@ -16,12 +16,18 @@ x_test = sequence.pad_sequences(x_test, maxlen=100)
 
 print(x_train.shape, x_test.shape)
 
-X = tf.keras.layers.Input(shape=[5000])
+X = tf.keras.layers.Input(shape=100)
 H = tf.keras.layers.Embedding(5000, 100)(X)
 H = tf.keras.layers.Dropout(rate=0.5)(H)
-H = tf.keras.layers.Conv1D(64, 5, padding='valid', activation='swish', strides=1)(H)
+# H = tf.keras.layers.Activation(activation='relu')(H)
+H = tf.keras.layers.Activation(activation='swish')(H)
+# H = tf.keras.layers.BatchNormalization()(H)
+
+H = tf.keras.layers.Conv1D(64, 5, padding='valid', strides=1)(H)
 H = tf.keras.layers.MaxPooling1D(pool_size=4)(H)
+# H = tf.keras.layers.BatchNormalization()(H)
 H = tf.keras.layers.LSTM(55, activation='tanh')(H)
+
 H = tf.keras.layers.Dense(1)(H)
 Y = tf.keras.layers.Activation(activation='sigmoid')(H)
 
@@ -58,7 +64,7 @@ model.compile(loss='binary_crossentropy',
               optimizer='adam',
               metrics=['accuracy'])
 
-early_stopping_callback = EarlyStopping(monitor='val_loss', patience=7)
+early_stopping_callback = EarlyStopping(monitor='val_loss', patience=2)
 history = model.fit(x_train, y_train,
                     batch_size=100,
                     epochs=5,
