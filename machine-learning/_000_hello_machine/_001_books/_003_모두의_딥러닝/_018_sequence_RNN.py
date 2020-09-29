@@ -1,7 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from keras.callbacks import EarlyStopping
 from keras.datasets import reuters
-from keras.layers import Embedding, LSTM, Dense
+from keras.layers import Embedding, LSTM, Dense, BatchNormalization
 from keras.models import Sequential
 from keras.preprocessing import sequence
 from keras.utils import np_utils
@@ -35,11 +36,15 @@ y_test = np_utils.to_categorical(y_test)
 
 model = Sequential()
 model.add(Embedding(1000, 100))
-# model.add(BatchNormalization())
+model.add(BatchNormalization())
 # model.add(Activation(activation='tanh'))
+model.add(LSTM(100, activation='tanh', return_sequences=True))
+model.add(BatchNormalization())
 model.add(LSTM(100, activation='tanh'))
 model.add(Dense(46, activation='softmax'))
 
+
+early_stopping_callback = EarlyStopping(monitor='val_loss', patience=10)
 # inputs = Input(shape=46)
 
 # x = Embedding(1000, 100)(inputs)
@@ -57,6 +62,7 @@ model.compile(optimizer='adam',
               metrics=['accuracy'])
 
 history = model.fit(x_train, y_train, batch_size=100, epochs=20,
+                    callbacks=early_stopping_callback,
                     validation_data=(x_test, y_test))
 
 model.summary()
