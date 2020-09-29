@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from keras.datasets import reuters
-from keras.layers import Embedding, LSTM, Dense, BatchNormalization, Activation
+from keras.layers import Embedding, LSTM, Dense
 from keras.models import Sequential
 from keras.preprocessing import sequence
 from keras.utils import np_utils
@@ -15,6 +15,7 @@ print(category)
 print(len(x_train), '학습용 뉴스 기사')
 print(len(x_test), '테스트용 뉴스 기사')
 print(x_train[0])
+# [1, 2, 2, 8, 43, 10, 447, 5, 25, 207, 270, 5, 2, 111, 16, 369, 186, 90, 67, 7, 89, 5, 19, 102, 6, 19, 124, 15, 90, 67, 84, 22, 482, 26, 7, 48, 4, 49, 8, 864, 39, 209, 154, 6, 151, 6, 83, 11, 15, 22, 155, 11, 15, 7, 48, 9, 2, 2, 504, 6, 258, 6, 272, 11, 15, 22, 134, 44, 11, 15, 16, 8, 197, 2, 90, 67, 52, 29, 209, 30, 32, 132, 6, 109, 15, 17, 12]
 
 # x_train.shape >>> (8982,)
 # colum의 길이를 sequence를 통해 맞춘다.
@@ -34,9 +35,9 @@ y_test = np_utils.to_categorical(y_test)
 
 model = Sequential()
 model.add(Embedding(1000, 100))
-model.add(BatchNormalization())
-model.add(Activation(activation='tanh'))
-model.add(LSTM(100))
+# model.add(BatchNormalization())
+# model.add(Activation(activation='tanh'))
+model.add(LSTM(100, activation='tanh'))
 model.add(Dense(46, activation='softmax'))
 
 # inputs = Input(shape=46)
@@ -70,7 +71,7 @@ y_vloss = history.history['val_loss']
 y_loss = history.history['loss']
 
 # 그래프
-x_len = np.arrange(len(y_loss))
+x_len = np.arange(len(y_loss))
 
 plt.plot(x_len, y_vloss, marker='.', c='red', label='Testset_loss')
 plt.plot(x_len, y_loss, marker='.', c='blue', label='Trainset_loss')
