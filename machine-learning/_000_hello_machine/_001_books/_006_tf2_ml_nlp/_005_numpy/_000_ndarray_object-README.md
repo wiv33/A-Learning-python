@@ -23,3 +23,20 @@ ndarray.size
 ndarray.dtype
 -
     배열 내 원소의 자료형을 반환
+
+---
+
+functions
+=
+
+ndarray.ravel()
+-
+    배열을 1차원 배열로 만든다.
+    
+ndarray.reshape()
+-
+    배열의 형태를 바꾼다.
+    
+ndarray.T
+-
+    행렬의 트랜스포즈
