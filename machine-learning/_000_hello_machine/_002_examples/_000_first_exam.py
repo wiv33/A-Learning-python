@@ -1,5 +1,6 @@
 import pandas as pd
 import tensorflow as tf
+from sklearn.decomposition import PCA
 from tensorflow import keras
 
 
@@ -32,10 +33,9 @@ user_tag = pd.read_csv('./data/machine-learning/user_tags.csv')
 job_tag = pd.read_csv('./data/machine-learning/job_tags.csv')
 
 독립 = train[:][['userID', 'jobID']]
-
 tt = df_tag_map.transpose()
 tt.columns = tt.values[0]
-df_merge = pd.merge(독립, job_companies[:][['jobID', 'companyID']])
+df_merge = pd.merge(독립, job_companies[['jobID', 'companyID']])
 df_concat = pd.concat([df_merge, tt], ignore_index=True)
 df_concat.drop(df_concat.index[[6000, 6001]], inplace=True)
 df_independent = df_concat.fillna(0)
@@ -47,6 +47,9 @@ update_col_in_df(df_independent, 'userID', grouping_tags(user_tag.drop_duplicate
 update_col_in_df(df_independent, 'jobID', grouping_tags(job_tag.drop_duplicates(), 'jobID'))
 
 df_train = df_independent
+pca = PCA(n_components=3)
+df_train = pca.fit_transform(df_train)
+print(df_train.shape)
 df_y = train['applied']
 
 X = tf.keras.layers.Input(shape=(6000,))

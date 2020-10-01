@@ -32,4 +32,5 @@ network.summary()
 다섯 번의 에포크 동안 네트워크는 2,345번의 그래디언트 업데이트를 수행할 것.
 (에포크마다 496번, 마지막 샘플의 개수는 96개 {60000/128})
 """
+print(train_images.shape, train_labels.shape)
 network.fit(train_images, train_labels, epochs=5, batch_size=128)
