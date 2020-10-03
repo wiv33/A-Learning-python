@@ -23,26 +23,32 @@ app.wsgi_app = LogMiddleware(app.wsgi_app)
 app.debug = True
 app.config.update(DEBUG=True)
 
+
 @app.route("/")
 def http_prepost_response():
     return "데헷"
+
 
 @app.before_first_request
 def before_first_request_test():
     print("앱 기동되고 첫 HTTP 요청에 실행")
 
+
 @app.before_request
 def before_request_test():
     print("매 HTTP 요청이 응답하기 전에 실행")
+
 
 @app.after_request
 def after_request_test(response):
     print("매 HTTP 요청 후 실행")
     return response
 
+
 @app.teardown_request
 def teardown_request_test(exception):
     print("매 HTTP 요청의 결과가 브라우저에 응답된 후 호출")
+
 
 @app.teardown_appcontext
 def teardown_appcontext_test(exception):
