@@ -30,4 +30,3 @@ class MyModel(tf.keras.Model):
         x = self.dense_layer1(inputs)
         x = self.dense_layer2(x)
         return self.dense_layer3(x)
-
