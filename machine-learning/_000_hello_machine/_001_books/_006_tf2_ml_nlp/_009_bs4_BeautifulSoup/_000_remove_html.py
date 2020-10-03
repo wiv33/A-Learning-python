@@ -11,4 +11,7 @@ print(string)
 
 print(datetime.datetime.now().date().__ge__(datetime.datetime.fromisoformat('2020-09-10')))
 
+limit_month = datetime.datetime.today() - datetime.timedelta(days=30)
+print(limit_month.date())
+
 
