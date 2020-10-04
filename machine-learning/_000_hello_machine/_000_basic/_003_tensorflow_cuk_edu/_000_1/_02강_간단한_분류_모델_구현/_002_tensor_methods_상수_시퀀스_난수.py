@@ -1,4 +1,6 @@
-﻿"""tensorflow methods 정리"""
+﻿"""tensorflow methods 정리
+텐서플로우 메서드 정리
+"""
 
 import tensorflow as tf
 
