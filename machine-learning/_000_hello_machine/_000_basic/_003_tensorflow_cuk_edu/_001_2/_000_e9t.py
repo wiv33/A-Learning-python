@@ -1,4 +1,5 @@
 import nltk
+from tokenize import tokenize
 from konlpy.tag import Okt
 
 pos_tagger = Okt()
