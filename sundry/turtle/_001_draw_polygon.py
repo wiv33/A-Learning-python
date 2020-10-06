@@ -60,4 +60,5 @@ class DrawFigure:
         self.turtle.exitonclick()
 
 
-DrawFigure()
+if __name__ == '__main__':
+    DrawFigure()
