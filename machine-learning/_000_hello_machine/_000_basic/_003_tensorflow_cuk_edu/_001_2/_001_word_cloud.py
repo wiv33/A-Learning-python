@@ -1,6 +1,6 @@
 ﻿from wordcloud import WordCloud
 from collections import Counter
-from konlpy import Okt
+from konlpy.tag import Okt
 okt = Okt()
 words = ['qwef', 'qbeeb', 'trnrt', 'werw', 'eer', 'qwerhq']
 result = dict(Counter(okt.nouns(words)))
