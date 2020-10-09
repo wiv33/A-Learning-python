@@ -12,6 +12,14 @@ Install
 pip3 install kaggle
 ```
 
+Authentication
+-
+
+    API 활용을 위해 kaggle.json을 
+    /root/.kaggle/
+    경로에 생성해야 한다.
+    {"username":"username","key":"api-key"}
+
 Download data
 -
 
