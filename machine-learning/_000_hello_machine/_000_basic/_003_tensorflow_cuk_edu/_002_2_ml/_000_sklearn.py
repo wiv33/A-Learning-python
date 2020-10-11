@@ -19,6 +19,8 @@ iris_df['label'] = iris_labels
 print(iris_df.head())
 
 sns.pairplot(data=iris_df,
+             y_vars=iris_df.columns,
+             hue='label',
              height=5)
 
 plt.show()
