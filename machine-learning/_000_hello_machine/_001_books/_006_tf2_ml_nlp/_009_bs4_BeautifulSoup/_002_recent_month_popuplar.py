@@ -15,14 +15,14 @@ from collections import Counter
 import collections
 
 chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument('--headless')
-chrome_options.add_argument('--no-sandbox')
-chrome_options.add_argument('--disable-dev-shm-usage')
-wd = webdriver.Chrome('chromedriver', chrome_options=chrome_options)
-driver = webdriver.Chrome('chromedriver', chrome_options=chrome_options)
+# chrome_options.add_argument('--headless')
+# chrome_options.add_argument('--no-sandbox')
+# chrome_options.add_argument('--disable-dev-shm-usage')
+# wd = webdriver.Chrome('chromedriver')
+# driver = webdriver.Chrome('chromedriver')
 
 
-class TakeArticle():
+class TakeArticle:
     def __init__(self):
         """
         df_docs
@@ -40,7 +40,7 @@ class TakeArticle():
         self.df_docs = pd.DataFrame(columns=['title', 'body'])
         self.current_date = datetime.datetime.now().date()
         self.limit_day = datetime.datetime.today() - datetime.timedelta(days=3)
-        self.wd = webdriver.Chrome('chromedriver', chrome_options=chrome_options)
+        self.wd = webdriver.Chrome('chromedriver')
         self.wc = WordCloud(
             width=800,
             height=800,
@@ -57,10 +57,9 @@ class TakeArticle():
         cnt = 10
         while self.limit_day.date().__lt__(final_article):
             # print(self.limit_day.date().__lt__(final_article))
-            # final_article = datetime.datetime.fromisoformat(wd.find_element_by_css_selector(  # required python by 3.8.6
-            final_article = datetime.datetime.strptime(self.wd.find_element_by_css_selector(
-                '#main-second-content > div.article-left > div:nth-child(%d) > a > span.media-date > span' % cnt).text,
-                                                       '%Y-%m-%d').date()
+            final_article = datetime.datetime.fromisoformat(self.wd.find_element_by_css_selector(  # required python by 3.8.6
+            # final_article = datetime.datetime.strptime(self.wd.find_element_by_css_selector(
+                '#main-second-content > div.article-left > div:nth-child(%d) > a > span.media-date > span' % cnt).text).date()
             # print(final_article)
             self.wd.find_element_by_class_name('service-more-btn').click()
             # wd.find_element_by_xpath('//*[@id="article_more"]/button').click()
@@ -102,4 +101,5 @@ class TakeArticle():
 article = TakeArticle()
 article.add_more_of_article_list()
 article.make_docs()
-article.clean_text()
+article.df_docs['cleanBody'] = article.df_docs['body'].apply(article.clean_text)
+article.make_csv()
