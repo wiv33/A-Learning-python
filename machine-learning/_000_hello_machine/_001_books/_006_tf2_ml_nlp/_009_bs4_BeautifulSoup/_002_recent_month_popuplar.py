@@ -39,7 +39,7 @@ class TakeArticle:
         """
         self.df_docs = pd.DataFrame(columns=['title', 'body'])
         self.current_date = datetime.datetime.now().date()
-        self.limit_day = datetime.datetime.today() - datetime.timedelta(days=3)
+        self.limit_day = datetime.datetime.today() - datetime.timedelta(days=30)
         self.wd = webdriver.Chrome('chromedriver')
         self.wc = WordCloud(
             width=800,
