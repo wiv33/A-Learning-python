@@ -19,7 +19,7 @@ def grouping_tags(df: pd.DataFrame, id: str) -> {}:
     for u, t in df.groupby(id):
         temp = {}
         temp[id] = u
-        temp['{}_tags'.format(id)] = " ".join(df[df[id] == u]['tagID'].values)
+        temp['{}_tags'.format(id)] = " ".join(df[df[id] == u]['tagID'])
         result.append(temp)
 
     return pd.DataFrame(result)
@@ -28,3 +28,22 @@ def grouping_tags(df: pd.DataFrame, id: str) -> {}:
 job_match_df = grouping_tags(job_tag_df, 'jobID')
 user_match_df = grouping_tags(user_tag_df, 'userID')
 
+user_match_df.head(2)
+
+merge_user = pd.merge(train_df, user_match_df, how='left')
+complete_merge = pd.merge(merge_user, job_match_df, how='left')
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import euclidean_distances
+import numpy as np
+
+tfidf = TfidfVectorizer()
+
+tfidf_metric = tfidf.fit_transform(complete_merge.iloc[:, 3:].stack().values)
+idf = tfidf.idf_
+
+
+def l1_normalize(v):
+    return v / np.sum(v)
+
+euclidean_distances(1, 2)
