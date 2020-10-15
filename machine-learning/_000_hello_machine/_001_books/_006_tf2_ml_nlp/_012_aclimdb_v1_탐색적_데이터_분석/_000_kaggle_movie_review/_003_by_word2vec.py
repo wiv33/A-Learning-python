@@ -44,7 +44,7 @@ num_features = 300
 min_word_count = 40
 num_workers = 4
 context = 10
-downsampling = 1e-3
+down_sampling = 1e-3
 
 # pip install gensim
 
@@ -61,4 +61,4 @@ model = word2vec.Word2Vec(sentences=sentences,
                           size=num_features,
                           min_count=min_word_count,
                           window=context,
-                          sample=downsampling)
+                          sample=down_sampling)
