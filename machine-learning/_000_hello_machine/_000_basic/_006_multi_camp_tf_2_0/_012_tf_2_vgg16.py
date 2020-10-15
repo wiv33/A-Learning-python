@@ -1,8 +1,7 @@
 import matplotlib.pylab as plt
 import tensorflow as tf
-from tensorflow import keras
 
-cifar10 = keras.datasets.cifar10
+cifar10 = tf.keras.datasets.cifar10
 
 (train_data, train_labels), (test_data, test_labels) = cifar10.load_data()
 
