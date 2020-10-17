@@ -19,7 +19,7 @@ sentences = []
 # 각 리뷰 == 하나의 문자열
 # 문자열 => split
 for rev in reviews:
-    sentiments.append(rev.split())
+    sentences.append(rev.split())
 
 # 학습 시 필요한 하이퍼파라미터
 """
