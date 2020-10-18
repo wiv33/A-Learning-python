@@ -118,6 +118,7 @@ from sklearn.linear_model import LogisticRegression
 lgs = LogisticRegression(class_weight='balanced')
 lgs.fit(X_train, y_train)
 
+print(f'x_test len is {len(X_test)}')
 predicted = lgs.predict(X_test)
 
 from sklearn import metrics
@@ -126,7 +127,7 @@ fpr, tpr, _ = metrics.roc_curve(y_test, (lgs.predict_proba(X_test)[:, 1]))
 auc = metrics.auc(fpr, tpr)
 
 print("------------")
-print("Accuracy: %f" % lgs.score(X_test, y_test))  #checking the accuracy
+print("Accuracy: %f" % lgs.score(X_test, y_test))  # checking the accuracy
 print("Precision: %f" % metrics.precision_score(y_test, predicted))
 print("Recall: %f" % metrics.recall_score(y_test, predicted))
 print("F1-Score: %f" % metrics.f1_score(y_test, predicted))
@@ -135,17 +136,14 @@ print(f'Accuracy : {lgs.score(X_test, y_test)}')
 
 TEST_CLEAN_DATA = 'test_clean.csv'
 
-test_data = pd.read_csv(rf(TEST_CLEAN_DATA),
-                        header=0,
-                        delimiter=',',
-                        quoting=3)
+test_data = pd.read_csv(rf(TEST_CLEAN_DATA))
 
 test_review = list(test_data['review'])
 
-test_sentences = [review.split() for review in test_data]
+test_sentences = [review.split() for review in test_review]
 
 test_data_vecs = get_dataset(test_sentences, model, num_features)
-
+print(f'test_data_vecs len is {len(test_data_vecs)}')
 test_predicted = lgs.predict(test_data_vecs)
 DATA_OUT_PATH = '../data_out/'
 
@@ -153,6 +151,9 @@ if not os.path.exists(DATA_OUT_PATH):
     os.makedirs(DATA_OUT_PATH)
 
 ids = list(test_data['id'])
-answer_dataset = pd.DataFrame({'id': ids, 'sentiment': predicted})
+print(len(ids), len(test_predicted))
+answer_dataset = pd.DataFrame({'id': ids, 'sentiment': test_predicted})
 answer_dataset['id'] = answer_dataset['id'].apply(lambda x: x.replace('"', ''))
 answer_dataset.to_csv(DATA_OUT_PATH + 'lgs_word2vec_answer.csv', index=False)
+
+# kaggle competitions -c word2vec-nlp-tutorial -f lgs_word2vec_answer.csv -m "word2vec answer"
