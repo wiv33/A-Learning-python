@@ -22,4 +22,5 @@ class FirstTestMethods(unittest.TestCase):
 
 
 if __name__ == '__main__':
+    # 주석 추가
     unittest.main()
