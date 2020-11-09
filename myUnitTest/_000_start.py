@@ -16,6 +16,10 @@ class FirstTestMethods(unittest.TestCase):
         with self.assertRaises(TypeError):
             world.split(2)
 
+    def test_join(self):
+        world = 'hello world'.split(" ")
+        self.assertEqual('_'.join(world), 'hello_world')
+
 
 if __name__ == '__main__':
     unittest.main()
