@@ -378,7 +378,7 @@ print("전체 단어 개수: %d" % len(word_vocab))
 
 data_configs = {}
 data_configs['vocab'] = word_vocab
-data_configs['vocab_size'] = len(word_vocab) + 1
+data_configs['vocab_size'] = len(word_vocab)
 
 """## - [전처리] 입력값의 길이를 동일하게 하는 `패딩`
 
