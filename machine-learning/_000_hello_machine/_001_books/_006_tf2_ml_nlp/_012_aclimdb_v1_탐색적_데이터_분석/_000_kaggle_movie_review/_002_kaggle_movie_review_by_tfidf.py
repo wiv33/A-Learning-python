@@ -1,6 +1,6 @@
 import pandas as pd
 
-DATA_IN_PATH = './data_in/refine/'
+DATA_IN_PATH = '../data_in/refine/'
 TRAIN_CLEAN_DATA = 'train_clean.csv'
 
 
@@ -93,8 +93,8 @@ if not os.path.exists(DATA_OUT_PATH):
 
 ids = list(test_data['id'])
 answer_dataset = pd.DataFrame({'id': ids, 'sentiment': test_predicted})
-answer_dataset['id'] = answer_dataset['id'].apply(lambda x: x.replace("\"", ''))
-answer_dataset.to_csv(DATA_OUT_PATH + 'lgs_tfidf_answer.csv', index=False)
+# answer_dataset['id'] = answer_dataset['id'].apply(lambda x: x.replace("\"", ''))
+answer_dataset.to_csv(DATA_OUT_PATH + 'lgs_tfidf_answer.csv', index=False, quoting=3)
 
 print(answer_dataset.info())
 
