@@ -1,6 +1,6 @@
 import zipfile
 
-DATA_IN_PATH = './data_in/'
+DATA_IN_PATH = '../data_in/'
 
 file_list = ['labeledTrainData.tsv.zip', 'unlabeledTrainData.tsv.zip', 'testData.tsv.zip']
 
@@ -251,6 +251,10 @@ print('숫자가 있는 질문: {:.2f}'.format(mt(numbers)))
 
 # !pip install nltk
 
+import nltk
+
+nltk.download('stopwords')
+
 import re
 import json
 from bs4 import BeautifulSoup
@@ -266,7 +270,8 @@ from tensorflow.python.keras.preprocessing.text import Tokenizer
 DATA_IN_PATH
 df_train_data = pd.read_csv("{}labeledTrainData.tsv".format(DATA_IN_PATH),
                             header=0,
-                            delimiter='\t')
+                            delimiter='\t',
+                            quoting=3)
 df_train_data.iloc[0, 2]
 
 """## [전처리] HTML 태그, 특수문자 제거"""
@@ -477,4 +482,4 @@ TEST_ID_DATA = 'test_id.npy'
 
 np.save(open(refine(TEST_INPUT_DATA), 'wb'), test_inputs)
 np.save(open(refine(TEST_ID_DATA), 'wb'), test_id)
-clean_test_df.to_csv(refine(TEST_CLEAN_DATA), index=False)
+clean_test_df.to_csv(refine(TEST_CLEAN_DATA), index=False, quoting=3)
