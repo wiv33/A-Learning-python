@@ -13,7 +13,7 @@ def rf(path):
 
 train_data = pd.read_csv(rf(TRAIN_CLEAN_DATA))
 
-""" word2vecㅇ의 경우 단어로 표현된 리스트를 입력값으로 넣어야 한다. """
+""" word2vec의 경우 단어로 표현된 리스트를 입력값으로 넣어야 한다. """
 reviews = list(train_data['review'])
 sentiments = list(train_data['sentiment'])
 
@@ -27,7 +27,7 @@ num_features
     각 단어에 대해 임베딩된 벡터의 차원을 정한다.
 
 min_word_count
-    모델에 의미 잇는 단어를 가지고 학습하기 위해 적은 빈도 수의 단어들은 학습하지 않는다.
+    모델에 의미 있는 단어를 가지고 학습하기 위해 적은 빈도 수의 단어들은 학습하지 않는다.
 
 num_workers
     모델 학습 시 학습을 위한 프로세스 개수를 지정한다.
@@ -67,5 +67,3 @@ model = word2vec.Word2Vec(sentences=sentences,
 
 model_name = '300features_40minwords_10context'
 model.save(model_name)
-
-
