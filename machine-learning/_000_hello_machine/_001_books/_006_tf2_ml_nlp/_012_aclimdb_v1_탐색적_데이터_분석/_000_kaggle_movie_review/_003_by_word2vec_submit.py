@@ -4,6 +4,8 @@ import numpy as np
 import os
 import pandas as pd
 
+from KafkaManager import KafkaManager
+
 TRAIN_CLEAN_DATA = 'train_clean.csv'
 
 
@@ -13,7 +15,7 @@ def rf(path):
 
 train_data = pd.read_csv(rf(TRAIN_CLEAN_DATA))
 
-""" word2vecㅇ의 경우 단어로 표현된 리스트를 입력값으로 넣어야 한다. """
+""" word2vec의 경우 단어로 표현된 리스트를 입력값으로 넣어야 한다. """
 reviews = list(train_data['review'])
 sentiments = list(train_data['sentiment'])
 
@@ -42,7 +44,7 @@ def get_features(words, model, num_features):
     index2word_set = set(model.wv.index2word)
 
     for w in words:
-        if w in index2word_set:
+        if w in index2word_set and len(w) > 1:
             num_words += 1
 
             feature_vector = np.add(feature_vector, model[w])
@@ -116,6 +118,8 @@ if not os.path.exists(DATA_OUT_PATH):
 ids = list(test_data['id'])
 print(len(ids), len(test_predicted))
 answer_dataset = pd.DataFrame({'id': ids, 'sentiment': test_predicted})
+# manager = KafkaManager()
+# manager.publish_message('word2vec-nlp-tutorial', answer_dataset.to_json())
 answer_dataset.to_csv(DATA_OUT_PATH + 'lgs_word2vec_answer.csv', index=False, quoting=3)
 
 # kaggle competitions submit -c word2vec-nlp-tutorial -f machine-learning/_000_hello_machine/_001_books/_006_tf2_ml_nlp/_012_aclimdb_v1_탐색적_데이터_분석/data_out/lgs_word2vec_answer.csv -m "logistic word2vec answer"
