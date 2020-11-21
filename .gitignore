@@ -4,3 +4,4 @@ venv
 gradle/
 gradlew
 gradlew.bat
+*.zip
