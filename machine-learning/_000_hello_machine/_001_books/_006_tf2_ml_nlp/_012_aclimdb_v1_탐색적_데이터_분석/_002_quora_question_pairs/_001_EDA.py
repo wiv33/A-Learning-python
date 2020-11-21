@@ -54,7 +54,8 @@ def show_hist(bins, v_range, alpha, color, edge_color, label, **kwargs):
              color=color,
              range=v_range,
              edgecolor=edge_color,
-             label=label)
+             label=label,
+             rwidth=.7)
 
     if kwargs['log']:
         plt.yscale('log', nonposy='clip')
