@@ -86,10 +86,12 @@ data_configs = {
     'vocab_size': len(word_vocab)
 }
 
-TRAIN_Q1_DATA = 'q1.train.npy'
-TRAIN_Q2_DATA = 'q2.train.npy'
+# TODO submit 251p: q1_train.npy => train_q1.npy, q2_train.npy => train_a2.npy
+TRAIN_Q1_DATA = 'train_q1.npy'
+TRAIN_Q2_DATA = 'train_q2.npy'
 
-TRAIN_LABEL_DATA = 'label_train.npy'
+# TODO submit 251p: label_train.npy => train_label.npy
+TRAIN_LABEL_DATA = 'train_label.npy'
 DATA_CONFIGS = 'data_configs.npy'
 
 np.save(open(DATA_IN_PATH + TRAIN_Q1_DATA, 'wb'), q1_data)
