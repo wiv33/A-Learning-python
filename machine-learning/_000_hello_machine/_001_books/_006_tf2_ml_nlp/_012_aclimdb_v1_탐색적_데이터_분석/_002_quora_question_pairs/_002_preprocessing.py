@@ -92,7 +92,7 @@ TRAIN_Q2_DATA = 'train_q2.npy'
 
 # TODO submit 251p: label_train.npy => train_label.npy
 TRAIN_LABEL_DATA = 'train_label.npy'
-DATA_CONFIGS = 'data_configs.npy'
+DATA_CONFIGS = 'data_configs.json'
 
 np.save(open(DATA_IN_PATH + TRAIN_Q1_DATA, 'wb'), q1_data)
 np.save(open(DATA_IN_PATH + TRAIN_Q2_DATA, 'wb'), q2_data)
