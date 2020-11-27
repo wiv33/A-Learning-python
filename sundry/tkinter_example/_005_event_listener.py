@@ -13,6 +13,7 @@ if not os.path.exists(root):
 
 conn = sqlite3.connect('%suserTable' % root)
 cs = conn.cursor()
+# result = cs.execute('CREATE TABLE userTable (id char(4), userName char(15), email char(15), birthYear int)')
 
 # cs.executemany('INSERT INTO userTable VALUES (?, ?, ?, ?)',
 #                [('1001', 'alpha', 'one', 'one@gamil.com', 1904),
@@ -21,8 +22,6 @@ cs = conn.cursor()
 #                 ('1002', 'asdf', 'ewq', 'ewq@daum.net', 1950),
 #                 ('1003', 'joo', 'aass', 'aass@naver.com', 1948)])
 
-
-# result = cs.execute('CREATE TABLE userTable (id char(4), userName char(15), email char(15), birthYear int)')
 
 def click_left(event):
     cs.execute(f'INSERT INTO userTable VALUES ({os.getpid()}, "John Bann", "john@naver.com", 1990)')
