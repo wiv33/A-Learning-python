@@ -1,7 +1,8 @@
 import inspect
-import os, sys; sys.path.append(os.path.dirname(os.path.realpath(__file__)))
+import os
+import sys
 
-# 파이썬이 재미있는 이유
+sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 
 # pip install pyinstaller
 # pyinstaller --onefile {fileName}

@@ -8,10 +8,10 @@ from selenium.webdriver.support import expected_conditions as ec
 import requests
 import pandas as pd
 
-browser = webdriver.Chrome('chromedriver.exe')
-browser.maximize_window()  # 창을 최대로
+wd = webdriver.Chrome('chromedriver.exe')
+wd.maximize_window()  # 창을 최대로
 
-browser.get('https://koreajoongangdaily.joins.com/section/allArticles')
+wd.get('https://koreajoongangdaily.joins.com/section/allArticles')
 
 df_docs = pd.DataFrame(columns=['title', 'body'])
 # 각 기사의 url을 가져온다.
@@ -22,15 +22,17 @@ final_article = datetime.datetime.now().date()
 cnt = 10
 while limit_month.date().__lt__(final_article):
     print(limit_month.date().__lt__(final_article))
-    final_article = datetime.datetime.fromisoformat(browser.find_element_by_css_selector(
-        '#main-second-content > div.article-left > div:nth-child(%d) > a > span.media-date > span' % cnt).text).date()
+    # final_article = datetime.datetime.fromisoformat(wd.find_element_by_css_selector(  # required python by 3.8.6
+    final_article = datetime.datetime.strptime(wd.find_element_by_css_selector(
+        '#main-second-content > div.article-left > div:nth-child(%d) > a > span.media-date > span' % cnt).text,
+                                               '%Y-%m-%d').date()
     print(final_article)
-    browser.find_element_by_class_name('service-more-btn').click()
-    # browser.find_element_by_xpath('//*[@id="article_more"]/button').click()
+    wd.find_element_by_class_name('service-more-btn').click()
+    # wd.find_element_by_xpath('//*[@id="article_more"]/button').click()
     time.sleep(1)
     cnt += 10
 
-a_list = browser.find_elements_by_xpath('//*[@id="main-second-content"]/div[1]/div[*]/a')
+a_list = wd.find_elements_by_xpath('//*[@id="main-second-content"]/div[1]/div[*]/a')
 print(a_list, end='\n\n')
 for a in a_list:
     print(a)
@@ -41,12 +43,11 @@ for a in a_list:
     title = body.select_one(".view-article-title.serif")
     print('title :: {}'.format(title.get_text()))
     body_text = body.get_text().replace(title.get_text(), "")
-    df_docs = df_docs.append({'title': title, 'body': body_text}, ignore_index=True)
+    df_docs = df_docs.append({'title': title.get_text(), 'body': body_text}, ignore_index=True)
 
 print(df_docs.head())
 df_docs.to_csv("recent_month_popular_{}.csv".format(current_date))
-browser.quit()
-
+wd.quit()
 
 #  TODO 텍스트 데이터 전처리 시작
 # 최근 한 달 기사
