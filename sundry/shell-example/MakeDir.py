@@ -1,5 +1,5 @@
-import inspect
-import os, shutil
+import os
+import shutil
 
 """TODO LIST
 * 현재 실행 파일의 위치를 파악
