@@ -2,13 +2,16 @@
 
     2020-12-21
 
+
+## 과제 내용 - 데이터 이해해오기
+
 ```python
 from tensorflow.keras.datasets import mnist
 
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
 ```
 
-## 스터디 내용
+## 학습 목록
 
 - 고수준 API keras 활용
 - dataset shape 접하기
