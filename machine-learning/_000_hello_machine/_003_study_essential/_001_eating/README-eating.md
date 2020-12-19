@@ -23,7 +23,6 @@ Sequential()
     - body_shape 그룹화 후 칼로리 묘사하기
     - body_shape가 SKinny인 그룹의 평균 칼로리 확인하기
 
-```
 
 ## 학습 목록
 
