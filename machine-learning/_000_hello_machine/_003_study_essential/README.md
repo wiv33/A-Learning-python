@@ -4,7 +4,7 @@
 -
 
 - 2020-12-17 - 2020-12-30 | 과제
-    + [ ] 17일 | MNIST 데이터 분석하기
+    + [x] 17일 | MNIST 데이터 분석하기
     + [ ] 21일
     + [ ] 23일
     + [ ] 28일
@@ -15,16 +15,18 @@
 - `데이터 모양`을 반복적으로 학습
 - 머신러닝으로 예측하는 것을 `구현`하며 익히기
 
-### 데이터 & 핵심 학습
+## 데이터 & 핵심 학습
 
 - 기본적으로 제공되는 데이터 셋 활용
-    + [ ] mnist (손글씨) | 12월 18일
+    + [ ] mnist (손글씨) | 12월 21일
         * multi layer perceptron
         * LightGBMClassifier 
         * Conv2D (모두의 딥러닝 235p) up to accuracy
         
     + [ ] 식습관 데이터 (나의 첫 머신러닝/딥러닝 184p) | 12월
         * PCA
+        * pandas grouping
+        * sns.implot
       
     + [ ] boston | 12월
         * multi layer perceptron (모두의 딥러닝 206p)
