@@ -5,7 +5,7 @@
 
 - 2020-12-17 - 2020-12-30 | 과제
     + [x] 17일 | MNIST 데이터 분석하기
-    + [ ] 21일
+    + [x] 21일 | Boston housing 
     + [ ] 23일
     + [ ] 28일
     + [ ] 30일
@@ -18,7 +18,7 @@
 ## 데이터 & 핵심 학습
 
 - 기본적으로 제공되는 데이터 셋 활용
-    + [ ] mnist (손글씨) | 12월 21일
+    + [x] mnist (손글씨) | 12월 21일
         * multi layer perceptron
         * LightGBMClassifier 
         * Conv2D (모두의 딥러닝 235p) up to accuracy
