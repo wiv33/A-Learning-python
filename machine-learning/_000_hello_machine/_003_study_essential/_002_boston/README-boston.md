@@ -45,4 +45,4 @@ from tensorflow.keras import layers, models
 - 손실함수인 mse 활용
 - Sequential model
 - multi layer perceptron
-- sns library
+- ~~sns library~~
