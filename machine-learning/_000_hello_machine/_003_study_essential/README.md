@@ -23,13 +23,13 @@
         * LightGBMClassifier 
         * Conv2D (모두의 딥러닝 235p) up to accuracy
         
+    + [x] boston | 12월 23일
+        * multi layer perceptron (모두의 딥러닝 206p)
+
     + [ ] 식습관 데이터 (나의 첫 머신러닝/딥러닝 184p) | 12월
         * PCA
         * pandas grouping
         * sns.implot
-      
-    + [ ] boston | 12월
-        * multi layer perceptron (모두의 딥러닝 206p)
       
     + [ ] wine (모두의 딥러닝 180p) | 12월
         * tf.keras.callbacks
