@@ -98,4 +98,3 @@ def render_policy_net(model, n_max_steps=200, seed=42):
 
 frames = render_policy_net(model)
 plot_animation(frames)
-
