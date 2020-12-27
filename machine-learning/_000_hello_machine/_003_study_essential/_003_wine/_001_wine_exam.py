@@ -21,19 +21,21 @@ df = pd.read_csv("https://raw.githubusercontent.com/wiv33/A-Learning-python/mast
 x_train, x_test, y_train, y_test = train_test_split(df.iloc[:, :-1], df.iloc[:, -1])
 
 inputs = layers.Input(shape=(x_train.shape[1]))
-
+"""## momentum: 이동 평균에 대한 값
+epsilon: 0으로 나누지 않도록 추가하는 값
+"""
 h = layers.Dense(32)(inputs)
-h = layers.BatchNormalization()(h)
+h = layers.BatchNormalization(momentum=0.77, epsilon=0.03)(h)
 h = layers.Activation('swish')(h)
 
 h = layers.Dropout(.3)(h)
 h = layers.Dense(12)(h)
-h = layers.BatchNormalization()(h)
+h = layers.BatchNormalization(momentum=0.66, epsilon=0.007)(h)
 h = layers.Activation('swish')(h)
 
 h = layers.Dropout(.5)(h)
 h = layers.Dense(8)(h)
-h = layers.BatchNormalization()(h)
+h = layers.BatchNormalization(momentum=0.33, epsilon=0.001)(h)
 h = layers.Activation('swish')(h)
 
 h = layers.Dense(1)(h)
