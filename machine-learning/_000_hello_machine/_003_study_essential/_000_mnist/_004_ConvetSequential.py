@@ -1,6 +1,7 @@
 import numpy as np
 from keras.datasets import mnist
 from tensorflow.keras import layers, models, utils
+import matplotlib.pyplot as plt
 
 # tag::load data[]
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
@@ -38,13 +39,16 @@ y_train, y_eval = y_train[:50000], y_train[50000:]
 # tag::build model[]
 model = models.Sequential([
     layers.Input(shape=data_shape),
+
     layers.Conv2D(filters=32, kernel_size=(3, 3)),
+    layers.BatchNormalization(momentum=0.33, epsilon=0.03),
     layers.Activation(activation='relu'),
     layers.MaxPooling2D(pool_size=(2, 2)),
 
     layers.Conv2D(64, kernel_size=(3, 3)),
+    layers.BatchNormalization(momentum=0.33, epsilon=0.03),
     layers.Activation('relu'),
-    layers.MaxPooling2D(pool_size=(2, 2)),
+    layers.MaxPooling2D(pool_size=(2, 2), strides=(3, 3)),
 
     # flatten
     layers.Flatten(),
@@ -65,12 +69,12 @@ model.compile(loss='categorical_crossentropy',
 
 # tag::train model[]
 # 학습 시작
-model.fit(x_train, y_train,
-          epochs=5,
-          batch_size=128,
-          verbose=False,
-          validation_data=(x_test, y_test),
-          validation_split=.1, )
+history = model.fit(x_train, y_train,
+                    epochs=10,
+                    batch_size=32,
+                    verbose=False,
+                    validation_data=(x_test, y_test),
+                    validation_split=.1, )
 
 
 def visit_score(name, sc):
@@ -81,3 +85,7 @@ sc_loss, sc_accuracy = model.evaluate(x_eval, y_eval)
 visit_score('loss', sc_loss)
 visit_score('accuracy', sc_accuracy)
 # end::train model[]
+
+plt.plot(history.history['accuracy'])
+plt.plot(history.history['val_accuracy'])
+plt.show()
