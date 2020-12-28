@@ -6,3 +6,4 @@ gradlew
 gradlew.bat
 *.zip
 data_in/
+db_info*
