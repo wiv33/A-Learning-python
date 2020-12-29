@@ -6,9 +6,9 @@
 - 2020-12-17 - 2020-12-30 | 과제
     + [x] 17일 | MNIST 데이터 분석하기
     + [x] 21일 | Boston housing 
-    + [ ] 23일
-    + [ ] 28일
-    + [ ] 30일
+    + [X] 23일 | Wine binary classifier
+    + [X] 28일 | 정확도를 높이기 위한 training 기법(dropout, batchNormalization)
+    + [ ] 30일 | 
 
 ## 스터디 방향
 
@@ -31,7 +31,7 @@
         * pandas grouping
         * sns.implot
       
-    + [ ] wine (모두의 딥러닝 180p) | 12월
+    + [x] wine (모두의 딥러닝 180p) | 12월
         * tf.keras.callbacks
         * ModelCheckpoint
         * early stopping
