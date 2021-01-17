@@ -1,5 +1,6 @@
 ﻿import tensorflow as tf
 from tensorflow import keras
+from tensorflow.keras import utils, layers, models
 
 print(tf.__version__)
 
@@ -24,3 +25,34 @@ x_test = x_test.reshape(10000, RESHAPED)
 
 x_train = x_train.astype('float32')
 x_test = x_test.astype('float32')
+
+# scaling
+x_train, x_test = x_train / 255., x_test / 255.
+
+y_train = utils.to_categorical(y_train, NB_CLASSES)
+y_test = utils.to_categorical(y_test, NB_CLASSES)
+
+inputs = layers.Input(shape=RESHAPED)
+H = layers.Dense(10, name='dense_layer_1')(inputs)
+outputs = layers.Activation(activation='softmax')(H)
+
+model = models.Model(inputs, outputs)
+
+model.compile(optimizer='adam',
+              loss='categorical_crossentropy',
+              metrics=['accuracy', 'mse'])
+
+history = model.fit(x_train, y_train,
+                    epochs=10,
+                    batch_size=128)
+
+import matplotlib.pyplot as plt
+
+plt.plot(history.history['accuracy'])
+plt.plot(history.history['loss'])
+
+plt.show()
+
+evaluate = model.evaluate(x_test, y_test)
+
+print('eval ', evaluate)
