@@ -1,5 +1,5 @@
-import tensorflow as tf
 import pandas as pd
+import tensorflow as tf
 
 file_data = "https://raw.githubusercontent.com/blackdew/tensorflow1/master/csv/boston.csv"
 data = pd.read_csv(file_data)
