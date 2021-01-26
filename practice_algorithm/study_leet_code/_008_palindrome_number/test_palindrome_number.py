@@ -4,6 +4,9 @@ from .palindrome_number import Solution
 
 
 class TestSolution(TestCase):
+    def test_palindrome_number_negative(self):
+        self.assertFalse(Solution().isPalindrome(-121))
+
     def test_palindrome_number(self):
         self.assertTrue(Solution().isPalindrome(12121))
 
