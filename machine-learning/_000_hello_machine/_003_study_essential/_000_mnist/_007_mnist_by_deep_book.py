@@ -6,12 +6,13 @@ from tensorflow.keras import utils, layers, models
 print(tf.__version__)
 
 # 신경망과 훈련 매개변수
-EPOCHS = 200
+EPOCHS = 50  # 200 to 50
 BATCH_SIZE = 128
 VERBOSE = 1
 NB_CLASSES = 10  # output의 demension
 N_HIDDEN = 128
 VALIDATION_SPLIT = 0.2  # 검증
+DROPOUT = 0.3  # 30% 죽이겠다.
 
 # MNIST 데이터셋 로드
 # 검증
@@ -43,9 +44,20 @@ y_test = utils.to_categorical(y_test, NB_CLASSES)
 # 모델 구축
 model = models.Sequential()
 
-model.add(layers.Dense(NB_CLASSES,
-                       input_shape=(RESHAPED,),
+# chap.02 layer 추가하기
+model.add(layers.Dense(N_HIDDEN,
+                       input_shape=(RESHAPED, ),  # layers.Input(shape=RESHAPED, ))
                        name='dense_layer',
+                       activation='relu'))
+
+model.add(layers.Dropout(DROPOUT))
+model.add(layers.Dense(N_HIDDEN,
+                       name='dense_layer_2',
+                       activation='relu'))
+
+model.add(layers.Dropout(DROPOUT))
+model.add(layers.Dense(NB_CLASSES,
+                       name='dense_layer_3',
                        activation='softmax'))
 
 plt.imshow(x_train[0].reshape(28, 28))
@@ -72,3 +84,8 @@ test_loss
 test_acc
 
 model.summary()
+
+# 지도학습에서의 학습
+# x * w + b == 정답이랑 같은지?
+# (0 * -0.07939142) + (0 * -0.01258871) + == 7번째 인덱스의 값이 1에 가까운지?
+
