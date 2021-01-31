@@ -5,7 +5,7 @@ class ListNode:
 
 
 def is_palindrome_runner(head: ListNode) -> bool:
-    rev = None
+    rev = None  #
     slow = fast = head
 
     while fast and fast.next:
@@ -19,3 +19,7 @@ def is_palindrome_runner(head: ListNode) -> bool:
         slow, rev = slow.next, rev.next
 
     return not rev
+
+
+result = is_palindrome_runner(ListNode(1, ListNode(1, ListNode(2, ListNode(2, ListNode(1, ListNode(1)))))))
+assert result
