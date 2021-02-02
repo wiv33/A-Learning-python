@@ -32,8 +32,10 @@ def add_two_numbers(l1: ListNode, l2: ListNode) -> ListNode:
     return root.next
 
 
-result = add_two_numbers(ListNode(2, ListNode(4, ListNode(3))), ListNode(5, ListNode(6, ListNode(4))))
+if __name__ == '__main__':
 
-while result:
-    print(result.val)
-    result = result.next
+    result = add_two_numbers(ListNode(2, ListNode(4, ListNode(3))), ListNode(5, ListNode(6, ListNode(4))))
+
+    while result:
+        print(result.val)
+        result = result.next

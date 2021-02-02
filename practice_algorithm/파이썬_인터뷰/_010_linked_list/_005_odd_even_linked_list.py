@@ -5,20 +5,30 @@ class ListNode:
 
 
 def odd_even_list_node(head: ListNode):
-    return ListNode(1, ListNode(3, ListNode(5, ListNode(2, ListNode(4)))))
+    odd = head
+    even = head.next
+    even_head = head.next
+
+    while even and even.next:
+        odd.next, even.next = odd.next.next, even.next.next
+        odd, even = odd.next, even.next
+
+    odd.next = even_head
+    return head
 
 
-param = ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5)))))
-actual = odd_even_list_node(param)
+if __name__ == '__main__':
+    param = ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5)))))
+    actual = odd_even_list_node(param)
 
-expected = ListNode(1, ListNode(3, ListNode(5, ListNode(2, ListNode(4)))))
+    expected = ListNode(1, ListNode(3, ListNode(5, ListNode(2, ListNode(4)))))
 
-assert expected.val == actual.val
-expected, actual = expected.next, actual.next
-assert expected.val == actual.val
-expected, actual = expected.next, actual.next
-assert expected.val == actual.val
-expected, actual = expected.next, actual.next
-assert expected.val == actual.val
-expected, actual = expected.next, actual.next
-assert expected.val == actual.val
+    assert expected.val == actual.val
+    expected, actual = expected.next, actual.next
+    assert expected.val == actual.val
+    expected, actual = expected.next, actual.next
+    assert expected.val == actual.val
+    expected, actual = expected.next, actual.next
+    assert expected.val == actual.val
+    expected, actual = expected.next, actual.next
+    assert expected.val == actual.val
