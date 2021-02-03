@@ -3,6 +3,7 @@ from RegularExpression import is_match
 
 
 class MyTestCase(unittest.TestCase):
+
     def test_aa_a(self):
         self.assertFalse(is_match('aa', 'a'))
 
