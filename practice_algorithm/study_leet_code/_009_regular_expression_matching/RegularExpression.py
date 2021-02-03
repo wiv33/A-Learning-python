@@ -1,2 +1,10 @@
 def is_match(s: str, p: str) -> bool:
-    return True
+    if p == ".*":
+        return True
+
+    for i, x in enumerate(p):
+        print(i, x)
+
+    return s == p
+
+
