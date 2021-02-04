@@ -39,7 +39,7 @@ x_train, x_test, y_train, y_test = train_test_split(df.iloc[:, :-1], df.iloc[:, 
 
 - compile args 확인하기
     * loss function
-        1. losses.mean_sqaured_error
+        1. losses.mean_squared_error
         2. losses.categorical_crossentropy
         3. losses.binary_crossentropy
 
