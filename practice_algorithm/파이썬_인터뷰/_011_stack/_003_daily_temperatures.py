@@ -20,3 +20,10 @@ def daily_temperatures(T: []) -> []:
         stack.append(i)
 
     return answer
+
+
+if __name__ == '__main__':
+    t = [73, 74, 75, 71, 69, 72, 76, 73]
+    expected = [1, 1, 4, 2, 1, 1, 0, 0]
+
+    assert expected == daily_temperatures(t)
