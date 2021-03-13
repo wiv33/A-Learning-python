@@ -27,7 +27,11 @@ x_train, y_train = x_train[extract_cnt:limit], y_train[extract_cnt:limit]
 x_eval, y_eval = x_train[:extract_cnt], y_train[:extract_cnt]
 
 # build model
+<<<<<<< HEAD
 inputs = layers.Input(shape=x_train.shape[1:])
+=======
+inputs = layers.Input(shape=(28, 28))
+>>>>>>> d836ceaed17a253908325663a1bf0903fc40b5a2
 H = layers.Flatten()(inputs)
 
 H = layers.Dense(784)(H)
