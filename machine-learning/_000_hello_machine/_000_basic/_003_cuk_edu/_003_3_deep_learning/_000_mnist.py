@@ -5,6 +5,7 @@ from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
 (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
 
@@ -55,3 +56,16 @@ history = model.fit(x_train,
 
 print(history.history['accuracy'])
 
+
+def plot_graphs(his, string):  # 그래프로 만들 함수
+    plt.plot(his.history[string])
+    plt.plot(his.history['val_' + string], '')
+    plt.xlabel("Epochs")
+    plt.ylabel(string)
+    plt.legend([string, 'val_' + string])
+    plt.show()
+
+
+plot_graphs(history, 'accuracy')
+plot_graphs(history, 'loss')
+plot_graphs(history, 'mse')
