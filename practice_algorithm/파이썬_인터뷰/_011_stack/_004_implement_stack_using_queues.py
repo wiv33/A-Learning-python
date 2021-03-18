@@ -15,6 +15,7 @@ class MyStack:
 
     def push(self, x):
         # api 활용
+<<<<<<< HEAD
         # self.q.appendleft(x)
         # 직접 구현
         self.q.append(x)
@@ -23,6 +24,16 @@ class MyStack:
 
     def top(self):
         return self.q.pop()
+=======
+        self.q.appendleft(x)
+        # 직접 구현
+        # self.q.append(x)
+        # for _ in range(len(self.q) - 1):
+        #     self.q.append(self.q.popleft())
+
+    def top(self):
+        return self.q[0]
+>>>>>>> refs/remotes/origin/master
 
     def pop(self):
         return self.q.popleft()
@@ -36,7 +47,12 @@ if __name__ == '__main__':
     s.push(1)
     s.push(2)
 
+<<<<<<< HEAD
     assert s.top() == 1
     assert s.pop() == 2
+=======
+    assert s.pop() == 2
+    assert s.pop() == 1
+>>>>>>> refs/remotes/origin/master
 
     assert s.is_empty()
