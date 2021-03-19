@@ -15,18 +15,18 @@ stop_words = stopwords.words('english')
 
 for sent in sent_text:
     sentence = word_tokenize(sent)
-    res = []
+    result = []
 
     for word in sentence:
         _word = word.lower()
         if word not in stop_words and len(word) > 2:
-            res.append(word)
+            result.append(word)
             if word not in vocabulary:
                 vocabulary[word] = 0
 
             vocabulary[word] += 1
 
-    sentences.append(res)
+    sentences.append(result)
 
 print(sentences)
 
