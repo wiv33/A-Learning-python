@@ -30,3 +30,19 @@ for sent in sent_text:
 
 print(sentences)
 
+print(vocabulary)
+
+# 두 번 이상 등장한 단어들의 빈도수 기준으로 단어에 정수값 부여하기
+sorted_vocabulary = sorted(vocabulary.items(), key=lambda x: x[1], reverse=True)
+print(sorted_vocabulary)
+
+integer_embedding = {}
+i = 0
+for (word, frequency) in sorted_vocabulary:
+    if frequency > 1:
+        i = i + 1
+        integer_embedding[word] = i
+
+print(integer_embedding)
+
+
