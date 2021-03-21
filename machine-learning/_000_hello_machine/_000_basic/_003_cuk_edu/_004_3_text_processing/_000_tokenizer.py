@@ -1,6 +1,9 @@
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk.corpus import stopwords
 
+import numpy as np
+from collections import Counter
+
 text = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam adipisci error suscipit minus quo assumenda ' \
        'culpa, veniam molestias dolorem voluptatum asperiores amet magni vitae est eaque reprehenderit quis vel fugit! '
 
@@ -45,4 +48,10 @@ for (word, frequency) in sorted_vocabulary:
 
 print(integer_embedding)
 
+# 빈도수 기준 정수 인코딩 - Counter
+words = np.hstack(sentences)
+print(words)
+
+vocabulary_counter = Counter(words)
+print(vocabulary_counter)
 
