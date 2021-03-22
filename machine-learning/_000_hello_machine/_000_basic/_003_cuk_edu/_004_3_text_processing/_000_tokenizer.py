@@ -55,3 +55,12 @@ print(words)
 vocabulary_counter = Counter(words)
 print(vocabulary_counter)
 
+vocab_size = 4
+common_vocabulary = vocabulary.most_common(vocab_size)
+print(common_vocabulary)
+
+
+integer_embedding = {}
+i = 0
+for (word, frequency) in common_vocabulary:
+    pass
