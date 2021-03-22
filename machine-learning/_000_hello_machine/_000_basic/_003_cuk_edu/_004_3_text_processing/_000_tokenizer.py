@@ -59,8 +59,18 @@ vocab_size = 4
 common_vocabulary = vocabulary.most_common(vocab_size)
 print(common_vocabulary)
 
-
+# Counter 활용
 integer_embedding = {}
 i = 0
 for (word, frequency) in common_vocabulary:
-    pass
+    i = i + 1
+    integer_embedding[word] = i
+
+print(integer_embedding)
+
+# Counter 활용 끝
+
+import numpy as np
+from collections import Counter
+
+print(sentences)
