@@ -66,6 +66,7 @@ def plot_graphs(his, string):  # 그래프로 만들 함수
     plt.show()
 
 
+# 그래픽 출력
 plot_graphs(history, 'accuracy')
 plot_graphs(history, 'loss')
 plot_graphs(history, 'mse')
