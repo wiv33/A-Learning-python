@@ -39,8 +39,8 @@ print(df, end='\n\n\n')
 
 # 여러 개 컬럼 apply 사용
 # row를 parameter로 전달한다.
-def get_introduce_2(row):
-    return 'i was born in' + str(row.year) + ' my age ' + str(row.age)
+def get_introduce_2(row) -> str:
+    return f'i was born in {str(row.year)} my age {str(row.age)}'
 
 
 df['introduce_2'] = df.apply(get_introduce_2, axis=1)

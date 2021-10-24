@@ -121,6 +121,7 @@ show_vocab = vocabs[:sz]
 show_tsne(show_X, show_vocab)
 show_pca(show_X, show_vocab)
 
+
 # HTML 만들기
 def show_html(x, vocabs):
     import plotly
