@@ -29,8 +29,6 @@ def runner_04(d: WebDriver):
     for i, x in enumerate(comment_list):
         print(f"[{i}] {x.find_element(By.CSS_SELECTOR, 'div p').text}")
 
-    d.quit()
-
 
 if __name__ == '__main__':
     deco = _003_daum_news_by_service.BrowserDecorator()
