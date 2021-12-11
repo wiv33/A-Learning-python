@@ -1,4 +1,4 @@
-# Scrapy settings for ecommerce project
+# Scrapy settings for yourself project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,14 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'ecommerce'
+BOT_NAME = 'yourself'
 
-SPIDER_MODULES = ['ecommerce.spiders']
-NEWSPIDER_MODULE = 'ecommerce.spiders'
+SPIDER_MODULES = ['yourself.spiders']
+NEWSPIDER_MODULE = 'yourself.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'ecommerce (+http://www.yourdomain.com)'
+#USER_AGENT = 'yourself (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -37,21 +37,21 @@ ROBOTSTXT_OBEY = True
 #TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-DEFAULT_REQUEST_HEADERS = {
-  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-  'Accept-Language': 'ko',
-}
+#DEFAULT_REQUEST_HEADERS = {
+#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+#   'Accept-Language': 'en',
+#}
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'ecommerce.middlewares.EcommerceSpiderMiddleware': 543,
+#    'yourself.middlewares.YourselfSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'ecommerce.middlewares.EcommerceDownloaderMiddleware': 543,
+#    'yourself.middlewares.YourselfDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -63,7 +63,7 @@ DEFAULT_REQUEST_HEADERS = {
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'ecommerce.pipelines.EcommercePipeline': 300,
+#    'yourself.pipelines.YourselfPipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)

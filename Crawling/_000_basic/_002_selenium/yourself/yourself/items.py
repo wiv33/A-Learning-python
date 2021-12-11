@@ -6,8 +6,7 @@
 import scrapy
 
 
-class EcommerceItem(scrapy.Item):
+class YourselfItem(scrapy.Item):
     # define the fields for your item here like:
-    title = scrapy.Field()
-    price = scrapy.Field()
+    # name = scrapy.Field()
     pass
