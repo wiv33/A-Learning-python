@@ -8,3 +8,4 @@ gradlew.bat
 data_in/
 db_info*
 private/
+dist/
