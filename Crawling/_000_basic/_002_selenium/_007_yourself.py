@@ -1,14 +1,17 @@
+import smtplib
+import ssl
+import time
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+import pandas as pd
 from pandas import DataFrame
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
-import pandas as pd
-import time
-
 from selenium.webdriver.support.wait import WebDriverWait
 
 
@@ -55,7 +58,7 @@ def login_yourself(d: WebDriver, df: DataFrame, idx: int):
     search = d.find_element(By.XPATH, '//*[@id="softBoardListLayer"]/div[2]/div[1]/table/tbody/tr[3]/td[2]/button/span')
     search.click()
 
-    element = WebDriverWait(d, 2).until(ec.presence_of_element_located(
+    element = WebDriverWait(d, 3).until(ec.presence_of_element_located(
         (By.CSS_SELECTOR, '#softBoardListLayer > div.layerContentsWrap > div.layerSchoolSelectWrap > ul > li > a')))
     element.click()
 
@@ -73,9 +76,9 @@ def login_yourself(d: WebDriver, df: DataFrame, idx: int):
 
 
 def password(d: WebDriver, pass_arr: []):
-    WebDriverWait(d, 2).until(ec.presence_of_element_located((By.CSS_SELECTOR, '#password'))).click()
+    WebDriverWait(d, 3).until(ec.presence_of_element_located((By.CSS_SELECTOR, '#password'))).click()
     # d.find_element(By.CSS_SELECTOR, '#password').click()
-    time.sleep(2)
+    time.sleep(3)
 
     for x in pass_arr:
         d.find_element(By.CSS_SELECTOR, "a[class^=transkey_div][aria-label='{}']".format(x)).click()
@@ -98,10 +101,6 @@ def start_yourself(d: WebDriver, child):
 
 def run_crawl():
     df = pd.read_json('db_info.json', 'r')
-    print(df.loc[0, 'password'])
-    print(df.loc[0, 'orgName'])
-    print(df.loc[0, 'userName'])
-    print(df.loc[0, 'birth'])
     s = init_service()
     d = webdriver.Chrome(service=s, options=init_options())
 
@@ -112,15 +111,61 @@ def run_crawl():
         time.sleep(1)
         start_yourself(d, 1)
         start_yourself(d, 2)
+        send_mail("covid-19 school is done")
         time.sleep(7)
-    except Exception as err:
-        print(err)
+    except Exception as errObj:
+        print(errObj)
+        send_mail(errObj.__str__())
         d.quit()
 
     d.quit()
-    pass
+
+
+def send_mail(subject):
+    df = pd.read_csv('mail_info.csv')
+    sender_email, receiver_email, pw, success, fail = df.loc[0]
+
+    print(sender_email, receiver_email, pw)
+
+    message = MIMEMultipart("alternative")
+    message["Subject"] = subject
+    message["From"] = sender_email
+    message["To"] = receiver_email
+
+    # Create the plain-text and HTML version of your message
+    text = """\
+        Hi,
+        How are you?
+        Real Python has many great tutorials:
+        www.realpython.com"""
+    html = f"""\
+        <html>
+          <body>
+            {success if subject.startswith('covid-19') else fail}
+          </body>
+        </html>
+        """
+
+    # Turn these into plain/html MIMEText objects
+    part1 = MIMEText(text, "plain")
+    part2 = MIMEText(html, "html")
+
+    # Add HTML/plain-text parts to MIMEMultipart message
+    # The email client will try to render the last part first
+    message.attach(part1)
+    message.attach(part2)
+
+    # Create secure connection with server and send email
+    context = ssl.create_default_context()
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+        server.login(sender_email, pw)
+        server.sendmail(
+            sender_email, receiver_email, message.as_string()
+        )
 
 
 if __name__ == '__main__':
-    run_crawl()
-    pass
+    try:
+        run_crawl()
+    except Exception as err:
+        print(err)

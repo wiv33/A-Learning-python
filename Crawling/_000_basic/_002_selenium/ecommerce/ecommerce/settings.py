@@ -12,6 +12,7 @@ BOT_NAME = 'ecommerce'
 SPIDER_MODULES = ['ecommerce.spiders']
 NEWSPIDER_MODULE = 'ecommerce.spiders'
 
+FEED_EXPORT_ENCODING = 'UTF-8'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'ecommerce (+http://www.yourdomain.com)'

@@ -9,3 +9,5 @@ data_in/
 db_info*
 private/
 dist/
+*_info*
+build
