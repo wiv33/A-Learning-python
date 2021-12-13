@@ -69,7 +69,7 @@ def login_yourself(d: WebDriver, df: DataFrame, idx: int):
     d.find_element(By.ID, 'user_name_input').send_keys(name)
 
     # 생년월일
-    d.find_element(By.ID, 'birthday_input').send_keys(100625)
+    d.find_element(By.ID, 'birthday_input').send_keys(df.loc[idx, 'brith'])
     d.find_element(By.ID, 'btnConfirm').click()
 
     password(d, df.loc[idx, 'password'])
