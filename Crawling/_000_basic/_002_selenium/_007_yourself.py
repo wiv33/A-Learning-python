@@ -22,10 +22,11 @@ def init_service():
 
 def init_options():
     options = webdriver.ChromeOptions()
-    # options.add_argument('headless')
+    options.add_argument('headless')
     options.add_argument('disable-gpu')
-    options.add_argument('user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 '
-                         '(KHTML, like Gecko) Chrome/96.0.4664.52 Whale/3.12.129.29 Safari/537.36')
+    options.add_argument("--window-size=1200x1000")
+    # options.add_argument('user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 '
+    #                      '(KHTML, like Gecko) Chrome/96.0.4664.52 Whale/3.12.129.29 Safari/537.36')
     options.add_argument('lang=ko_KR')
     options.add_argument('Cookie: WAF=a80222f7dca55f12978d17b23cbc44c5; _'
                          'JSESSIONID=0156DA8A6EEA102976B3EC0636D1BBE9229CC5F562D3CC4290BCD0E46D8E9B5AF7BFB63ACCCF33253CFC5DB031E7EF1144AC4F81AC64')
@@ -69,10 +70,10 @@ def login_yourself(d: WebDriver, df: DataFrame, idx: int):
     d.find_element(By.ID, 'user_name_input').send_keys(name)
 
     # 생년월일
-    d.find_element(By.ID, 'birthday_input').send_keys(df.loc[idx, 'birth'])
+    d.find_element(By.ID, 'birthday_input').send_keys((df.loc[idx, 'birth']).astype(str))
     d.find_element(By.ID, 'btnConfirm').click()
 
-    password(d, df.loc[idx, 'password'])
+    password(d, [x for x in df.loc[idx, 'password'].split(',')])
 
 
 def password(d: WebDriver, pass_arr: []):
@@ -100,7 +101,8 @@ def start_yourself(d: WebDriver, child):
 
 
 def run_crawl():
-    df = pd.read_json('db_info.json', 'r')
+    df = pd.read_csv('db_info.tsv', sep='\t')
+    print('read success db info')
     s = init_service()
     d = webdriver.Chrome(service=s, options=init_options())
 
