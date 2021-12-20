@@ -1,3 +1,6 @@
+import os
+import re
+import datetime
 import smtplib
 import ssl
 import time
@@ -77,12 +80,13 @@ def login_yourself(d: WebDriver, df: DataFrame, idx: int):
 
 
 def password(d: WebDriver, pass_arr: []):
+    time.sleep(3)
     WebDriverWait(d, 3).until(ec.presence_of_element_located((By.CSS_SELECTOR, '#password'))).click()
     # d.find_element(By.CSS_SELECTOR, '#password').click()
-    time.sleep(3)
+    time.sleep(2)
 
     for x in pass_arr:
-        d.find_element(By.CSS_SELECTOR, "a[class^=transkey_div][aria-label='{}']".format(x)).click()
+        d.find_element(By.CSS_SELECTOR, "a[class^=transkey_div][aria-label='{}']".format(re.sub('\\D', '', x))).click()
 
     d.find_element(By.ID, 'btnConfirm').click()
 
@@ -101,7 +105,7 @@ def start_yourself(d: WebDriver, child):
 
 
 def run_crawl():
-    df = pd.read_csv('db_info.tsv', sep='\t')
+    df = pd.read_csv(user_path('db_info.tsv'), sep='\t')
     print('read success db info')
     s = init_service()
     d = webdriver.Chrome(service=s, options=init_options())
@@ -114,17 +118,22 @@ def run_crawl():
         start_yourself(d, 1)
         start_yourself(d, 2)
         send_mail("covid-19 school is done")
+        print(f"complete time : {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         time.sleep(7)
     except Exception as errObj:
-        print(errObj)
+        print(errObj.__str__().encode('ascii', 'ignore').decode('ascii'))
         send_mail(errObj.__str__())
+        print('send error')
+    finally:
         d.quit()
 
-    d.quit()
+
+def user_path(last):
+    return f"{os.getcwd()}/{last}"
 
 
 def send_mail(subject):
-    df = pd.read_csv('mail_info.csv')
+    df = pd.read_csv(user_path('mail_info.csv'))
     sender_email, receiver_email, pw, success, fail = df.loc[0]
 
     print(sender_email, receiver_email, pw)
@@ -138,8 +147,7 @@ def send_mail(subject):
     text = """\
         Hi,
         How are you?
-        Real Python has many great tutorials:
-        www.realpython.com"""
+        """
     html = f"""\
         <html>
           <body>
@@ -167,7 +175,9 @@ def send_mail(subject):
 
 
 if __name__ == '__main__':
+    # export PYTHONIOENCODING=UTF-8
+    # setting cron [7,37 0,7,8 * * 1-5]
     try:
         run_crawl()
     except Exception as err:
-        print(err)
+        print(err.__str__().encode('UTF-8'))
