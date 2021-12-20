@@ -1,3 +1,4 @@
+import os
 from pandas import DataFrame
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -18,10 +19,10 @@ class AutoApproval:
     def __init__(self):
         self.options = webdriver.ChromeOptions()
         platform_ = platform.platform()
-        dp = './chromedriver.exe'
+        dp = user_path('chromedriver.exe')
         print(platform_)
         if platform_.lower().__contains__('mac'):
-            dp = './chromedriver'
+            dp = user_path('chromedriver')
         self.s = Service(dp)
         self.set_options()
 
@@ -40,11 +41,15 @@ class AutoApproval:
         return webdriver.Chrome(service=self.s, options=self.options)
 
 
+def user_path(last):
+    return f"{os.getcwd()}/{last}"
+
+
 if __name__ == '__main__':
     a = AutoApproval()
     d = a.create_browser()
     url = 'https://nhnent.dooray.com/mail/systems/inbox'
-    df = pd.read_csv('account_info.csv')
+    df = pd.read_csv(user_path('account_info.csv'))
 
     username, password = df.iloc[0]
     try:
@@ -55,13 +60,15 @@ if __name__ == '__main__':
         time.sleep(3)
 
         c = '결재_자동_승인'
-        category = WebDriverWait(d, 5).until(ec.presence_of_element_located((By.CSS_SELECTOR, f'mail-navi-user-folders.ng-scope > ul:nth-child(2) a[title="{c}"]')))
+        category = WebDriverWait(d, 5).until(ec.presence_of_element_located(
+            (By.CSS_SELECTOR, f'mail-navi-user-folders.ng-scope > ul:nth-child(2) a[title="{c}"]')))
 
         if not category:
             raise Exception(f'`{c}` 카테고리가 없습니다.')
 
-        WebDriverWait(d, 5).until(ec.presence_of_element_located((By.XPATH, '//*[@id="main-wrapper"]/section/mail-body-container/div/mail-navi/section/div/div'
-                                 '/ng-transclude/mail-navi-user-folders/ul/li[3]/div[1]/div/div/div/a'))).click()
+        WebDriverWait(d, 5).until(ec.presence_of_element_located(
+            (By.XPATH, '//*[@id="main-wrapper"]/section/mail-body-container/div/mail-navi/section/div/div'
+                       '/ng-transclude/mail-navi-user-folders/ul/li[3]/div[1]/div/div/div/a'))).click()
 
         time.sleep(2)
         elements = d.find_elements(By.CSS_SELECTOR, '.ng-scope.ng-isolate-scope.unread')
@@ -80,7 +87,7 @@ if __name__ == '__main__':
             print(ele.text)
             print('=' * 33)
             # approval
-            # WebDriverWait(d, 5).until(ec.presence_of_element_located((By.CSS_SELECTOR, 'a[text="승인"]'))).click()
+            # WebDriverWait(d, 5).until(ec.element_to_be_clickable((By.CSS_SELECTOR, '#devUserButtonLeft .btn.green'))).click()
             d.execute_script("apms_save('CM')")
             time.sleep(1)
 
