@@ -1,3 +1,4 @@
+import datetime
 import os
 from pandas import DataFrame
 from selenium import webdriver
@@ -50,7 +51,7 @@ if __name__ == '__main__':
     d = a.create_browser()
     url = 'https://nhnent.dooray.com/mail/systems/inbox'
     df = pd.read_csv(user_path('account_info.csv'))
-
+    complete_cnt = 0
     username, password = df.iloc[0]
     try:
         d.get(url)
@@ -73,10 +74,10 @@ if __name__ == '__main__':
         time.sleep(2)
         elements = d.find_elements(By.CSS_SELECTOR, '.ng-scope.ng-isolate-scope.unread')
         for x in elements:
-            print(x.text, end='===================\n')
+            # print(x.text, end='===================\n')
             if not x.text.startswith('결재'):
                 break
-
+            complete_cnt += 1
             x.click()
             WebDriverWait(d, 5).until(ec.presence_of_element_located((By.XPATH,
                                                                       '//*[@id="mailContentsView-subject-anchor"]/section/div[3]/div/div/div/div[4]/table/tbody/tr/td/a/span'))).click()
@@ -84,7 +85,7 @@ if __name__ == '__main__':
 
             d.switch_to.window(d.window_handles.__getitem__(1))
             ele = WebDriverWait(d, 5).until(ec.presence_of_element_located((By.ID, 'authRequestLines')))
-            print(ele.text)
+            # print(ele.text)
             print('=' * 33)
             # approval
             # WebDriverWait(d, 5).until(ec.element_to_be_clickable((By.CSS_SELECTOR, '#devUserButtonLeft .btn.green'))).click()
@@ -97,4 +98,5 @@ if __name__ == '__main__':
     except Exception as err:
         print(err)
     finally:
+        print(f"complete: {complete_cnt}, # {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         d.quit()
