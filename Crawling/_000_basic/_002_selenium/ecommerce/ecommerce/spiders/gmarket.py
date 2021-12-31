@@ -1,4 +1,5 @@
 import scrapy
+import re
 
 from ecommerce.items import EcommerceItem
 
@@ -23,6 +24,6 @@ class GmarketSpider(scrapy.Spider):
         for num, title in enumerate(titles):
             doc = EcommerceItem()
             doc['title'] = title
-            doc['price'] = prices[num]
+            doc['price'] = re.sub('[원, ]', '', prices[num])
             yield doc
         self.log('end')
