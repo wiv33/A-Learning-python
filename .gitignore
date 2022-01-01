@@ -11,3 +11,8 @@ private/
 dist/
 *_info*
 build
+*.txt
+*log*
+*.csv
+*.tsv
+*.json

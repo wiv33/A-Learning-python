@@ -12,16 +12,19 @@ BOT_NAME = 'ecommerce'
 SPIDER_MODULES = ['ecommerce.spiders']
 NEWSPIDER_MODULE = 'ecommerce.spiders'
 
+# json 인코딩
 FEED_EXPORT_ENCODING = 'UTF-8'
-
+# field 순서, 소문자는 하면 안 먹힘.
+FEED_EXPORT_FIELDS = ['main_category_name', 'sub_category_name', 'ranking', 'title', 'ori_price', 'dis_price', 'discount_percent']
+DUPEFILTER_CLASS = 'scrapy.dupefilters.BaseDupeFilter'
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'ecommerce (+http://www.yourdomain.com)'
-
+LOG_FILE = 'my_gmarket_log.txt'
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-#CONCURRENT_REQUESTS = 32
+CONCURRENT_REQUESTS = 32
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
@@ -63,9 +66,9 @@ DEFAULT_REQUEST_HEADERS = {
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {
-   'ecommerce.pipelines.EcommercePipeline': 300,
-}
+# ITEM_PIPELINES = {
+#    'ecommerce.pipelines.EcommercePipeline': 300,
+# }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
