@@ -103,5 +103,6 @@ if __name__ == '__main__':
     except Exception as err:
         print(err)
     finally:
-        print(f"complete: {complete_cnt}, # {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        if complete_cnt > 0:
+            print(f"complete: {complete_cnt}, # {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         d.quit()
