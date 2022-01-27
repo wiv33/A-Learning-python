@@ -17,6 +17,10 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 
 class AutoApproval:
+    """
+    crontab # 7,39 * * * * python3 /Users/nhn/PycharmProjects/A-Learning-python/Crawling/_000_basic/_002_selenium/_008_auto_approval.py
+    pyinstaller --onefile(-F) --name(-n) auto_approval /Users/nhn/PycharmProjects/A-Learning-python/Crawling/_000_basic/_002_selenium/_008_auto_approval.py # --target-arch x86_64
+    """
     def __init__(self):
         self.options = webdriver.ChromeOptions()
         platform_ = platform.platform()
