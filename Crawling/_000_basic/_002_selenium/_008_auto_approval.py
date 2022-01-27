@@ -68,7 +68,7 @@ if __name__ == '__main__':
         time.sleep(3)
 
         if d.find_element(By.XPATH, "//*[contains(text(), '서비스에 접근할 수 없습니다')]"):
-            raise Exception(f"SAP 연결을 확인해주세요. # {{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}}")
+            raise Exception(f"SAP 연결을 확인해주세요. # {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
 
         c = '결재_자동_승인'
