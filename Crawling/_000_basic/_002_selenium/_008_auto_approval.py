@@ -68,7 +68,7 @@ if __name__ == '__main__':
         time.sleep(3)
 
         if re.search('서비스에 접근할 수 없습니다', d.page_source):
-            raise Exception(f"SAP 연결을 확인해주세요. # {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+            raise Exception(f"fail SAP connection # {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
         c = '결재_자동_승인'
         category = WebDriverWait(d, 5).until(ec.presence_of_element_located(
