@@ -16,10 +16,15 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.wait import WebDriverWait
+import platform
 
 
 def init_service():
-    dp = '/usr/local/bin/chromedriver'
+    dp = user_path('chromedriver.exe')
+    platform_ = platform.platform()
+    print(f"{platform_} # {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    if platform_.lower().__contains__('mac'):
+        dp = user_path('chromedriver')
     return Service(dp)
 
 
@@ -27,7 +32,7 @@ def init_options():
     options = webdriver.ChromeOptions()
     options.add_argument('headless')
     options.add_argument('disable-gpu')
-    options.add_argument("--window-size=1200x1000")
+    options.add_argument("--window-size=1500x1000")
     # options.add_argument('user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 '
     #                      '(KHTML, like Gecko) Chrome/96.0.4664.52 Whale/3.12.129.29 Safari/537.36')
     options.add_argument('lang=ko_KR')
@@ -81,7 +86,8 @@ def login_yourself(d: WebDriver, df: DataFrame, idx: int):
 
 def password(d: WebDriver, pass_arr: []):
     time.sleep(3)
-    WebDriverWait(d, 3).until(ec.presence_of_element_located((By.CSS_SELECTOR, '#password'))).click()
+    WebDriverWait(d, 3).until(ec.presence_of_element_located(
+        (By.CSS_SELECTOR, '#WriteInfoForm > table > tbody > tr > td > div > button[title="가상키패드열기"]'))).click()
     # d.find_element(By.CSS_SELECTOR, '#password').click()
     time.sleep(2)
 

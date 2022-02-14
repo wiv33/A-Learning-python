@@ -28,7 +28,7 @@ class AutoApproval:
         self.options = webdriver.ChromeOptions()
         platform_ = platform.platform()
         dp = user_path('chromedriver.exe')
-        print(platform_)
+        print(f"{platform_} # {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         if platform_.lower().__contains__('mac'):
             dp = user_path('chromedriver')
         self.s = Service(dp)
@@ -39,7 +39,7 @@ class AutoApproval:
             self.options = options
             return
         self.options.add_argument('headless')
-        self.options.add_argument("--window-size=1200x1000")
+        self.options.add_argument("--window-size=1500x1000")
         self.options.add_argument('disable-gpu')
         # self.options.add_argument('user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 '
         #                           '(KHTML, like Gecko) Chrome/96.0.4664.52 Whale/3.12.129.29 Safari/537.36')
@@ -94,9 +94,9 @@ if __name__ == '__main__':
             time.sleep(3)
 
             d.switch_to.window(d.window_handles.__getitem__(1))
-            ele = WebDriverWait(d, 5).until(ec.presence_of_element_located((By.ID, 'authRequestLines')))
+            # ele = WebDriverWait(d, 5).until(ec.presence_of_element_located((By.ID, 'authRequestLines')))
             # print(ele.text)
-            print('=' * 33)
+            # print('=' * 33)
             # approval
             # WebDriverWait(d, 5).until(ec.element_to_be_clickable((By.CSS_SELECTOR, '#devUserButtonLeft .btn.green'))).click()
             d.execute_script("apms_save('CM')")
