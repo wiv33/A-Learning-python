@@ -11,8 +11,8 @@ function complete(trackId, actualTime, attempts) {
         return;
     }
 
-    if (!actualTime) {
-        console.log("공부한 시간을 입력해주세요.");
+    if (!actualTime || actualTime.split(":").length > 3 || actualTime.split(":").length < 2) {
+        console.log("공부한 시간을 시간:분:초 단위로 입력해주세요.\nex) 1:02:31");
         return;
     }
 
@@ -21,20 +21,16 @@ function complete(trackId, actualTime, attempts) {
     }
 
     function colonTimeToSeconds(colonTime) {
-        console.log(colonTime);
+        console.log("공부한 시간 # ", colonTime);
         let times = colonTime.split(":");
-        console.log(times);
-        if (times.length > 3) {
-            console.log("시간:분:초 단위로 입력해주세요.\nex) 1:02:31");
-        }
-
-        let result = 0;
+        let totalSeconds = 0;
         let length = times.length;
         for (let i = 0; i < length; i++) {
-            result += addTimes(times.pop(), i);
+            totalSeconds += addTimes(times.pop(), i);
         }
-        console.log(result);
-        return result + Math.round((Math.random() + Number.EPSILON) * 1000000) / 1000000;
+        let result = totalSeconds + Math.round((Math.random() + Number.EPSILON) * 1000000) / 1000000;
+        console.log("최종 공부한 초: ", result);
+        return result;
     }
 
     function addTimes(times, count) {
