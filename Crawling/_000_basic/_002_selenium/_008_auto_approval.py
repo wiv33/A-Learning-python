@@ -38,7 +38,7 @@ class AutoApproval:
         if options:
             self.options = options
             return
-        self.options.add_argument('headless')
+        # self.options.add_argument('headless')
         self.options.add_argument("--window-size=1500x1000")
         self.options.add_argument('disable-gpu')
         # self.options.add_argument('user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 '
@@ -64,11 +64,9 @@ if __name__ == '__main__':
         d.get(url)
         d.find_element(By.ID, 'username').send_keys(username)
         d.find_element(By.ID, 'password').send_keys(password)
+        time.sleep(1)
         d.find_element(By.CSS_SELECTOR, '.btn.btn-submit.btn-block').click()
         time.sleep(3)
-
-        if re.search('서비스에 접근할 수 없습니다', d.page_source):
-            raise Exception(f"failed SAP connection # {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
         c = '결재_자동_승인'
         category = WebDriverWait(d, 5).until(ec.presence_of_element_located(
