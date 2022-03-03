@@ -62,15 +62,19 @@ if __name__ == '__main__':
     username, password = df.iloc[0]
     try:
         d.get(url)
+        time.sleep(1)
+
         d.find_element(By.ID, 'username').send_keys(username)
         d.find_element(By.ID, 'password').send_keys(password)
-
         time.sleep(3)
+
         WebDriverWait(d, 5).until(ec.presence_of_element_located(
             (By.CSS_SELECTOR, '.btn.btn-submit.btn-block'))
         ).click()
         time.sleep(5)
 
+        if re.search('<span class="ng-scope">서비스에 접근할 수 없습니다.</span>', d.page_source):
+            raise Exception(f"failed SAP connection # {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         c = '결재_자동_승인'
         category = WebDriverWait(d, 5).until(ec.presence_of_element_located(
             (By.CSS_SELECTOR, f'mail-navi-user-folders.ng-scope > ul:nth-child(2) a[title="{c}"]')))
