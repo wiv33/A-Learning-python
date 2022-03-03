@@ -64,7 +64,7 @@ if __name__ == '__main__':
         d.get(url)
         d.find_element(By.ID, 'username').send_keys(username)
         d.find_element(By.ID, 'password').send_keys(password)
-        WebDriverWait(d, 3).until(ec.presence_of_element_located(
+        WebDriverWait(d, 5).until(ec.presence_of_element_located(
             (By.CSS_SELECTOR, '.btn.btn-submit.btn-block'))).click()
         time.sleep(3)
 
