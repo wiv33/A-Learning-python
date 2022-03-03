@@ -38,7 +38,7 @@ class AutoApproval:
         if options:
             self.options = options
             return
-        self.options.add_argument('headless')
+        # self.options.add_argument('headless')
         self.options.add_argument("--window-size=1500x1000")
         self.options.add_argument('disable-gpu')
         # self.options.add_argument('user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 '
@@ -64,6 +64,8 @@ if __name__ == '__main__':
         d.get(url)
         d.find_element(By.ID, 'username').send_keys(username)
         d.find_element(By.ID, 'password').send_keys(password)
+
+        time.sleep(3)
         WebDriverWait(d, 5).until(ec.presence_of_element_located(
             (By.CSS_SELECTOR, '.btn.btn-submit.btn-block'))
         ).click()
