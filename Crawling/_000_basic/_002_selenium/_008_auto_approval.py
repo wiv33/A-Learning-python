@@ -38,7 +38,7 @@ class AutoApproval:
         if options:
             self.options = options
             return
-        # self.options.add_argument('headless')
+        self.options.add_argument('headless')
         self.options.add_argument("--window-size=1500x1000")
         self.options.add_argument('disable-gpu')
         # self.options.add_argument('user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 '
@@ -65,7 +65,8 @@ if __name__ == '__main__':
         d.find_element(By.ID, 'username').send_keys(username)
         d.find_element(By.ID, 'password').send_keys(password)
         WebDriverWait(d, 5).until(ec.presence_of_element_located(
-            (By.CSS_SELECTOR, '.btn.btn-submit.btn-block'))).click()
+            (By.CSS_SELECTOR, '.btn.btn-submit.btn-block'))
+        ).click()
         time.sleep(5)
 
         c = '결재_자동_승인'
@@ -77,7 +78,8 @@ if __name__ == '__main__':
 
         WebDriverWait(d, 5).until(ec.presence_of_element_located(
             (By.XPATH, '//*[@id="main-wrapper"]/section/mail-body-container/div/mail-navi/section/div/div'
-                       '/ng-transclude/mail-navi-user-folders/ul/li[3]/div[1]/div/div/div/a'))).click()
+                       '/ng-transclude/mail-navi-user-folders/ul/li[3]/div[1]/div/div/div/a'))
+        ).click()
 
         time.sleep(2)
         elements = d.find_elements(By.CSS_SELECTOR, '.ng-scope.ng-isolate-scope.unread')
