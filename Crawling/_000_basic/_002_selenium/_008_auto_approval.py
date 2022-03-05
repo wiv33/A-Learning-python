@@ -20,10 +20,11 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 class AutoApproval:
     """
-    crontab # 7,39 * * * * python3 /Users/nhn/PycharmProjects/A-Learning-python/Crawling/_000_basic/_002_selenium/_008_auto_approval.py
+    crontab # 0,17,37,57 * * * * python /Users/nhn/PycharmProjects/A-Learning-python/Crawling/_000_basic/_002_selenium/_008_auto_approval.py
     pyinstaller --onefile(-F) --name(-n) auto_approval /Users/nhn/PycharmProjects/A-Learning-python/Crawling/_000_basic/_002_selenium/_008_auto_approval.py # --target-arch x86_64
     crontab # 7,39 * * * * 7,39 * * * * /Users/nhn/dist/auto_approval >> /Users/nhn/dist/auto_approval.log 2>&1
     """
+
     def __init__(self):
         self.options = webdriver.ChromeOptions()
         platform_ = platform.platform()
@@ -57,10 +58,12 @@ if __name__ == '__main__':
     a = AutoApproval()
     d = a.create_browser()
     url = 'https://nhnent.dooray.com/mail/systems/inbox'
-    df = pd.read_csv(user_path('account_info.csv'))
+
     complete_cnt = 0
-    username, password = df.iloc[0]
     try:
+        df = pd.read_csv(user_path('account_info.csv'))
+        username, password = df.iloc[0]
+
         d.get(url)
         time.sleep(1)
 
