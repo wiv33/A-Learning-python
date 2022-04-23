@@ -7,18 +7,21 @@
  */
 function complete(trackId, actualTime, attempts) {
     if (!trackId || trackId < 1) {
-        console.log("track id는 필수입니다.");
-        return;
+        trackId = document.querySelector("#page-mod-vod-viewer > script:nth-child(43)").innerText.split(",")[12].replaceAll('"', '').replace(/ /g, '')
+        console.log("기본 trackId로 대체합니다. ", trackId);
     }
 
     if (!actualTime || actualTime.split(":").length > 3 || actualTime.split(":").length < 2) {
         console.log("공부한 시간을 시간:분:초 단위로 입력해주세요.\nex) 1:02:31");
-        return;
+        actualTime = document.querySelector("#my-video > div.vjs-control-bar > div.vjs-duration.vjs-time-control.vjs-control > div").innerText;
+        console.log("입력 오류료 100%로 설정됩니다. :", actualTime);
     }
 
     if (!attempts || attempts < 1) {
         console.log("강의 시청은 한 번 하신 걸로 설정합니다.", attempts);
     }
+
+    M.pageloadstarttime = new Date(M.pageloadstarttime -= new Date().getMilliseconds() - (3800 * 1000))
 
     function colonTimeToSeconds(colonTime) {
         console.log("공부한 시간 # ", colonTime);
@@ -40,13 +43,14 @@ function complete(trackId, actualTime, attempts) {
         }
         return times * result
     }
+    let position = colonTimeToSeconds(actualTime);
 
     $('head').append('<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">');
     let obj = {
         "type": "vod_track_for_onwindow",
         "track": trackId,
         "state": 99,
-        "position": colonTimeToSeconds(actualTime),
+        "position": position,
         "attempts": attempts ? attempts : 1,
         "interval": 60000
     };
@@ -63,3 +67,5 @@ function complete(trackId, actualTime, attempts) {
         console.log(data);
     })
 }
+
+complete()
