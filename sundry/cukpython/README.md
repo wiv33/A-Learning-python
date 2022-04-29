@@ -1,1 +1,1 @@
-![complete.gif](complete.gif)ππ
+![complete.gif](complete.gif)
