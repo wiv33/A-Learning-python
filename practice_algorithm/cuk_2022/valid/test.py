@@ -21,7 +21,7 @@ class MyTestCase(unittest.TestCase):
                 self.assertFalse(isValid(x))
             except Exception as e:
                 print(i, x)
-                self.assertTrue(isValid(x))
+                self.assertFalse(isValid(x))
                 self.assertIsNotNone(e)
 
     def test_temp_true(self):
