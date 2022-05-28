@@ -5,7 +5,8 @@ from ValidSolution import isValid
 
 class MyTestCase(unittest.TestCase):
     def test_true(self):
-        true_list = ['()', "()[]{}", '((()))', '()', "([)]", "({[)]}", "{({[)]}}", "(){{[[]}}]"]
+        true_list = ['()', "()[]{}", '((()))', '{()(})', "([)]",
+                     "({[)]}", "{({[)]}}", "(){[]{[[]}}]"]
         for i, x in enumerate(true_list):
             try:
                 self.assertTrue(isValid(x))
@@ -15,7 +16,8 @@ class MyTestCase(unittest.TestCase):
                 self.assertIsNotNone(e)
 
     def test_false(self):
-        false_list = ["((())", "(]", "((]}", "(}]}", "}{][", "{][}", "}{][", "(}){", "(}[){]", "({]})["]
+        false_list = ["((())", "(]", "((]}", "(}]}", "}{][", "{][}", "}{][",
+                      "(}){", "(}[){]", "({]})[", "(((({}{{{"]
         for i, x in enumerate(false_list):
             try:
                 self.assertFalse(isValid(x))
