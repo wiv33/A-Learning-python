@@ -36,8 +36,8 @@ class OrderGroup:
         if not extract_unit:
             return int(clean_money) * self.unit_map.get('만')
 
-        extract_money = int(float(re.sub('[^0-9.]', '', clean_money)))
-        regular_money = (extract_money * self.unit_map.get(extract_unit.__getitem__(0)))
+        extract_money = float(re.sub('[^0-9.]', '', clean_money))
+        regular_money = int(extract_money * self.unit_map.get(extract_unit.__getitem__(0)))
         if regular_money % self.unit_map['백만'] != 0:
             self.most_add.append((i, regular_money, regular_money % self.unit_map['백만']))
 
