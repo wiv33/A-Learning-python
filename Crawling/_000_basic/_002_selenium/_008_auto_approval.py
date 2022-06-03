@@ -93,24 +93,21 @@ if __name__ == '__main__':
         time.sleep(2)
         elements = d.find_elements(By.CSS_SELECTOR, '.ng-scope.ng-isolate-scope.unread')
         for x in elements:
-            # print(x.text, end='===================\n')
             if not x.text.startswith('결재'):
                 break
-            complete_cnt += 1
             x.click()
             WebDriverWait(d, 5).until(ec.presence_of_element_located((By.XPATH,
-                                                                      '//*[@id="mailContentsView-subject-anchor"]/section/div[3]/div/div/div/div[4]/table/tbody/tr/td/a/span'))).click()
+                                                                      '//*[@id="mailContentsView-subject-anchor"]/section/div[3]/div/div/div/div/div[4]/table/tbody/tr/td/a/span'))).click()
             time.sleep(3)
 
             d.switch_to.window(d.window_handles.__getitem__(1))
-            # ele = WebDriverWait(d, 5).until(ec.presence_of_element_located((By.ID, 'authRequestLines')))
-            # print(ele.text)
-            # print('=' * 33)
-            # approval
-            # WebDriverWait(d, 5).until(ec.element_to_be_clickable((By.CSS_SELECTOR, '#devUserButtonLeft .btn.green'))).click()
             d.execute_script("apms_save('CM')")
             time.sleep(1)
 
+            isSuccess = WebDriverWait(d, 5).until(ec.presence_of_element_located((By.ID, 'apms_errorResultLayer')))
+            if str(isSuccess.get_attribute('display')).lower() != 'none':
+                print(isSuccess.get_attribute('display'))
+                complete_cnt += 1
             d.close()
             d.switch_to.window(d.window_handles.__getitem__(0))
 
