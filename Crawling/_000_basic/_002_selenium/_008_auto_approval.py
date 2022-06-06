@@ -39,7 +39,7 @@ class AutoApproval:
         if options:
             self.options = options
             return
-        self.options.add_argument('headless')
+        # self.options.add_argument('headless')
         self.options.add_argument("--window-size=1500x1000")
         self.options.add_argument('disable-gpu')
         # self.options.add_argument('user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 '
