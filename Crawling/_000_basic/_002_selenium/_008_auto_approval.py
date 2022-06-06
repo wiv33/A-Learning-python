@@ -101,13 +101,12 @@ if __name__ == '__main__':
             time.sleep(3)
 
             d.switch_to.window(d.window_handles.__getitem__(1))
-            d.execute_script("apms_save('CM')")
+            if WebDriverWait(d, 3).until(
+                    ec.element_to_be_clickable((By.CSS_SELECTOR, '#devUserButtonLeft.section_last > a.btn.green'))):
+                complete_cnt += 1
+                d.find_element(By.CSS_SELECTOR, '#devUserButtonLeft.section_last > a.btn.green').click()
             time.sleep(1)
 
-            isSuccess = WebDriverWait(d, 5).until(ec.presence_of_element_located((By.ID, 'apms_errorResultLayer')))
-            if str(isSuccess.get_attribute('display')).lower() != 'none':
-                print(isSuccess.get_attribute('display'))
-                complete_cnt += 1
             d.close()
             d.switch_to.window(d.window_handles.__getitem__(0))
 
