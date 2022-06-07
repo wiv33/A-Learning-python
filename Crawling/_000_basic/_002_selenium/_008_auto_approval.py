@@ -20,7 +20,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 class AutoApproval:
     """
-    crontab # 0,17,37,57 * * * * python /Users/nhn/PycharmProjects/A-Learning-python/Crawling/_000_basic/_002_selenium/_008_auto_approval.py
+    crontab # 0,17,37,57 * * * * PATH=/usr/local/bin python /Users/nhn/PycharmProjects/A-Learning-python/Crawling/_000_basic/_002_selenium/_008_auto_approval.py
     pyinstaller --onefile(-F) --name(-n) auto_approval /Users/nhn/PycharmProjects/A-Learning-python/Crawling/_000_basic/_002_selenium/_008_auto_approval.py # --target-arch x86_64
     crontab # 7,39 * * * * 7,39 * * * * /Users/nhn/dist/auto_approval >> /Users/nhn/dist/auto_approval.log 2>&1
     """
@@ -39,7 +39,7 @@ class AutoApproval:
         if options:
             self.options = options
             return
-        # self.options.add_argument('headless')
+        self.options.add_argument('headless')
         self.options.add_argument("--window-size=1500x1000")
         self.options.add_argument('disable-gpu')
         # self.options.add_argument('user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 '
