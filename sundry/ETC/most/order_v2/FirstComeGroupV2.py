@@ -23,6 +23,7 @@ class FirstComeGroupV2:
 
         self.money_group = self.init_money_group_json(money_list_plain)
         self.names = self.init_names(names_plain)
+        self.exclude_names = self.init_exclude_names()
         self.set_recruitment()
 
     def init_money_group_json(self, money_list_plain):
@@ -117,19 +118,16 @@ class FirstComeGroupV2:
                 if len(_.split(" ")) > 2:
                     _ = ' '.join(_.split(" ")[1:])
 
-                if not names_pop:
+                if not names_pop or _.split(" ")[0] in self.exclude_names:
                     continue
 
                 if recruit_money < names_pop:
                     t = max(recruit_money, names_pop)
                     m = min(recruit_money, names_pop)
 
-                    recruit_money -= (t - m)
+                    recruit_money = recruit_money - m
                     self.names.insert(0, (_, (t - m)))
                     recruit_names.append((_, names_pop - (t - m)))
-
-                    if recruit_money > 0:
-                        remaining_money += recruit_money
                     break
 
                 recruit_money -= names_pop
@@ -137,6 +135,9 @@ class FirstComeGroupV2:
 
             for m in most_add:
                 recruit_names.append(m)
+
+            if recruit_money > 0:
+                logging.error(f"error money !! : {recruit_money}\n{x}")
         pass
 
     def recruitment_money_print(self):
@@ -177,6 +178,12 @@ class FirstComeGroupV2:
             result.append(obj)
         return result
 
+    def init_exclude_names(self):
+        result = []
+        for x in [re.sub('[\n]', '', x) for x in open('exclude_names.txt').readlines()]:
+            print(' '.join(x.split(" ")[1:2]))
+            result.append(' '.join(x.split(" ")[1:2]))
+        return result
 
 if __name__ == '__main__':
     fg = FirstComeGroupV2('money_list_plain.txt', 'names_plain.txt')
