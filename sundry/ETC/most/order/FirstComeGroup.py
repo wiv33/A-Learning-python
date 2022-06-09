@@ -11,6 +11,8 @@ class OrderGroup:
         self.TO_WON: int = 1
         self.get_most_mod = lambda: '모스트 나머지'
         self.most_commission = 0.2
+        self.commission_ = (1.0 - self.most_commission)
+        self.interest = lambda money, inter: int(money * self.commission_ * inter)
 
         self.unit_map = {'억': self.TO_HUNDRED_MILLION,
                          '천': self.TO_THOUSAND,
@@ -18,13 +20,15 @@ class OrderGroup:
                          '만': self.TO_TEN_THOUSAND,
                          '원': self.TO_WON}
         self.most_add = []
-        self.recruitment_money_groups = [self.recruitment_money_group(name.replace("\n", '').split(" ")[0], name.replace("\n", '').split(" ")[1], idx) for
-                                         idx, name in
-                                         enumerate(open('money_list.txt').readlines())]
+        self.recruitment_money_groups = [
+            self.recruitment_money_group(name.replace("\n", '').split(" ")[0], name.replace("\n", '').split(" ")[1], idx)
+            for idx, name in enumerate(open('money_list.txt').readlines())]
         self.first_come_names = []
         self.filter_first_come_group()
         self.expected_total_money = sum([int(x[0]) for x in self.recruitment_money_groups]).__format__(',')
         for idx, k, price in self.most_add:
+            print(idx, k, price)
+            print(self.recruitment_money_groups)
             self.recruitment_money_groups.__getitem__(idx)[1].append((self.get_most_mod(), f"{price}"))
 
     def filter_first_come_group(self):
@@ -112,10 +116,12 @@ if __name__ == '__main__':
     print('모집 총 금액', orderGroup.expected_total_money)
     print("=" * 33)
     for result in orderGroup.result():
-        print(f"모집 금액: {format(result[0], ',')}")
+        print(f"모집 금액: {format(result[0], ',')}, 수수료: {result[2]}")
         for i, x in enumerate(result[1], 1):
             name = x[0]
             first_come_money = int(x[1])
-            print(f'{i}. {name} {(first_come_money.__format__(","))}')
+            apply_money = int(first_come_money / orderGroup.unit_map["만"])
+            interest = orderGroup.interest(first_come_money, float(result[2])).__format__(",")
+            print(f'{i}. {name} {apply_money}만, {interest}원')
 
         print("=" * 33)
