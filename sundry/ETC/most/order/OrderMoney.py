@@ -90,6 +90,6 @@ def remove_str(str_num):
 
 
 if __name__ == '__main__':
-    res = [x for x in open("./names.txt").readlines()]
+    res = [x for x in open("names.txt").readlines()]
     money_list = [x for x in open('money_list.txt').readlines()]
     print(result(res, money_list))
