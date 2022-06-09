@@ -150,28 +150,30 @@ class FirstComeGroupV2:
                 print(f'{i}. {name} {int(z[1] / self.unit_map.get("만")).__format__(",")}만')
             print()
 
-    @staticmethod
-    def to_json(key, value):
+    def to_json(self, key, obj):
         process_maps = {
-            'sta_date': lambda date_time: {'sta_date': str(date_time)},
-            'end_date': lambda date_time: {'end_date': str(date_time)},
-            'diff_date': lambda date_time: {'diff_date': date_time.days + 1},
-            'interest': lambda tup: {'interest': tup[0], 'interest_actually': tup[1]},
-            'money': lambda tup: {'money': tup[0], 'money_actually': tup[1]},
-            'names': lambda arr: {'names': [{'name': x[0], 'money': x[1]} for x in arr]}
+            'sta_date': lambda o: {'sta_date': str(o['sta_date'])},
+            'end_date': lambda o: {'end_date': str(o['end_date'])},
+            'diff_date': lambda o: {'diff_date': o['diff_date'].days + 1},
+            'interest': lambda o: {'interest': o['interest'][0], 'interest_actual': o['interest'][1]},
+            'money': lambda o: {'money': o['money'][0], 'money_actually': o['money'][1]},
+            'names': lambda o: {
+                'names': [{'name': x[0], 'money': x[1],
+                           'interest': self.most_interest(x[1], o['interest'][1])}
+                          for x in o['names']]}
         }
 
         if key not in process_maps.keys():
-            return {key: value}
+            return {key: obj[key]}
 
-        return process_maps[key](value)
+        return process_maps[key](obj)
 
     def recruitment_money_to_json(self):
         result = []
         for x in self.money_group:
             obj = {}
             for z in x.keys():
-                obj.update(self.to_json(z, x[z]))
+                obj.update(self.to_json(z, x))
             result.append(obj)
         return result
 
@@ -179,5 +181,4 @@ class FirstComeGroupV2:
 if __name__ == '__main__':
     fg = FirstComeGroupV2('money_list_plain.txt', 'names_plain.txt')
     fg.recruitment_money_print()
-    # print(fg.recruitment_money_to_json())
-
+    print(fg.recruitment_money_to_json())
