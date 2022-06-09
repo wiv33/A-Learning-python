@@ -99,13 +99,13 @@ class FirstComeGroupV2:
         for x in self.money_group:
             recruit_money, recruit_names = x['money'][1], x['names']
             if remaining_money > 0:
-                logging.error("remaining money exists: ", remaining_money)
+                logging.error(f"remaining money exists: {str(remaining_money)}")
                 recruit_money += remaining_money
                 remaining_money = 0
 
             most_add = []
             for i in range(len(recruit_names)):
-                self.names.insert(0, recruit_names.pop(0))
+                self.names.insert(0, recruit_names.pop())
 
             if recruit_money % self.unit_map['백만'] != 0:
                 most_mod = recruit_money % self.unit_map['백만']
@@ -142,7 +142,7 @@ class FirstComeGroupV2:
     def recruitment_money_print(self):
         for x in self.money_group:
             # print(x)
-            print(f"신규)\n{x['sta_date']} ~ {x['end_date']} {x['interest'][0]}\n{x['lender']}\n{x['money'][0]}")
+            print(f"신규)\n{x['sta_date']} ~ {x['end_date']} {x['interest'][0]}\n{x['lender']}\n{x['money'][0]}\n")
             for i, z in enumerate(x['names'], 1):
                 name = z[0]
                 if len(name.split(" ")) > 1:
