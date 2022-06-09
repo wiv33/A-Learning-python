@@ -95,8 +95,14 @@ class FirstComeGroupV2:
         return round(float(sub) * self.unit_map.__getitem__(target_unit))
 
     def set_recruitment(self):
+        remaining_money = 0
         for x in self.money_group:
             recruit_money, recruit_names = x['money'][1], x['names']
+            if remaining_money > 0:
+                logging.error("remaining money exists: ", remaining_money)
+                recruit_money += remaining_money
+                remaining_monπey = 0
+
             most_add = []
             for i in range(len(recruit_names)):
                 self.names.insert(0, recruit_names.pop(0))
@@ -118,8 +124,12 @@ class FirstComeGroupV2:
                     t = max(recruit_money, names_pop)
                     m = min(recruit_money, names_pop)
 
+                    recruit_money -= (t - m)
                     self.names.insert(0, (_, (t - m)))
                     recruit_names.append((_, names_pop - (t - m)))
+
+                    if recruit_money > 0:
+                        remaining_money += recruit_money
                     break
 
                 recruit_money -= names_pop
