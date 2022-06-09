@@ -101,7 +101,7 @@ class FirstComeGroupV2:
             if remaining_money > 0:
                 logging.error("remaining money exists: ", remaining_money)
                 recruit_money += remaining_money
-                remaining_monπey = 0
+                remaining_money = 0
 
             most_add = []
             for i in range(len(recruit_names)):
