@@ -27,36 +27,46 @@ class FirstComeGroupV2:
         self.set_recruitment()
 
     def init_money_group_json(self, money_list_plain):
-        even_data = re.split('(신규*\\S+)', re.sub('\n', '\t', open(money_list_plain).read()))
+        sub = re.sub('\n', '\t', open(money_list_plain).read())
+        even_data = re.split('(신규)', sub)
         result = []
         for x in range(0, len(even_data), 2):
             data = even_data[x]
             if not data.strip():
                 continue
-            split_data = [re.sub('(\t){2,5}', '\t', x) for x in re.split('(수수료.*%)', data) if x]
-            range_date, interest, money = split_data
-            dateset = self.clean_dateset(range_date)
-            interest = interest, (float(re.sub('[^.\\d]', '', interest)) * 0.01)
-            lender = re.sub('[ \t]{1,10}', ' ', re.sub('(\\d.*)', '', money)).strip(' ')
-            extract_money = self.to_unit_money(re.sub('[^\\d.억천백만원]', '', [x for x in re.split('\t', money) if x][0]))
-            first_list = [self.to_unit_money(x) for x in
-                          [re.sub('^(\\d{1,2}.)', '', x) for x in re.split('\t', money) if x][1:] if x]
 
-            result.append(
-                {
-                    'lender': lender,
-                    'sta_date': dateset['sta_date'],
-                    'end_date': dateset['end_date'],
-                    'diff_date': dateset['diff_date'],
-                    'interest': interest,
-                    'money': extract_money,
-                    'names': first_list
-                })
+            try:
+                split_data = [re.sub('[)]', '', re.sub('(\t){2,5}', '\t', x)).lstrip() for x in
+                              re.split('(수수료 .*%)', data) if x]
+                range_date, interest, money = split_data
+                dateset = self.clean_dateset(range_date)
+                interest = interest, (float(re.sub('[^.\\d]', '', interest)) * 0.01)
+                lender = re.sub('[ \t]{1,10}', ' ', re.sub('(\\d.*)', '', money)).strip(' ')
+                extract_money = self.to_unit_money(
+                    re.sub('([^\\d.억천백만]|(\\d|억|천|백|만)원)', '', [x for x in re.split('\t', money) if x][0]))
+                first_list = [self.to_unit_money(x) for x in
+                              [re.sub('^(\\d{1,2}.)', '', x) for x in re.split('\t', money) if x][1:] if x]
+
+                result.append(
+                    {
+                        'lender': lender,
+                        'sta_date': dateset['sta_date'],
+                        'end_date': dateset['end_date'],
+                        'diff_date': dateset['diff_date'],
+                        'interest': interest,
+                        'money': extract_money,
+                        'names': first_list
+                    })
+            except Exception as e:
+                print(e)
+                raise Exception("occurred error !!!!", e)
+
         return result
 
     @staticmethod
     def clean_dateset(param_range_date):
         range_date = re.sub('[\t ]', '', param_range_date)
+        range_date = re.sub('[^0-9월일~-]', '', range_date)
         sta, end = [x for x in re.split('[-~]', range_date) if x]
         sta = list(OrderedDict.fromkeys([x for x in re.split('(\\d{1,2}\\w)', sta) if x]))
         sta = re.sub('[월일]', '', "-".join(sta))
@@ -76,17 +86,13 @@ class FirstComeGroupV2:
     def to_unit_money(self, money: str) -> tuple:
         to_unit = ''.join(money.split(" ")[-1])
         to_unit = re.sub('[^\\d.억천백만]', '', to_unit)
+        to_unit = re.sub('(천만)', '천', to_unit)
 
-        if '억' in to_unit:
-            to_unit = self.to_actual_money(to_unit, '억')
-        elif '천' in to_unit:
-            to_unit = self.to_actual_money(to_unit, '천')
-        elif '백만' in to_unit:
-            to_unit = self.to_actual_money(to_unit, '백만')
-        elif '만' in to_unit or to_unit.isdigit():
-            to_unit = self.to_actual_money(to_unit, '만')
+        extract_unit = re.search('(백만)|[억천만원]', to_unit)
+        if not extract_unit:
+            return money, self.to_actual_money(to_unit, '만')
 
-        return money, to_unit
+        return money, self.to_actual_money(to_unit, extract_unit.__getitem__(0))
 
     def to_actual_money(self, to_unit, target_unit):
         sub = re.sub(target_unit, '', to_unit)
@@ -181,9 +187,11 @@ class FirstComeGroupV2:
     def init_exclude_names(self):
         result = []
         for x in [re.sub('[\n]', '', x) for x in open('exclude_names.txt').readlines()]:
-            print(' '.join(x.split(" ")[1:2]))
+            # print(' '.join(x.split(" ")[1:2]))
             result.append(' '.join(x.split(" ")[1:2]))
+        print(f'exclude names : {", ".join(result)}\n')
         return result
+
 
 if __name__ == '__main__':
     fg = FirstComeGroupV2('money_list_plain.txt', 'names_plain.txt')
