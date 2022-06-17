@@ -119,7 +119,7 @@ class FirstComeGroupV2:
                 recruit_money -= most_mod
                 most_add.append(('모스트_나머지', most_mod))
 
-            while recruit_money >= 0 or self.names.__len__() > 1:
+            while recruit_money > 0 or self.names.__len__() > 1:
                 _, names_pop = self.names.pop(0)
                 if len(_.split(" ")) > 2:
                     _ = ' '.join(_.split(" ")[1:])
@@ -130,6 +130,10 @@ class FirstComeGroupV2:
                 if recruit_money < names_pop:
                     t = max(recruit_money, names_pop)
                     m = min(recruit_money, names_pop)
+
+                    if (t - m) == names_pop:
+                        self.names.insert(0, (_, (t - m)))
+                        break
 
                     recruit_money = recruit_money - m
                     self.names.insert(0, (_, (t - m)))
