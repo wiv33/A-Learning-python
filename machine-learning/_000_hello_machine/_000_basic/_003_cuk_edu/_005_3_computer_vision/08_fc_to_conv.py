@@ -54,7 +54,7 @@ cell = 7 x 7, anchor = 2개, class = 3인 경우
 ->> 7 x 7 x 2 x (5 + 3) = 784개
 
 cell = 19 x 19, anchor = 9개, class = 80인 경우
-->> 19 x 19 x 9 x (5 + 80) = 276,165개
+->> 19 x 19 x 9 x (5 + 80) = 3,249개
 
 
 anchor 박스는 k-means clustering 으로 사전에 분류함.
