@@ -3,6 +3,7 @@ import re
 from collections import OrderedDict
 from datetime import datetime, timedelta
 import logging
+import platform
 
 
 class FirstComeGroupV2:
@@ -13,6 +14,7 @@ class FirstComeGroupV2:
         self.TO_TEN_THOUSAND: int = 10_000
         self.TO_WON: int = 1
         self.most_commission = 0.2
+        self.platform_exec = self.for_mac if platform.platform().__contains__('mac') else self.for_windows
         self.commission_ = (1.0 - self.most_commission)
         self.most_interest = lambda money, inter: int(money * self.commission_ * inter)
         self.unit_map = {'억': self.TO_HUNDRED_MILLION,
@@ -81,7 +83,7 @@ class FirstComeGroupV2:
                 'diff_date': end - sta}
 
     def init_names(self, names_plain):
-        return [self.to_unit_money(re.sub('[\n]', '', x)) for x in open(names_plain).readlines()]
+        return [self.to_unit_money(re.sub('[\n]', '', x)) for x in self.clean_names(open(names_plain).readlines())]
 
     def to_unit_money(self, money: str) -> tuple:
         to_unit = ''.join(money.split(" ")[-1])
@@ -151,15 +153,17 @@ class FirstComeGroupV2:
         pass
 
     def recruitment_money_print(self):
+        result = []
         for x in self.money_group:
             # print(x)
-            print(f"신규)\n{x['sta_date']} ~ {x['end_date']} {x['interest'][0]}\n{x['lender']}\n{x['money'][0]}\n")
+            result.append(f"신규)\n{x['sta_date']} ~ {x['end_date']} {x['interest'][0]}\n{x['lender']}\n{x['money'][0]}\n")
             for i, z in enumerate(x['names'], 1):
                 name = z[0]
                 if len(name.split(" ")) > 1:
                     name = name.split(" ")[0]
-                print(f'{i}. {name} {int(z[1] / self.unit_map.get("만")).__format__(",")}만')
-            print()
+                result.append(f'{i}. {name} {int(z[1] / self.unit_map.get("만")).__format__(",")}만')
+            result.append('\n')
+        return result
 
     def to_json(self, key, obj):
         process_maps = {
@@ -196,8 +200,24 @@ class FirstComeGroupV2:
         print(f'exclude names : {", ".join(result)}\n')
         return result
 
+    def clean_names(self, name_text: []):
+        return self.platform_exec(name_text)
+
+    @staticmethod
+    def for_mac(name_text: []):
+        for i, x in enumerate(name_text):
+            _x_split = re.split(' ', x)
+            if len(_x_split) > 3:
+                name_text[i] = ' '.join([_x_split[0], (''.join(_x_split[1:-1])), _x_split[-1]])
+        return name_text
+
+    @staticmethod
+    def for_windows(name_text: []):
+
+        return name_text
+
 
 if __name__ == '__main__':
     fg = FirstComeGroupV2('money_list_plain.txt', 'names_plain.txt')
-    fg.recruitment_money_print()
+    print('\n'.join(fg.recruitment_money_print()))
     print(fg.recruitment_money_to_json())

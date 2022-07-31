@@ -1,20 +1,14 @@
 import datetime
 import os
+import platform
 import re
-
-from pandas import DataFrame
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.webdriver import WebDriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as ec
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import Select
-import pandas as pd
 import time
 
-import platform
-
+import pandas as pd
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
 
 
@@ -101,10 +95,16 @@ if __name__ == '__main__':
             time.sleep(3)
 
             d.switch_to.window(d.window_handles.__getitem__(1))
-            if WebDriverWait(d, 3).until(
+            if WebDriverWait(d, 4).until(
                     ec.element_to_be_clickable((By.CSS_SELECTOR, '#devUserButtonLeft.section_last > a.btn.green'))):
-                complete_cnt += 1
-                d.find_element(By.CSS_SELECTOR, '#devUserButtonLeft.section_last > a.btn.green').click()
+                btn = WebDriverWait(d, 5).until(
+                    ec.presence_of_element_located((By.CSS_SELECTOR, '#devUserButtonLeft.section_last > a.btn.green')))
+                if btn:
+                    complete_cnt += 1
+                    btn.click()
+                else:
+                    continue
+
             time.sleep(1)
 
             d.close()
