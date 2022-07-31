@@ -1,8 +1,8 @@
 import tensorflow as tf
 from tensorflow import keras
-from tensorflow.keras import layers, models, activations, optimizers, losses, utils
-from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
-
+from keras import layers, models, activations, optimizers, losses, utils
+from keras.callbacks import EarlyStopping, ModelCheckpoint
+tf.debugging.set_log_device_placement(True)
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
