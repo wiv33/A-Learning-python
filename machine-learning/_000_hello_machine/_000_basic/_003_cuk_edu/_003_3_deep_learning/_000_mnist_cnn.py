@@ -1,13 +1,14 @@
+
 import numpy as np
 from keras.datasets import mnist
-from tensorflow.keras import layers, models, utils, callbacks
+from keras import layers, models, utils, callbacks
 # LOAD LIBRARIES
 from sklearn.model_selection import train_test_split
 from keras.utils.np_utils import to_categorical
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Flatten, Conv2D, MaxPool2D, AvgPool2D, BatchNormalization, Activation
 import matplotlib.pyplot as plt
-
+import tensorflow as tf
 # tag::load data[]
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
 # end::load data[]
@@ -41,36 +42,21 @@ y_train, y_eval = y_train[:50000], y_train[50000:]
 # end::divide train data and eval data[]
 
 
+tf.debugging.set_log_device_placement(True)
+gpus = tf.config.experimental.list_physical_devices('GPU')
+if gpus:  # gpu가 있다면, 용량 한도를 5GB로 설정
+  tf.config.experimental.set_virtual_device_configuration(gpus[0],
+        [tf.config.experimental.VirtualDeviceConfiguration(memory_limit=4*1024)])
+
+
 # tag::build model[]
 model = models.Sequential()
 
-model.add(Conv2D(32,kernel_size=3,input_shape=(28,28,1)))
+model.add(Conv2D(5,kernel_size=3,input_shape=(28,28,1)))
 model.add(BatchNormalization())
 model.add(Activation('relu'))
-model.add(Conv2D(32,kernel_size=3,))
-model.add(BatchNormalization())
-model.add(Activation('relu'))
-model.add(Conv2D(32,kernel_size=5,strides=2,padding='same',))
-model.add(BatchNormalization())
-model.add(Activation('relu'))
-model.add(Dropout(0.4))
-
-model.add(Conv2D(64,kernel_size=3,))
-model.add(BatchNormalization())
-model.add(Activation('relu'))
-model.add(Conv2D(64,kernel_size=3,))
-model.add(BatchNormalization())
-model.add(Activation('relu'))
-model.add(Conv2D(64,kernel_size=5,strides=2,padding='same',))
-model.add(BatchNormalization())
-model.add(Activation('relu'))
-model.add(Dropout(0.4))
 
 model.add(Flatten())
-model.add(Dense(128))
-model.add(BatchNormalization())
-model.add(Activation('relu'))
-model.add(Dropout(0.4))
 model.add(Dense(10, activation='softmax'))
 
 model.compile(loss='categorical_crossentropy',
@@ -83,7 +69,7 @@ print(model.summary())
 # 학습 시작
 history = model.fit(x_train, y_train,
                     epochs=20,
-                    batch_size=64,
+                    batch_size=1,
                     verbose=True,
                     validation_data=(x_test, y_test))
 
