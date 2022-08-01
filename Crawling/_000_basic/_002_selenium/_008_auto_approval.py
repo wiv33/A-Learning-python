@@ -35,7 +35,7 @@ class AutoApproval:
             return
         self.options.add_argument('headless')
         self.options.add_argument("--window-size=1500x1000")
-        self.options.add_argument('disable-gpu')
+        # self.options.add_argument('disable-gpu')
         # self.options.add_argument('user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 '
         #                           '(KHTML, like Gecko) Chrome/96.0.4664.52 Whale/3.12.129.29 Safari/537.36')
         self.options.add_argument('lang=ko_KR')
@@ -95,15 +95,22 @@ if __name__ == '__main__':
             time.sleep(3)
 
             d.switch_to.window(d.window_handles.__getitem__(1))
-            if WebDriverWait(d, 4).until(
-                    ec.element_to_be_clickable((By.CSS_SELECTOR, '#devUserButtonLeft.section_last > a.btn.green'))):
-                btn = WebDriverWait(d, 5).until(
-                    ec.presence_of_element_located((By.CSS_SELECTOR, '#devUserButtonLeft.section_last > a.btn.green')))
-                if btn:
-                    complete_cnt += 1
-                    btn.click()
-                else:
-                    continue
+            try:
+                if WebDriverWait(d, 4).until(
+                        ec.element_to_be_clickable((By.CSS_SELECTOR, '#devUserButtonLeft.section_last > a.btn.green'))):
+                    btn = WebDriverWait(d, 5).until(
+                        ec.presence_of_element_located((By.CSS_SELECTOR, '#devUserButtonLeft.section_last > a.btn.green')))
+                    if btn:
+                        complete_cnt += 1
+                        btn.click()
+                    else:
+                        d.close()
+                        continue
+            except Exception as e:
+                print(e)
+                d.close()
+                d.switch_to.window(d.window_handles.__getitem__(0))
+                continue
 
             time.sleep(1)
 
