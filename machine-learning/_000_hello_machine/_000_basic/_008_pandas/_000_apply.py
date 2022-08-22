@@ -45,3 +45,4 @@ def get_introduce_2(row) -> str:
 
 df['introduce_2'] = df.apply(get_introduce_2, axis=1)
 print(df)
+
