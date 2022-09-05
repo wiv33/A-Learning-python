@@ -62,7 +62,8 @@ cnt_dict: {str: int} = {}
 @app.route("/sample", methods=["POST"])
 def sample_payload_cnt():
     data = json.loads(request.data)
-    file_name = data['fileName']
+    print(request.headers)
+    file_name = request.headers.get("Header")
     print(file_name, len(str(data)))
     if file_name in cnt_dict:
         get_item = cnt_dict.get(file_name, file_name)
@@ -98,6 +99,8 @@ def get_cnt():
 
 
 if __name__ == '__main__':
+    from werkzeug.serving import WSGIRequestHandler
+    WSGIRequestHandler.protocol_version = "HTTP/1.1"
     app.run(host="localhost",
             port=5000,
             debug=True)
