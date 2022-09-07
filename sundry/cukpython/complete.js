@@ -13,7 +13,7 @@ function complete(trackId, actualTime, attempts) {
 
     if (!actualTime || actualTime.split(":").length > 3 || actualTime.split(":").length < 2) {
         console.log("공부한 시간을 시간:분:초 단위로 입력해주세요.\nex) 1:02:31");
-        actualTime = document.querySelector("#my-video > div.vjs-control-bar > div.vjs-duration.vjs-time-control.vjs-control > div").innerText;
+        actualTime = document.querySelector("#my-video > div.vjs-control-bar > div.vjs-progress-control.vjs-control > div > div.vjs-mouse-display > div").innerText;
         console.log("입력 오류료 100%로 설정됩니다. :", actualTime);
     }
 
