@@ -1,4 +1,5 @@
 import collections
+import logging
 
 import flask
 from flask import Flask, request
@@ -58,20 +59,26 @@ import json
 
 cnt_dict: {str: int} = {}
 
+import logging
+
 
 @app.route("/sample", methods=["POST"])
-def sample_payload_cnt():
-    data = json.loads(request.data)
-    print(request.headers)
+def sample_payload():
+    logging.info("req : {}", request.headers.get("Header"))
+    import asyncio
+    asyncio.run(update_dict(request))
+    return "success"
+
+
+async def update_dict(request):
     file_name = request.headers.get("Header")
-    print(file_name, len(str(data)))
+    data = json.loads(request.data)
+    logging.info(file_name, len(str(data)))
     if file_name in cnt_dict:
         get_item = cnt_dict.get(file_name, file_name)
         cnt_dict.update({file_name: int(get_item) + 1})
     else:
         cnt_dict.setdefault(file_name, 1)
-
-    return cnt_dict
 
 
 @app.route("/sample-rest", methods=["POST"])
@@ -95,7 +102,7 @@ def sample_payload_xml():
 
 @app.route("/cnt", methods=["GET"])
 def get_cnt():
-    return cnt_dict
+    return {"a_total": len(cnt_dict.values()), "body": cnt_dict}
 
 
 if __name__ == '__main__':
