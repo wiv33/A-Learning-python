@@ -64,14 +64,15 @@ import logging
 
 @app.route("/sample", methods=["POST"])
 def sample_payload():
-    logging.info("req : {}", request.headers.get("Header"))
+    logging.info("req : {}", request.headers.get("Filename"))
+    print(request.headers)
     import asyncio
     asyncio.run(update_dict(request))
     return "success"
 
 
 async def update_dict(request):
-    file_name = request.headers.get("Header")
+    file_name = request.headers.get("Filename")
     data = json.loads(request.data)
     logging.info(file_name, len(str(data)))
     if file_name in cnt_dict:
