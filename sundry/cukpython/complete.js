@@ -13,7 +13,7 @@ function complete(trackId, actualTime, attempts) {
 
     if (!actualTime || actualTime.split(":").length > 3 || actualTime.split(":").length < 2) {
         console.log("공부한 시간을 시간:분:초 단위로 입력해주세요.\nex) 1:02:31");
-        actualTime = document.querySelector("div.vjs-progress-control.vjs-control > div").ariaValueText.substring(9)
+        actualTime = document.querySelector("div.vjs-progress-control.vjs-control > div").ariaValueText.split("of")[1].replace(/ /g, "")
         console.log("입력 오류료 100%로 설정됩니다. :", actualTime);
     }
 
@@ -68,4 +68,4 @@ function complete(trackId, actualTime, attempts) {
     })
 }
 
-complete()
+complete()π
