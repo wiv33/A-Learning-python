@@ -336,6 +336,22 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(two[0] * by_two[0], two_)
         print(two, by_two)
 
+        print("-=" * 33)
+
+        a = np.array([
+            [1, -2, 2],
+            [2, 0, -1],
+            [1, -2, 0]
+        ])
+
+        b = np.array([
+            [-1, 1, -1],
+            [0, -3, 2],
+            [2, 0, 1]
+        ])
+
+        print(a.dot(b))
+
     def test_for_example_15(self):
         """ 역행렬의 행렬식
         : 행렬 A의 역행렬 A^-1의 행렬식은
@@ -466,9 +482,9 @@ class MyTestCase(unittest.TestCase):
         """
 
         A = np.array([
-            [1, -2, 0],
-            [3, 1, 2],
-            [1, 2, 1]
+            [1, 0, -1],
+            [0, -2, 1],
+            [1, 2, -1]
         ])
 
         """
@@ -539,10 +555,49 @@ class MyTestCase(unittest.TestCase):
         ])
 
         result = Determinant(A).final_result()
+        print('det a = ', result)
         res = Fraction(1, result) * ad_joint_A
         print(res)
         print(res.astype(float))
 
 
+## test
+    def test_1(self):
+        "여인수 c24"
+        a = [
+            [1, 2, 5, 4],
+            [-1, -4, 3, 4],
+            [-2, 0, -2, 1],
+            [1, 2, 2, 1]
+        ]
+        determinant = Determinant(a)
+        determinant.minor_determinant((1, 3))
+        result = determinant.sarrus2_n_by_n()
+
+        print(result)
+
+    def test_17(self):
+
+        print('%0.02f%%' % angle(np.array([1, -1, 0]), np.array([0, 1, 1])))
+
+    def test_2(self):
+        A = np.array([
+            [6, 3, 1],
+            [2, 7, 1],
+            [1, 2, 3]
+        ])
+        print(Determinant(A).final_result())
+        self.assertEqual(96, Determinant(A).final_result())
+
+import math
+
+def dotproduct(v1, v2):
+  return sum((a*b) for a, b in zip(v1, v2))
+
+def length(v):
+  return math.sqrt(dotproduct(v, v))
+
+def angle(v1, v2):
+  return math.acos(dotproduct(v1, v2) / (length(v1) * length(v2)))
 if __name__ == '__main__':
     unittest.main()
