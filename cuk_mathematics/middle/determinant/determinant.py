@@ -79,7 +79,6 @@ class Determinant:
                       f" * (m{selected_row}{x} = {cofactor[1]})")
             result.append(temp_element)
 
-        print(result)
         return sum(result)
 
     def minor_determinant(self, deleted_by):
