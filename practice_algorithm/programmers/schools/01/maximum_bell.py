@@ -3,10 +3,11 @@ def solution(bell):
     end = {}
 
     convert_list = [-1 if x == 1 else 1 for x in bell]
-    acc = [0] * (len(convert_list))
-
+    acc = [0] * len(convert_list)
+    temp_val = 0
     for x in range(len(convert_list)):
-        acc[x] = sum(convert_list[:x])
+        temp_val += convert_list[x]
+        acc[x] = temp_val
 
     for i, x in enumerate(acc):
         if x not in start:
