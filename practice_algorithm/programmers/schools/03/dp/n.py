@@ -35,7 +35,6 @@ def solution(N, number):
         else:
             answer = -1
 
-
     return answer
 
 
