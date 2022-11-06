@@ -24,3 +24,4 @@ class TestVector7(TestCase):
         norm = Vector7(a, 2).get_norm()
         print(norm)
 
+
