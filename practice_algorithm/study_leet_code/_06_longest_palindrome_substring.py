@@ -3,7 +3,8 @@
 
 def longest_palindrome_substring(s: str) -> str:
 
-    def expend(left: int, right: int) -> str:
+    def expend(_left: int, _right: int) -> str:
+        left, right = _left, _right
         while left >= 0 and right < len(s) and s[left] == s[right - 1]:
             left -= 1
             right += 1
@@ -26,3 +27,4 @@ if __name__ == '__main__':
     assert "bab" == longest_palindrome_substring("babad")
     assert "bb" == longest_palindrome_substring("cbbd")
     assert "c" == longest_palindrome_substring("c")
+    print("success")
