@@ -111,9 +111,9 @@ class AddMember:
             "name": lambda n: n,
             "nick_name": lambda n: n,
             "id": 'dtest',
-            "password": "nhn!@#123",
-            "password_check": "nhn!@#123",
-            "external_email": 'psawesome@nhnsoft.com',
+            "password": "",
+            "password_check": "",
+            "external_email": '',
             "odm_base_date": lambda date: date,
             "birthday": lambda date: date,
         }
