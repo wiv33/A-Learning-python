@@ -1,7 +1,9 @@
+# https://leetcode.com/problems/product-of-array-except-self
 from unittest import TestCase
 
 
 def multiple_without_me(data: [int]) -> [int]:
+    print(data)
     result = []
     p = 1
 
