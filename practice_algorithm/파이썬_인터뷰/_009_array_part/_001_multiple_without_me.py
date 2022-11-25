@@ -3,22 +3,19 @@ from unittest import TestCase
 
 
 def multiple_without_me(data: [int]) -> [int]:
-    print(data)
-    result = []
+    acc = []
     p = 1
 
     for i in range(len(data)):
-        result.append(p)
-        p = p * data[i]
+        acc.append(p)  # 자기 값은 제외하고
+        p = p * data[i]  # 왼쪽부터 누적 p 곱셈
 
-    print(result)
     p = 1
     for i in range(len(data) - 1, -1, -1):
-        result[i] = p * result[i]
-        p = p * data[i]
+        acc[i] = p * acc[i]  # 누적 p에 왼쪽부터 곱셈된 값으로 update
+        p = p * data[i]  # 누적 p 오른쪽부터 누적시키기
 
-    print(result)
-    return result
+    return acc
 
 
 class TestMultipleWithoutMe(TestCase):
