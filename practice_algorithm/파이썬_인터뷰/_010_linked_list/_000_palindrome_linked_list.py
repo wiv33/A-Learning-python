@@ -28,22 +28,20 @@ assert result
 res = is_palindrome_the_linked_list(ListNode(1, ListNode(2)))
 assert not res
 
-import collections
-
 
 def is_palindrome_deque_v(head: ListNode) -> bool:
+    from collections import deque
+    deq = deque()
+
     if not head:
         return True
 
-    deque: [] = collections.deque()
-    node = head
+    while head:
+        deq.append(head.val)
+        head = head.next
 
-    while node:
-        deque.append(node.val)
-        node = node.next
-
-    while len(deque) > 1:
-        if deque.popleft() != deque.pop():
+    while len(deq) > 1:
+        if deq.pop() != deq.popleft():
             return False
 
     return True
