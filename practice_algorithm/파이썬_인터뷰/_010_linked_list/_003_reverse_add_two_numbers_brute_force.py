@@ -42,4 +42,4 @@ class Solution:
 
 
 solution = Solution(ListNode(2, ListNode(4, ListNode(3))), ListNode(5, ListNode(6, ListNode(4))))
-print(solution.add_two_sum())
+print(solution.add_two_sum().val)

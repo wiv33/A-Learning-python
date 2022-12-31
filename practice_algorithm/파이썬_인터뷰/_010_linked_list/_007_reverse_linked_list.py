@@ -27,7 +27,7 @@ def reverse_list_assert(func):
         actual, expected = actual.next, expected.next
 
 
-def reverse_list_for(head: ListNode) -> ListNode:
+def reverse_list_forloop(head: ListNode) -> ListNode:
     node, prev = head, None
 
     while node:
@@ -39,4 +39,4 @@ def reverse_list_for(head: ListNode) -> ListNode:
 
 if __name__ == '__main__':
     reverse_list_assert(reverse_list)
-    reverse_list_assert(reverse_list_for)
+    reverse_list_assert(reverse_list_forloop)
