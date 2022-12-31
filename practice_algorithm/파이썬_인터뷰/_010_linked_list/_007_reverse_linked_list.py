@@ -1,7 +1,7 @@
 from _006_merge_two_sorted_lists import ListNode
 
 
-# https://leetcode.com/problems/reverse-lined-list/
+# https://leetcode.com/problems/reverse-linked-list/
 #
 
 # input: 1->2->3->4->5->null

@@ -5,6 +5,9 @@ class ListNode:
 
 
 def odd_even_list_node(head: ListNode):
+    if head is None:
+        return None
+
     odd = head
     even = head.next
     even_head = head.next

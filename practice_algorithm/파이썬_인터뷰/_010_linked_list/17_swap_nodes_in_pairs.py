@@ -1,8 +1,6 @@
 from practice_algorithm.파이썬_인터뷰._010_linked_list.LinkedNode import ListNode
 
 
-# https://www.figma.com/file/zwgIYjBbDm7drOB9c7G19i/swap_pairs_node?node-id=682%3A4066&t=KkOWbobDVY6Cd9qA-1
-
 class Solution:
 
     def __init__(self, head: ListNode):
@@ -18,6 +16,7 @@ class Solution:
         return self.head
 
     def swap_pairs_node(self):
+        # https://www.figma.com/file/zwgIYjBbDm7drOB9c7G19i/swap_pairs_node?node-id=682%3A4066&t=KkOWbobDVY6Cd9qA-1
         root = prev = ListNode(-1)
         prev.next_node = self.head
 
@@ -34,11 +33,21 @@ class Solution:
         return root.next_node
 
     def swap_pairs_recursive(self):
-        pass
+        return self._swap_pairs_recursive(self.head)
+
+    def _swap_pairs_recursive(self, head):
+        if head and head.next_node:
+            p = head.next_node
+            # 스왑된 값을 반환 받음
+            head.next_node = self._swap_pairs_recursive(p.next_node)
+            p.next_node = head
+            return p
+
+        return head
 
 
 if __name__ == '__main__':
-    result_head = Solution(ListNode(1, ListNode(2, ListNode(3, ListNode(4))))).swap_pairs_node()
+    result_head = Solution(ListNode(1, ListNode(2, ListNode(3, ListNode(4))))).swap_pairs_recursive()
 
     while result_head:
         print(result_head.val)
