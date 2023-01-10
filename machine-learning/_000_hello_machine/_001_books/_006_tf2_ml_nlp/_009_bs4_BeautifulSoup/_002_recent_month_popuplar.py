@@ -19,7 +19,7 @@ chrome_options = webdriver.ChromeOptions()
 # chrome_options.add_argument('--no-sandbox')
 # chrome_options.add_argument('--disable-dev-shm-usage')
 # wd = webdriver.Chrome('chromedriver')
-# driver = webdriver.Chrome('chromedriver')
+# driver.csv = webdriver.Chrome('chromedriver')
 
 
 class TakeArticle:
