@@ -4,16 +4,15 @@ import time
 import urllib.request
 
 import pandas as pd
-from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 
-from Crawling._001_extract_numbers._001_sm3.BrowserModule import Browser, user_path
-from Crawling._001_extract_numbers._001_sm3._001_setup_train_6_numbers import CaptchaModelSix
+from Crawling._001_extract_numbers._001_sm3.v1.BrowserModule import Browser, user_path
+from Crawling._001_extract_numbers._001_sm3.v1._001_setup_train_6_numbers import CaptchaModelSix
 
 service = Browser(view_mode=True)
 d = service.d
-all_info_df = pd.read_csv(user_path("./gb_url.csv"))
-all_account_df = pd.read_csv(user_path("./account.csv"))
+all_info_df = pd.read_csv(user_path("gb_url.csv"))
+all_account_df = pd.read_csv(user_path("account.csv"))
 info_df = all_info_df.iloc[0]
 account_df = all_account_df.iloc[0]
 url = info_df.access_url

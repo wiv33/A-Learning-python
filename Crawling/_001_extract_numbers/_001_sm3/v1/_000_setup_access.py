@@ -1,17 +1,15 @@
 import os
 import random
-import time
 import urllib.request
 
 import numpy as np
 import pandas as pd
-from selenium import webdriver
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 
 from concurrent.futures import ProcessPoolExecutor
 
-from Crawling._001_extract_numbers._001_sm3.BrowserModule import Browser
+from Crawling._001_extract_numbers._001_sm3.v1.BrowserModule import Browser
 
 
 def user_path(file):

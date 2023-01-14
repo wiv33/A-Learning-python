@@ -12,7 +12,7 @@ PB_TOPIC_5_TEST = "powerball_5_test"
 
 class KafkaManager:
     def __init__(self):
-        self.bootstrap_servers = ",".join([':9091', ':9092', ':9093'])
+        self.bootstrap_servers = ",".join(['psawesome.xyz:50900'])
         print(self.bootstrap_servers)
         self.producer = KafkaProducer(bootstrap_servers=self.bootstrap_servers,
                                       api_version=(3, 3),

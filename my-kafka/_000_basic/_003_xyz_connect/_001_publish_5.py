@@ -91,8 +91,8 @@ class Browser:
 
 
 def user_path(file):
-    # return f"{os.getcwd()}/{file}"
-    return f"{'/Users/auto/PycharmProjects/A-Learning-python/my-kafka/_000_basic/_003_xyz_connect'}/{file}"
+    return f"{os.getcwd()}/{file}"
+    # return f"{'/Users/auto/PycharmProjects/A-Learning-python/my-kafka/_000_basic/_003_xyz_connect'}/{file}"
 
 
 if __name__ == '__main__':
@@ -107,13 +107,13 @@ if __name__ == '__main__':
     msg = {
         "date": date,
         "algo": algo.text,
-        "power": {
+        "powerBall": {
             "result": result.text,
             "section": section.text,
             "odd_even": odd_even.text,
             "under_over": under_over.text,
         },
-        "number": {
+        "basicBall": {
             "result": num_result.text,
             "sum": num_sum.text,
             "section": num_section.text,

@@ -10,17 +10,17 @@ from PIL import Image
 
 class CaptchaModelSix:
     def __init__(self):
-        self.required_check_dir_path = "model/required_check_eight_numbers"
+        self.required_check_dir_path = "../model/required_check_eight_numbers"
         self.predict_new_img_path = "model/train_six_extract_numbers/*"
         self.img_width = 70
         self.img_height = 30
         self.max_len = 6
         self.label_characters = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'}
-        self.weights_path = 'model/six_numbers_weights.h5'
+        self.weights_path = '../model/six_numbers_weights.h5'
         self.train_imgs = glob.glob("model/train_six_numbers/*.png")
         self.actual_train_imgs = glob.glob("model/resize_test/result/*.png")
 
-        self.resize_dir_path = "model/resize_test"
+        self.resize_dir_path = "../model/resize_test"
         self.resized_imgs = glob.glob("model/resize_test/result/*.png")
 
         if not os.path.exists(self.weights_path):
