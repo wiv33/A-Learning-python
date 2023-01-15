@@ -19,7 +19,7 @@ class StreamSubscriber(DefaultSubscriber):
 
 async def main(server_port):
     logging.info('Connecting to server at localhost:%s', server_port)
-π
+
     connection = await asyncio.open_connection('localhost', server_port)
 
     async with RSocketClient(single_transport_provider(TransportTCP(*connection))) as client:
