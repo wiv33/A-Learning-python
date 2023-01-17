@@ -24,7 +24,7 @@ class DriverDownloader:
         self._unzip()
 
     def _download(self):
-        df = pd.read_csv(user_path('driver.csv'), index_col='keys')
+        df = pd.read_csv('driver.csv', index_col='keys')
         print("download : ", df)
         os.system(f'rm -f {self.driver}*.zip')
         wget.download(df.loc[self._platform].url)
@@ -56,7 +56,7 @@ class Browser:
         os.system("/usr/src/chrome/chromedriver --version")
         print("chromedriver exists : ", os.path.exists("./chrome/chromedriver"))
 
-        self.s = Service(self.dp)
+        self.s = Service("./chrome/chromedriver")
         self.set_options()
         self.d = webdriver.Chrome(service=self.s, options=self.options)
 
@@ -109,8 +109,8 @@ class Browser:
 
 def user_path(file):
     print(f"current path : {os.getcwd()}")
-    # return f"{os.getcwd()  if '/' !=  os.getcwd() else ''}/{file}"
-    return f"{'/Users/auto/PycharmProjects/A-Learning-python/my-kafka/_000_basic/_003_xyz_connect'}/{file}"
+    return f"{os.getcwd()  if '/' !=  os.getcwd() else ''}/{file}"
+    # return f"{'/Users/auto/PycharmProjects/A-Learning-python/my-kafka/_000_basic/_003_xyz_connect'}/{file}"
 
 
 if __name__ == '__main__':

@@ -29,7 +29,7 @@ class KafkaManager:
     def consumer_message(self, topic, group_id) -> KafkaConsumer:
         return KafkaConsumer(topic,
                              group_id=group_id,
-                             auto_offset_reset='earliest',  # latest 마지막, earliest 처음부터
+                             auto_offset_reset='latest',  # latest 마지막, earliest 처음부터
                              enable_auto_commit=False,
                              bootstrap_servers=self.bootstrap_servers,
                              key_deserializer=lambda k: k.decode('utf-8'),
@@ -66,14 +66,16 @@ class KafkaManager:
                     print("topic: %s\npartition: %s\noffset: %s\ntimestamp: %s\ntimestamp_type: %s\nkey: "
                           "%s\nvalue: %s\nheader: %s\nchecksum: %s\nserialized_key_size: "
                           "%s\nserialized_value_size:"
-                          "%s\nserialized_header_size: %s"
+                          "%s\nserialized_header_size: %s\n\n=================================="
                           %
                           (
                               topic, partition, offset, timestamp, timestamp_type, key, value, header,
                               checksum,
                               serialized_key_size, serialized_value_size, serialized_header_size)
                           )
-
+                    if group_id != key:
+                        print("no match not published")
+                        break
                     exec_func(value)
         except Exception as e:
             print(e)
