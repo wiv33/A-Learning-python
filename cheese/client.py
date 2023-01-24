@@ -116,7 +116,7 @@ if __name__ == '__main__':
                 if not _e.__str__().lower().__contains__('no such alert'):
                     print(_e)
             b.refresh()
-            time.sleep(2)
+            time.sleep(7)
 
 
     def get_next_response(_type, idx):
@@ -143,7 +143,7 @@ if __name__ == '__main__':
         next_amount = MIN_AMOUNT
         print("check point 1")
 
-        time.sleep(2)
+        time.sleep(3)
         # tr_all = wait_selector_all(b, "#batlist tr", wait_time=30)
         # print("retrieve success tr")
         # for x in tr_all:
@@ -174,6 +174,7 @@ if __name__ == '__main__':
 
                 print(f"next amount: {next_amount}")
                 break
+
         result = {
             "fiveType": _type,
             "choice": type_map[_type][type_idx[_type]],
@@ -214,7 +215,7 @@ if __name__ == '__main__':
         b.find_element(By.CSS_SELECTOR, ".codes").send_keys(code)
 
     # b.implicitly_wait(15)
-    time.sleep(10)
+    time.sleep(17)
 
     try:
         b.switch_to.frame("live-iframe")
