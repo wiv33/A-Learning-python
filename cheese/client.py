@@ -140,12 +140,11 @@ if __name__ == '__main__':
         for tr in b.find_elements(By.CSS_SELECTOR, "#batlist tr")[:4]:
             title = tr.find_element(By.CSS_SELECTOR, "td:nth-child(1)").text
             _type_info, _choice_info = title.split(" ")
-            print(
-                f"type match : {_type_info} == {type_result[_type]}, "
-                f"choice in : {_choice_info} in {convert_type_map[_type]}"
-            )
-
             if _type_info == type_result[_type] and _choice_info in convert_type_map[_type]:
+                print(
+                    f"type match : {_type_info} == {type_result[_type]}, "
+                    f"choice in : {_choice_info} in {convert_type_map[_type]}"
+                )
                 result_text = wait_selector(b, "td:nth-child(4)", wait_time=30).text
                 print(f"type is : {title}, result text: {result_text}")
                 if result_text.__contains__("결과"):
@@ -153,9 +152,13 @@ if __name__ == '__main__':
 
                 if result_text.__contains__("미적중"):
                     clean_amount = re.sub("\\D", "", tr.find_element(By.CSS_SELECTOR, "td:nth-child(5)").text)
+                    print(f"last amount: {clean_amount}")
                     next_amount = int((int(clean_amount) * 2.2) // 10 * 10)
+
                 else:
                     next_amount = MIN_AMOUNT
+
+                print(f"next amount: {next_amount}")
                 break
         result = {
             "fiveType": _type,
