@@ -45,7 +45,7 @@ class KafkaManager:
         try:
             consumer.subscribe([topics])
             while running:
-                messages = consumer.poll(timeout_ms=1_000, max_records=1, update_offsets=False)
+                messages = consumer.poll(timeout_ms=1_000, max_records=1, update_offsets=True)
                 if not messages:
                     continue
 
@@ -83,8 +83,9 @@ class KafkaManager:
             # Close down consumer to commit final offsets.
             consumer.close()
 
-# manager = KafkaManager()
+
+manager = KafkaManager()
 # manager.publish_message('word2vec-nlp-tutorial', 'name is')
 
-# message = manager.consumer_message('word2vec-nlp-tutorial', 'nlp-consumer')
-# print(message._poll_once(1, 1))
+message = manager.consumer_message('choice-5', 'ss01')
+print(message._poll_once(10000, 1))

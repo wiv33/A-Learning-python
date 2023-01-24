@@ -109,7 +109,7 @@ class BetsManager:
 
         _bet_next = _bet.next_bet(self._minimum_amount, self.prev_algo, choice_text, self._ratio)
         self._service.wait_selector('idCartBetMoney', by=By.ID).clear()
-        self._service.wait_selector('idCartBetMoney', by=By.ID).send_keys(_bet_next.amount)
+        self._service.wait_selector('idCartBetMoney', by=By.ID).send_keys(_bet_next.state)
 
         submit_btn = self._service.wait_selector('.btn_betting_confirm')
         self._service.d.execute_script("arguments[0].click();", submit_btn)

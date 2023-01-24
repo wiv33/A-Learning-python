@@ -11,7 +11,9 @@ from selenium import webdriver
 if __name__ == '__main__':
 
     def selector(value):
-        time.sleep(90)
+        b.refresh()
+        print(requests.get(f"http://powerball.public.psawesome.xyz/v1/power-ball-choice/conn-id/{_id}"))
+        time.sleep(40)
         try:
             if b.switch_to.alert:
                 print(b.switch_to.alert.text)
@@ -62,12 +64,12 @@ if __name__ == '__main__':
 
     manager = KafkaManager()
     view_mode = False
-    url_df = pd.read_csv("gb_url.csv")
+    # url_df = pd.read_csv("gb_url.csv")
     options = Options()
     if view_mode:
         options.add_argument('headless')
 
-    options.add_argument("--window-size=2000x1000")
+    options.add_argument("--window-size=2000,1000")
     options.add_argument('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, '
                          'like Gecko) Chrome/108.0.0.0 Whale/3.18.154.8 Safari/537.36')
     options.add_argument('lang=ko_KR')
@@ -92,7 +94,7 @@ if __name__ == '__main__':
 
     try:
         get = requests.get(f"http://powerball.public.psawesome.xyz/v1/power-ball-choice/conn-id/{_id}/stream")
-        print(get)
+        print(get.text)
         print("start batting")
         b.switch_to.frame("live-iframe")
         sound = b.find_element(By.CSS_SELECTOR, "#btn_sound")
