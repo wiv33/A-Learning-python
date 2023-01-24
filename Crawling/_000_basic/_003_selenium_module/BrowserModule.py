@@ -58,11 +58,12 @@ class Browser:
 
         if not self.view_mode:
             self.options.add_argument('headless')
-        self.options.add_argument("--window-size=2000x1000")
+        self.options.add_argument("--window-size=2200,1000")
         # self.options.add_argument('disable-gpu')
         self.options.add_argument('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, '
                                   'like Gecko) Chrome/108.0.0.0 Whale/3.18.154.8 Safari/537.36')
         self.options.add_argument('lang=ko_KR')
+        self.options.add_argument('dable_uid=51925874.1674103547510')
 
     def driver(self):
         return self.d
@@ -73,6 +74,13 @@ class Browser:
                 (by, selector)
             )
         ))
+
+    def click_wait_selector(self, selector, wait_time=5, by=By.CSS_SELECTOR):
+        return WebDriverWait(self.d, wait_time).until((
+            ec.presence_of_element_located(
+                (by, selector)
+            )
+        )).click()
 
     def wait_selector_all(self, selector, wait_time=5, by=By.CSS_SELECTOR):
         return WebDriverWait(self.d, wait_time).until((
