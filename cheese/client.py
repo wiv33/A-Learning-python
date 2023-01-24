@@ -20,6 +20,14 @@ def wait_selector(d, selector, wait_time=5, by=By.CSS_SELECTOR):
     ))
 
 
+def wait_selector_all(d, selector, wait_time=5, by=By.CSS_SELECTOR):
+    return WebDriverWait(d, wait_time).until((
+        ec.presence_of_all_elements_located(
+            (by, selector)
+        )
+    ))
+
+
 _subnet = "ps_v1_"
 type_result = {
     "POWER_OE": "[EOS]",
@@ -136,9 +144,15 @@ if __name__ == '__main__':
         print("check point 1")
 
         time.sleep(2)
+        tr_all = wait_selector_all(b, "#batlist tr", wait_time=30)
+        print("retrieve success tr")
+        for x in tr_all:
+            print(x.text)
+        print("end tr")
 
-        for tr in b.find_elements(By.CSS_SELECTOR, "#batlist tr")[:4]:
-            title = tr.find_element(By.CSS_SELECTOR, "td:nth-child(1)").text
+        for tr in wait_selector_all(b, "#batlist tr")[:4]:
+            print("loop tr")
+            title = wait_selector(b, "td:nth-child(1)").text
             _type_info, _choice_info = title.split(" ")
             if _type_info == type_result[_type] and _choice_info in convert_type_map[_type]:
                 print(
@@ -147,8 +161,6 @@ if __name__ == '__main__':
                 )
                 result_text = wait_selector(b, "td:nth-child(4)", wait_time=30).text
                 print(f"type is : {title}, result text: {result_text}")
-                if result_text.__contains__("결과"):
-                    continue
 
                 if result_text.__contains__("미적중"):
                     clean_amount = re.sub("\\D", "", tr.find_element(By.CSS_SELECTOR, "td:nth-child(5)").text)
