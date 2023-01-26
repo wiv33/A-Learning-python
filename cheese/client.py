@@ -10,6 +10,7 @@ from selenium.webdriver.common.by import By
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
+from concurrent.futures import ThreadPoolExecutor
 
 
 def wait_selector(d, selector, wait_time=5, by=By.CSS_SELECTOR):
@@ -45,22 +46,26 @@ type_idx = {
 MIN_AMOUNT = 100
 MAX_AMOUNT = 1_000_000
 
-df = pd.read_csv("info.csv")
-server_df = pd.read_csv("server.csv")
-_id, cnt = df.iloc[0]
-_host, _conn_url = server_df.iloc[0]
+# server_df = pd.read_csv("server.csv")
+_id, cnt = "sun18", 1
+
+
+# _host, _conn_url = server_df.iloc[0]
 
 
 def steps(_type):
     next_steps(_type)
-    schedule.every(5).minutes.do(next_steps, _type)
+    schedule.every(3).minutes.do(next_steps, _type)
 
 
 if __name__ == '__main__':
     def next_steps(_type):
-        for idx in range(cnt):
-            response = get_next_response(_type, idx)
+        waiting()
 
+        for idx in range(cnt):
+            response = get_next_response(_type)
+            if not response:
+                continue
             result = response
             print("batting info", result)
             _curr_amount = result['amount']
@@ -84,8 +89,9 @@ if __name__ == '__main__':
                     "OVER": "#span_3",
                 }
             }
-            print("result : ", result)
+            # print("result : ", result)
             _next_amount, _next_type, _next_choice = result['amount'], result['fiveType'], result['choice']
+            time.sleep(1)
             b.execute_script("(function(){ window.print_y = 'Y'})();")
             b.execute_script(f'bat_money_change2({_next_amount})')
             bat_btn = b.find_element(By.CSS_SELECTOR, selector_json[_next_type][_next_choice])
@@ -115,16 +121,33 @@ if __name__ == '__main__':
             except Exception as _e:
                 if not _e.__str__().lower().__contains__('no such alert'):
                     print(_e)
-            b.refresh()
-            time.sleep(7)
+        # b.refresh()
+        print(wait_selector(b, "#top-info > div > div.float-left > span:nth-child(2)").text)
+        time.sleep(1)
 
 
-    def get_next_response(_type, idx):
+    def waiting():
+        _cnt = 0
+        while True:
+            try:
+                print(f"check available time ... {_cnt}")
+                starting_time = wait_selector(b, "#limit_time", wait_time=30)
+                sub_text = re.sub('\\D', "", starting_time.text)
+                if sub_text and int(sub_text) > 50:
+                    break
+                time.sleep(10)
+                _cnt += 10
+            except Exception as _e:
+                _cnt += 10
+                print(f"starting is not available retry seconds {_cnt}...", _e.__str__())
+        print("start next batting ...")
+
+
+    def get_next_response(_type):
         # _subnet_result = _subnet + "_" + str(idx)
         # base_url = f"{_host}{_conn_url.replace('{conn}', _id).replace('{sub}', _subnet_result).replace('{type}', _type)}"
         # response = requests.get(base_url, verify=False)
         # print(base_url)
-        assert idx < 12
         type_map = {
             "POWER_OE": ["ODD", "EVEN", "ODD", "EVEN", "ODD", "EVEN", "ODD", "EVEN", "ODD", "EVEN", "ODD", "EVEN"],
             "POWER_UO": ["UNDER", "OVER", "UNDER", "OVER", "UNDER", "OVER", "UNDER", "OVER", "UNDER", "OVER", "UNDER",
@@ -143,37 +166,74 @@ if __name__ == '__main__':
         next_amount = MIN_AMOUNT
         print("check point 1")
 
-        time.sleep(3)
-        # tr_all = wait_selector_all(b, "#batlist tr", wait_time=30)
-        # print("retrieve success tr")
-        # for x in tr_all:
-        #     print(x.text)
-        # print("end tr")
+        time.sleep(1)
+        # while len(tr_all) == 0:
+        #     try:
+        print("try retrieve bat list ...")
 
-        for tr in wait_selector_all(b, "#batlist tr", wait_time=30):
-            title = tr.find_element(By.CSS_SELECTOR, "td:nth-child(1)").text
+        if len(wait_selector_all(b, "#batlist tr", wait_time=30)) < 4:
+            result = {
+                "fiveType": _type,
+                "choice": type_map[_type][type_idx[_type]],
+                "amount": MIN_AMOUNT
+            }
+            type_idx[_type] += 1
+            return result
 
-            _type_info, _choice_info = title.split(" ")
+        bat_cnt = 1
+        while True:
+            _tr_ele_txt = None
+            while _tr_ele_txt is None:
+                try:
+                    _tr_ele_txt = wait_selector(b,
+                                                f"#batlist tr:nth-child({bat_cnt}) td:nth-child({bat_cnt})").find_element(
+                        By.XPATH, '..').text
+                    b.refresh()
+                    time.sleep(1)
+                except Exception as __e:
+                    time.sleep(1)
+                    b.refresh()
+                    if bat_cnt > 10:
+                        print(f"배팅 기록이 없어서 초기화됩니다. : {_type}, {type_map[_type][type_idx[_type]]}")
+                        result = {
+                            "fiveType": _type,
+                            "choice": type_map[_type][type_idx[_type]],
+                            "amount": MIN_AMOUNT
+                        }
+                        type_idx[_type] += 1
+                        return result
 
-            # print(f"title: {_type_info}, {_choice_info}")
-            print(
-                f"type match : {_type_info} == {type_result[_type]}, "
-                f"choice in : {_choice_info} in {convert_type_map[_type]}"
-            )
+                    print("retry extract text not attached ... ", bat_cnt)
+
+            # print(_tr_ele_txt)
+            if re.search("결과대기", _tr_ele_txt):
+                _wait_texts = _tr_ele_txt.split(" ")
+                if _wait_texts[0] == type_result[_type] and _wait_texts[1].split("\n")[0] in convert_type_map[_type]:
+                    print(f"결과 대기중 : {_wait_texts[0]}, {_wait_texts[1]}")
+                    return None
+                bat_cnt += 1
+                continue
+
+            _type_info, _choice_info, _ratio, _result_txt, _amount, _result_amount, _date = _tr_ele_txt.split(" ")
+            _choice_info = _choice_info.split("\n")[0]
+            # print(
+            #     f"type match : {_type_info} == {type_result[_type]}, "
+            #     f"choice in : {_choice_info} in {convert_type_map[_type]}"
+            # )
             if _type_info == type_result[_type] and _choice_info in convert_type_map[_type]:
-                result_text = tr.find_element(By.CSS_SELECTOR, "td:nth-child(4)").text
-                print(f"type is : {title}, result text: {result_text}")
+                print(f"type is : {_type_info}, result text: {_result_txt}")
 
-                if result_text.__contains__("미적중"):
-                    clean_amount = re.sub("\\D", "", tr.find_element(By.CSS_SELECTOR, "td:nth-child(5)").text)
+                if _result_txt.__contains__("미적중"):
+                    clean_amount = re.sub("\\D", "", _amount)
                     print(f"last amount: {clean_amount}")
                     next_amount = int((int(clean_amount) * 2.2) // 10 * 10)
-
                 else:
                     next_amount = MIN_AMOUNT
 
                 print(f"next amount: {next_amount}")
                 break
+
+            bat_cnt += 1
 
         result = {
             "fiveType": _type,
@@ -181,7 +241,7 @@ if __name__ == '__main__':
             "amount": next_amount
         }
         type_idx[_type] += 1
-        if type_idx[_type] > 12:
+        if type_idx[_type] >= len(type_map[_type]):
             type_idx[_type] = 0
         return result
 
@@ -215,7 +275,7 @@ if __name__ == '__main__':
         b.find_element(By.CSS_SELECTOR, ".codes").send_keys(code)
 
     # b.implicitly_wait(15)
-    time.sleep(17)
+    time.sleep(12)
 
     try:
         b.switch_to.frame("live-iframe")
@@ -232,6 +292,10 @@ if __name__ == '__main__':
         print(b.capabilities)
         print("init bat info", _id, _subnet)
 
+        # steps("POWER_OE")
+        # steps("POWER_UO")
+        # steps("BASIC_OE")
+        # steps("BASIC_UO")
         steps("POWER_OE")
         steps("POWER_UO")
         steps("BASIC_OE")
@@ -239,7 +303,11 @@ if __name__ == '__main__':
 
         while True:
             schedule.run_pending()
-            time.sleep(1)
+            # with ThreadPoolExecutor() as executor:
+            # res = executor.map(next_steps, ["POWER_OE", "POWER_UO"], chunksize=2)
+            # res2 = executor.map(next_steps, ["BASIC_OE", "BASIC_UO"], chunksize=2)
+            b.refresh()
+            time.sleep(266)
     except Exception as e:
         print(e)
         print("exit exception")
