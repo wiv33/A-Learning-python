@@ -4,7 +4,6 @@ import time
 import schedule
 
 import pandas as pd
-import requests
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium import webdriver
