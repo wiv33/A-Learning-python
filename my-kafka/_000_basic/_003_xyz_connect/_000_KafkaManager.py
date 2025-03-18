@@ -84,8 +84,8 @@ class KafkaManager:
             consumer.close()
 
 
-manager = KafkaManager()
+# manager = KafkaManager()
 # manager.publish_message('word2vec-nlp-tutorial', 'name is')
 
-message = manager.consumer_message('choice-5', 'ss01')
-print(message._poll_once(10000, 1))
+# message = manager.consumer_message('choice-5', 'ss01')
+# print(message._poll_once(10000, 1))

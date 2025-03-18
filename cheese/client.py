@@ -1,4 +1,4 @@
-import json
+import datetime
 import re
 import time
 import schedule
@@ -9,7 +9,6 @@ from selenium.webdriver.common.by import By
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
-from concurrent.futures import ThreadPoolExecutor
 
 
 def wait_selector(d, selector, wait_time=5, by=By.CSS_SELECTOR):
@@ -133,7 +132,14 @@ if __name__ == '__main__':
                 starting_time = wait_selector(b, "#limit_time", wait_time=30)
                 sub_text = re.sub('\\D', "", starting_time.text)
                 if sub_text and int(sub_text) > 50:
-                    break
+                    current_time = datetime.datetime.now().time()
+                    start_time = datetime.time(hour=23, minute=55)
+                    end_time = datetime.time(hour=23, minute=59)
+                    print(current_time, start_time, end_time)
+                    if start_time <= current_time < end_time:
+                        time.sleep(600)
+                    else:
+                        break
                 time.sleep(10)
                 _cnt += 10
             except Exception as _e:
@@ -143,18 +149,8 @@ if __name__ == '__main__':
 
 
     def get_next_response(_type):
-        # _subnet_result = _subnet + "_" + str(idx)
-        # base_url = f"{_host}{_conn_url.replace('{conn}', _id).replace('{sub}', _subnet_result).replace('{type}', _type)}"
-        # response = requests.get(base_url, verify=False)
-        # print(base_url)
-        type_map = {
-            "POWER_OE": ["ODD", "EVEN", "ODD", "EVEN", "ODD", "EVEN", "ODD", "EVEN", "ODD", "EVEN", "ODD", "EVEN"],
-            "POWER_UO": ["UNDER", "OVER", "UNDER", "OVER", "UNDER", "OVER", "UNDER", "OVER", "UNDER", "OVER", "UNDER",
-                         "OVER"],
-            "BASIC_OE": ["ODD", "EVEN", "ODD", "EVEN", "ODD", "EVEN", "ODD", "EVEN", "ODD", "EVEN", "ODD", "EVEN"],
-            "BASIC_UO": ["UNDER", "OVER", "UNDER", "OVER", "UNDER", "OVER", "UNDER", "OVER", "UNDER", "OVER", "UNDER",
-                         "OVER"],
-        }
+        type_map = get_custom_pattern()
+
         convert_type_map = {
             "POWER_OE": ["홀", "짝"],
             "POWER_UO": ["언더", "오버"],
@@ -180,6 +176,7 @@ if __name__ == '__main__':
             return result
 
         bat_cnt = 1
+        second = False
         while True:
             _tr_ele_txt = None
             while _tr_ele_txt is None:
@@ -187,12 +184,12 @@ if __name__ == '__main__':
                     _tr_ele_txt = wait_selector(b,
                                                 f"#batlist tr:nth-child({bat_cnt}) td:nth-child({bat_cnt})").find_element(
                         By.XPATH, '..').text
-                    b.refresh()
+                    # b.refresh()
                     time.sleep(1)
                 except Exception as __e:
                     time.sleep(1)
                     b.refresh()
-                    if bat_cnt > 10:
+                    if second and bat_cnt > 10:
                         print(f"배팅 기록이 없어서 초기화됩니다. : {_type}, {type_map[_type][type_idx[_type]]}")
                         result = {
                             "fiveType": _type,
@@ -202,7 +199,11 @@ if __name__ == '__main__':
                         type_idx[_type] += 1
                         return result
 
+                    if not second and bat_cnt >= 8:
+                        bat_cnt = 0
+                        second = True
                     print("retry extract text not attached ... ", bat_cnt)
+                    bat_cnt += 1
 
             # print(_tr_ele_txt)
             if re.search("결과대기", _tr_ele_txt):
@@ -225,7 +226,10 @@ if __name__ == '__main__':
                 if _result_txt.__contains__("미적중"):
                     clean_amount = re.sub("\\D", "", _amount)
                     print(f"last amount: {clean_amount}")
-                    next_amount = int((int(clean_amount) * 2.2) // 10 * 10)
+                    clean_total_amount = re.sub("\\D", "", wait_selector(b, "#top-info > div > div.float-left > "
+                                                                            "span:nth-child(2)").text)
+                    print(clean_total_amount)
+                    next_amount = min(int((int(clean_amount) * 2.2) // 10 * 10), int(clean_total_amount))
                 else:
                     next_amount = MIN_AMOUNT
 
@@ -245,6 +249,30 @@ if __name__ == '__main__':
         return result
 
 
+    def get_custom_pattern():
+        type_map = {}
+        try:
+            df = pd.read_csv("~/Desktop/pattern.csv")
+            for idx, x in df.iterrows():
+                type_map[x[0]] = x[2].replace("홀", "ODD").replace("짝", "EVEN").replace("언더", "UNDER").replace("오버",
+                                                                                                              "OVER").split(
+                    " ")
+
+        except Exception:
+            type_map = {
+                "POWER_OE": ["ODD", "EVEN", "ODD", "EVEN", "ODD", "EVEN", "ODD", "EVEN", "ODD", "EVEN", "ODD", "EVEN"],
+                "POWER_UO": ["UNDER", "OVER", "UNDER", "OVER", "UNDER", "OVER", "UNDER", "OVER", "UNDER", "OVER",
+                             "UNDER",
+                             "OVER"],
+                "BASIC_OE": ["ODD", "EVEN", "ODD", "EVEN", "ODD", "EVEN", "ODD", "EVEN", "ODD", "EVEN", "ODD", "EVEN"],
+                "BASIC_UO": ["UNDER", "OVER", "UNDER", "OVER", "UNDER", "OVER", "UNDER", "OVER", "UNDER", "OVER",
+                             "UNDER",
+                             "OVER"],
+            }
+            print("설정이 없어서 기본설정을 가져옵니다.")
+        return type_map
+
+
     print(_id, cnt)
 
     view_mode = True
@@ -254,12 +282,16 @@ if __name__ == '__main__':
 
     options.add_argument("--window-size=1920,1080")
     options.add_argument(
-        'user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36')
+        'user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) '
+        'Chrome/109.0.0.0 Safari/537.36')
     options.add_argument('lang=ko_KR')
     b = webdriver.Chrome(options=options)
     cookie_dict = {}
-    account_df = pd.read_csv('account.csv')
-    _id, _pw, _url = account_df.iloc[0].id, account_df.iloc[0].pw, account_df.iloc[0].url
+    try:
+        account_df = pd.read_csv('~/Desktop/account.csv')
+        _id, _pw, _url = account_df.iloc[0].id, account_df.iloc[0].pw, account_df.iloc[0].url
+    except Exception as ee:
+        _id, _pw, _url = "sun18", "sun18$$", "http://sm333.cc/d30_e5"
     b.get(_url)
 
     b.find_element(By.CSS_SELECTOR, "#userid").send_keys(_id)
@@ -273,15 +305,19 @@ if __name__ == '__main__':
     else:
         b.find_element(By.CSS_SELECTOR, ".codes").send_keys(code)
 
-    # b.implicitly_wait(15)
-    time.sleep(12)
+        time.sleep(12)
+        try:
+            b.switch_to.frame("live-iframe")
+            sound = b.find_element(By.CSS_SELECTOR, "#btn_sound")
+            b.execute_script("arguments[0].removeAttribute('on')", sound)
+        except Exception as e:
+            print(e)
+        finally:
+            b.switch_to.default_content()
+
+    b.set_page_load_timeout(30)
 
     try:
-        b.switch_to.frame("live-iframe")
-        sound = b.find_element(By.CSS_SELECTOR, "#btn_sound")
-        b.execute_script("arguments[0].removeAttribute('on')", sound)
-        b.switch_to.default_content()
-
         _cookies = b.get_cookies()
 
         for c in _cookies:
@@ -291,10 +327,6 @@ if __name__ == '__main__':
         print(b.capabilities)
         print("init bat info", _id, _subnet)
 
-        # steps("POWER_OE")
-        # steps("POWER_UO")
-        # steps("BASIC_OE")
-        # steps("BASIC_UO")
         steps("POWER_OE")
         steps("POWER_UO")
         steps("BASIC_OE")
@@ -302,9 +334,6 @@ if __name__ == '__main__':
 
         while True:
             schedule.run_pending()
-            # with ThreadPoolExecutor() as executor:
-            # res = executor.map(next_steps, ["POWER_OE", "POWER_UO"], chunksize=2)
-            # res2 = executor.map(next_steps, ["BASIC_OE", "BASIC_UO"], chunksize=2)
             b.refresh()
             time.sleep(266)
     except Exception as e:

@@ -9,7 +9,7 @@ producer = KafkaProducer(acks=1,
                          bootstrap_servers=",".join(bootstrap_servers))
 message = {
     'id': '1',
-    'msg': 'Apache kafka test message 3'
+    'msg': 'Apache kafka test message 2'
 }
 producer.send('test-python',
               key=bytes('1', encoding='UTF-8'),

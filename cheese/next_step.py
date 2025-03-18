@@ -2,9 +2,10 @@ import os
 
 from pyflink.common.serialization import SimpleStringSchema
 from pyflink.datastream import StreamExecutionEnvironment
-from pyflink.datastream.connectors.kafka import FlinkKafkaConsumer, FlinkKafkaProducer
+from pyflink.datastream.connectors.kafka import FlinkKafkaConsumer, FlinkKafkaProducer, KafkaSourceBuilder
 from pyflink.datastream.execution_mode import RuntimeExecutionMode
 from pyflink.table import StreamTableEnvironment, EnvironmentSettings
+
 
 env = StreamExecutionEnvironment.get_execution_environment()
 env.set_parallelism(1)
@@ -19,32 +20,37 @@ t_env.get_config().get_configuration().set_string(
     "pipeline.jars", f"file://{kafka_jar_path}"
 )
 
-
-source_query = """
-    CREATE TABLE pb_5_table (
-        `algo` STRING METADATA FROM 'value.algo' VIRTUAL,
-        `result` STRING METADATA FORM 'value.powerBall.result' VIRTUAL,
-        `k_Offset` INT
-        `odd_even` STRING METADATA FORM 'value.powerBall.odd_even' VIRTUAL,
-    ) WITH (
-        'connector' = 'kafka',
-        'topic' = 'powerball_5_test',
-        'properties.bootstrap.servers' = 'psawesome.xyz:50900',
-        'properties.group.id' = 'cheese_next_step',
-        'key.format' = 'json',
-        'key.fields-prefix' = 'k_',
-        'key.fields' = 'k_Offset;k_Key;k_Timestamp',
-        'value.format' = 'debezium-json'
-        'scan.startup.mode' = 'latest-offset'
-    )
+souce_query = f"""
+  CREATE TABLE powerball_source (
+    algo STRING,
+    power_result STRING,
+    power_section STRING,
+    power_under_over STRING,
+    basic_result STRING,
+    basic_sum STRING,
+    basic_section STRING,
+    basic_size STRING,
+    basic_odd_even STRING,
+    basic_under_even STRING
+  ) WITH (
+    'connector' = 'kafka',
+    'topic' = 'powerball_5',
+    'properties.bootstrap.servers' = 'localhost:9092',
+    'properties.group.id' = 'test-group',
+    'format' = 'json',
+    'scan.startup.mode' = 'latest-offset'
+  )
 """
 
-t_env.execute_sql(source_query)
+sink_query = """
+  CREATE TABLE sink (
+    algo STRING
+  ) WITH (
+    'connector' = 'print'
+  )
+"""
 
-def tmp(row):
-    if row.odd_even == True:
-        pass
-
-pb_table = t_env.from_path("pb_5_table")
-pb_table = pb_table.select(pb_table.algo, pb_table.odd_even)
-pb_table.map(lambda x: x).alias()
+t_env.execute_sql(souce_query)
+t_env.execute_sql(sink_query)
+t_env.from_path("powerball_source").execute().wait()
+t_env.execute("flink_kafka_to_kafka_sql")

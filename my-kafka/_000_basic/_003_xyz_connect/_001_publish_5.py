@@ -15,6 +15,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
 
+
 class DriverDownloader:
     def __init__(self, driver='chromedriver'):
         self._platform = platform.system().lower()
@@ -74,7 +75,8 @@ class Browser:
             self.options.add_argument('headless')
         # self.options.add_argument("--window-size=2000x1000")
         # self.options.add_argument('disable-gpu')
-        self.options.add_argument('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Whale/3.18.154.8 Safari/537.36')
+        self.options.add_argument(
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Whale/3.18.154.8 Safari/537.36')
         self.options.add_argument('lang=ko_KR')
         if self._platform.lower().__contains__("linux"):
             print("set no sandbox")
@@ -141,6 +143,22 @@ if __name__ == '__main__':
         }
     }
 
+    msg_2 = {
+        "date": date,
+        "algo": algo.text,
+        "power_result": result.text,
+        "power_section": section.text,
+        "power_odd_even": odd_even.text,
+        "power_under_over": under_over.text,
+        "basic_result": num_result.text,
+        "basic_sum": num_sum.text,
+        "basic_section": num_section.text,
+        "basic_size": num_size.text,
+        "basic_odd_even": num_odd_even.text,
+        "basic_under_over": num_under_over.text,
+    }
+
+    KafkaManager().publish_message(PB_TOPIC_5, msg_2, 'p5')
     KafkaManager().publish_message(PB_TOPIC_5_TEST, msg, 'p5')
 
 # def requests_test():

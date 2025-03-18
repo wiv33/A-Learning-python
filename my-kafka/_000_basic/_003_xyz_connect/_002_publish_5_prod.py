@@ -141,20 +141,20 @@ if __name__ == '__main__':
         }
     }
 
-    KafkaManager().publish_message(PB_TOPIC_5_TEST, msg, 'p5')
+    msg_2 = {
+        "date": date,
+        "algo": algo.text,
+        "power_result": result.text,
+        "power_section": section.text,
+        "power_odd_even": odd_even.text,
+        "power_under_over": under_over.text,
+        "basic_result": num_result.text,
+        "basic_sum": num_sum.text,
+        "basic_section": num_section.text,
+        "basic_size": num_size.text,
+        "basic_odd_even": num_odd_even.text,
+        "basic_under_over": num_under_over.text,
+    }
 
-# def requests_test():
-#     import requests
-#     from bs4 import BeautifulSoup
-#
-#     url = "https://ntry.com/scores/eos_powerball/main.php?game_type=5"
-#     headers = {
-#         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) '
-#                       'Chrome/50.0.2661.102 Safari/537.36'}
-#     html = requests.get(url, headers=headers)
-#     print(html)
-#
-#     soup = BeautifulSoup(html.text, 'html.parser')
-#     history_info = soup.select('.powerball_stats_list')
-#
-#     print(history_info)
+    KafkaManager().publish_message(PB_TOPIC_5, msg_2, 'p5')
+    KafkaManager().publish_message(PB_TOPIC_5_TEST, msg, 'p5')
