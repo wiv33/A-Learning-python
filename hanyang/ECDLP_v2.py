@@ -1,11 +1,11 @@
 import matplotlib.pyplot as plt
 
 # 유한체 소수 p
-p = 20408
+p = 20401
 
 # 타원 곡선 계수
-a = 612312112
-b = 30634634626
+a = 1
+b = 7
 
 
 # 타원 곡선 y^2 = x^3 + ax + b mod p 위의 모든 유효한 점 구하기
