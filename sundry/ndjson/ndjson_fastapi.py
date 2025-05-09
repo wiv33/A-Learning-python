@@ -8,7 +8,7 @@ app = FastAPI()
 
 # response 생성 함수
 def make_mba_response(
-        type_: str,
+        status: str,
         total_count: int,
         name: str,
         phone: str,
@@ -18,7 +18,7 @@ def make_mba_response(
         nft_count: int = None,
 ):
     return {
-        "type": type_,
+        "status": status,
         "totalCount": total_count,
         "targetMessageInfo": {
             "name": name,
@@ -33,10 +33,10 @@ def make_mba_response(
 
 # NDJSON generator
 async def ndjson_generator():
-    total = 2
+    total = 201
     for i in range(total):
         response = make_mba_response(
-            type_="PROCESSING",
+            status="PROCESSING",
             total_count=total,
             name=f"User{i}",
             phone=f"010000000{i}",
@@ -45,11 +45,10 @@ async def ndjson_generator():
             nft_count=i + 1,
         )
         yield json.dumps(response) + "\n"
-        await asyncio.sleep(0.2)
 
     # 마지막 완료 메시지
     done_response = make_mba_response(
-        type_="DONE",
+        status="DONE",
         total_count=total,
         name="Final",
         phone="01099999999",
