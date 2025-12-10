@@ -29,6 +29,8 @@ def delete_table_data():
         except Exception as e:
             print(f"Failed to delete data from {table_id}: {e}")
 
+    catalog.close()
+
 
 if __name__ == "__main__":
     delete_table_data()
